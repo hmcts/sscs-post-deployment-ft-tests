@@ -19,4 +19,8 @@ bin/main/application.yaml
 *.iml
 *.ipr
 
+### lombok ###
+lombok.config
+
 .DS_Store
+/target/

@@ -1,0 +1,156 @@
+{
+  "description": "submitAppeal with appeal non-compliant",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": "SSCSSystemUpdateUser",
+    "ccd": {
+      "eventId": "appealCreated",
+      "state": "appealCreated",
+      "caseData": {
+        "template": "minimal-appeal-started.json",
+        "replacements": {
+          "appeal": {
+            "mrnDetails": {
+              "dwpIssuingOffice": "DWP PIP (1)",
+              "mrnDate": "2018-02-01",
+              "mrnLateReason": null,
+              "mrnMissingReason": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "test": {
+    "request": {
+      "credentials": "IALegalRepresentative",
+      "input": {
+        "eventMessage": {
+          "template": "minimal-ccd-event-message.json",
+          "replacements": {
+            "EventId": "nonCompliant",
+            "NewStateId": "appealCreated"
+          }
+        }
+      }
+    },
+    "expectation": {
+      "credentials": "SSCSCaseWorker",
+      "status": 200,
+      "numberOfTasksAvailable": 1,
+      "taskData": {
+        "template": "minimal-task-response.json",
+        "replacements": {
+          "tasks": [
+            {
+              "id": "{$VERIFIER-UUID}",
+              "case_name": "Functional PostDeployment",
+              "case_id": "{$GENERATED_CASE_ID}",
+              "case_category": "Protection",
+              "name": "Review non-compliant appeal",
+              "type": "nonCompliantCase",
+              "task_state": "unassigned",
+              "task_system": "SELF",
+              "security_classification": "PUBLIC",
+              "task_title": "Review non-compliant appeal",
+              "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+              "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+              "execution_type": "Case Management Task",
+              "jurisdiction": "SSCS",
+              "case_type_id": "Benefit",
+              "region": "1",
+              "location": "765324",
+              "location_name": "Taylor House",
+              "auto_assigned": false,
+              "warnings": false,
+              "role_category": "LEGAL_OPERATIONS",
+              "warning_list": {
+                "values": [
+
+                ]
+              },
+              "case_management_category": "Protection",
+              "work_type_id": "decision_making_work",
+              "permissions": {
+                "values": [
+                  "Read",
+                  "Refer",
+                  "Own",
+                  "Manage",
+                  "Execute",
+                  "Cancel"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "roleData": {
+        "roles": [
+          {
+            "role_category": "LEGAL_OPERATIONS",
+            "role_name": "case-manager",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Own"
+            ],
+            "authorisations": [
+            ]
+          },
+          {
+            "role_category": "JUDICIAL",
+            "role_name": "judge",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Execute"
+            ],
+            "authorisations": [
+              "IA"
+            ]
+          },
+          {
+            "role_category": "LEGAL_OPERATIONS",
+            "role_name": "senior-tribunal-caseworker",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Own"
+            ],
+            "authorisations": [
+            ]
+          },
+          {
+            "role_name": "task-supervisor",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Manage",
+              "Cancel"
+            ],
+            "authorisations": [
+            ]
+          },
+          {
+            "role_category": "LEGAL_OPERATIONS",
+            "role_name": "tribunal-caseworker",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Own"
+            ],
+            "authorisations": [
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
+

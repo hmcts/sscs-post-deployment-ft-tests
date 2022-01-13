@@ -1,158 +1,205 @@
 plugins {
-  id 'application'
-  id 'checkstyle'
-  id 'pmd'
-  id 'jacoco'
-  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-  id 'org.springframework.boot' version '2.5.6'
-  id 'org.owasp.dependencycheck' version '6.5.2.1'
-  id 'com.github.ben-manes.versions' version '0.39.0'
-  id 'org.sonarqube' version '3.3'
+    id 'application'
+    id 'checkstyle'
+    id 'pmd'
+    id 'jacoco'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.4.12'
+    id 'org.owasp.dependencycheck' version '6.1.6'
+    id 'com.github.ben-manes.versions' version '0.39.0'
+    id 'org.sonarqube' version '3.2.0'
+    id 'io.freefair.lombok' version '5.3.0'
 }
 
 group = 'uk.gov.hmcts.reform'
 version = '0.0.1'
 
+lombok {
+  config['config.stopBubbling'] = 'true'
+  config['lombok.addLombokGeneratedAnnotation'] = 'true'
+  config['lombok.anyConstructor.addConstructorProperties'] = 'true'
+}
+
 allprojects {
-  sourceCompatibility = '11'
-  targetCompatibility = '11'
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
 }
 
 sourceSets {
-  functionalTest {
-    java {
-      compileClasspath += main.output
-      runtimeClasspath += main.output
-      srcDir file('src/functionalTest/java')
-    }
-    resources.srcDir file('src/functionalTest/resources')
-  }
 
-  integrationTest {
-    java {
-      compileClasspath += main.output
-      runtimeClasspath += main.output
-      srcDir file('src/integrationTest/java')
+    testUtils {
+        java {
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+            srcDir file('src/testUtils/java')
+        }
+        resources.srcDir file('src/testUtils/resources')
     }
-    resources.srcDir file('src/integrationTest/resources')
-  }
 
-  smokeTest {
-    java {
-      compileClasspath += main.output
-      runtimeClasspath += main.output
-      srcDir file('src/smokeTest/java')
+    functionalTest {
+        java {
+            compileClasspath += testUtils.output
+            runtimeClasspath += testUtils.output
+            srcDir file('src/functionalTest/java')
+        }
+        resources.srcDir file('src/functionalTest/resources')
     }
-    resources.srcDir file('src/smokeTest/resources')
-  }
+
+    integrationTest {
+        java {
+            compileClasspath += testUtils.output
+            runtimeClasspath += testUtils.output
+            srcDir file('src/integrationTest/java')
+        }
+        resources.srcDir file('src/integrationTest/resources')
+    }
+
+    smokeTest {
+        java {
+            compileClasspath += testUtils.output
+            runtimeClasspath += testUtils.output
+            srcDir file('src/smokeTest/java')
+        }
+        resources.srcDir file('src/smokeTest/resources')
+    }
 }
 
 tasks.withType(JavaCompile) {
-  options.compilerArgs << "-Xlint:unchecked" << "-Werror"
+    options.compilerArgs << "-Xlint:unchecked" << "-Werror"
 }
 
 tasks.withType(Test) {
-  useJUnitPlatform()
+    useJUnitPlatform()
 
-  testLogging {
-    exceptionFormat = 'full'
-  }
+    testLogging {
+        exceptionFormat = 'full'
+    }
 }
 
 test {
-  failFast = true
+    failFast = true
 }
 
 task functional(type: Test) {
-  description = "Runs functional tests"
-  group = "Verification"
-  testClassesDirs = sourceSets.functionalTest.output.classesDirs
-  classpath = sourceSets.functionalTest.runtimeClasspath
+    description = "Runs functional tests"
+    group = "Verification"
+    systemProperty "scenario", System.getProperty('scenario')
+    testClassesDirs = sourceSets.functionalTest.output.classesDirs
+    classpath = sourceSets.functionalTest.runtimeClasspath
 }
 
 task integration(type: Test) {
-  description = "Runs integration tests"
-  group = "Verification"
-  testClassesDirs = sourceSets.integrationTest.output.classesDirs
-  classpath = sourceSets.integrationTest.runtimeClasspath
-  failFast = true
+    description = "Runs integration tests"
+    group = "Verification"
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    failFast = true
 }
 
 task smoke(type: Test) {
-  description = "Runs Smoke Tests"
-  testClassesDirs = sourceSets.smokeTest.output.classesDirs
-  classpath = sourceSets.smokeTest.runtimeClasspath
+    description = "Runs Smoke Tests"
+    testClassesDirs = sourceSets.smokeTest.output.classesDirs
+    classpath = sourceSets.smokeTest.runtimeClasspath
 }
 
 checkstyle {
-  maxWarnings = 0
-  toolVersion = '8.29'
-  getConfigDirectory().set(new File(rootDir, 'config/checkstyle'))
+    maxWarnings = 0
+    toolVersion = '8.29'
+    getConfigDirectory().set(new File(rootDir, 'config/checkstyle'))
 }
 
 pmd {
-  toolVersion = "6.39.0"
-  sourceSets = [sourceSets.main, sourceSets.test, sourceSets.functionalTest, sourceSets.integrationTest, sourceSets.smokeTest]
-  reportsDir = file("$project.buildDir/reports/pmd")
-  // https://github.com/pmd/pmd/issues/876
-  ruleSets = []
-  ruleSetFiles = files("config/pmd/ruleset.xml")
+    toolVersion = "6.18.0"
+    sourceSets = [sourceSets.main, sourceSets.test, sourceSets.integrationTest, sourceSets.smokeTest]
+    reportsDir = file("$project.buildDir/reports/pmd")
+    // https://github.com/pmd/pmd/issues/876
+    ruleSets = []
+    ruleSetFiles = files("config/pmd/ruleset.xml")
 }
 
 jacocoTestReport {
-  executionData(test, integration)
-  reports {
-    xml.required = true
-    csv.required = false
-    xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
-  }
+    executionData(test, integration)
+    reports {
+        xml.enabled = true
+        csv.enabled = false
+        xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+    }
 }
 
-project.tasks['sonarqube'].dependsOn jacocoTestReport
+project.tasks['sonarqube'].dependsOn test, integration, jacocoTestReport
 
 sonarqube {
-  properties {
-    property "sonar.projectName", "Reform :: spring-boot-template"
-    property "sonar.projectKey", "uk.gov.hmcts.reform:spring-boot-template"
-    property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.destination.path}"
-  }
+    properties {
+        property "sonar.projectName", "Reform :: sscs-post-deployment-ft-tests"
+        property "sonar.projectKey", "uk.gov.hmcts.reform:sscs-post-deployment-ft-tests"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.destination.path}"
+    }
 }
 
 // before committing a change, make sure task still works
 dependencyUpdates {
-  def isNonStable = { String version ->
-    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { qualifier -> version.toUpperCase().contains(qualifier) }
-    def regex = /^[0-9,.v-]+$/
-    return !stableKeyword && !(version ==~ regex)
-  }
-  rejectVersionIf { selection -> // <---- notice how the closure argument is named
-    return isNonStable(selection.candidate.version) && !isNonStable(selection.currentVersion)
-  }
+    def isNonStable = { String version ->
+        def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { qualifier -> version.toUpperCase().contains(qualifier) }
+        def regex = /^[0-9,.v-]+$/
+        return !stableKeyword && !(version ==~ regex)
+    }
+    rejectVersionIf { selection -> // <---- notice how the closure argument is named
+        return isNonStable(selection.candidate.version) && !isNonStable(selection.currentVersion)
+    }
 }
 
 // https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/configuration.html
 dependencyCheck {
-  // Specifies if the build should be failed if a CVSS score above a specified level is identified.
-  // range of 0-10 fails the build, anything greater and it doesn't fail the build
-  failBuildOnCVSS = System.getProperty('dependencyCheck.failBuild') == 'true' ? 0 : 11
-  suppressionFile = 'config/owasp/suppressions.xml'
+    // Specifies if the build should be failed if a CVSS score above a specified level is identified.
+    // range of 0-10 fails the build, anything greater and it doesn't fail the build
+    failBuildOnCVSS = System.getProperty('dependencyCheck.failBuild') == 'true' ? 0 : 11
+    suppressionFile = 'config/owasp/suppressions.xml'
 
-  analyzers {
-    // Disable scanning of .NET related binaries
-    assemblyEnabled = false
-  }
+    analyzers {
+        // Disable scanning of .NET related binaries
+        assemblyEnabled = false
+    }
+}
+
+dependencyManagement {
+    dependencies {
+        dependency group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.68'
+        // CVE-2018-10237 - Unbounded memory allocation
+        dependencySet(group: 'com.google.guava', version: '30.1.1-jre') {
+            entry 'guava'
+        }
+        dependency group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+        dependency group: 'commons-io', name: 'commons-io', version: '2.8.0'
+
+      //CVE-2021-28170
+      dependency group: 'org.glassfish', name: 'jakarta.el', version: '4.0.1'
+    }
 }
 
 repositories {
-  mavenLocal()
-  mavenCentral()
-  maven { url 'https://jitpack.io' }
+    maven { url 'https://jitpack.io' }
+    mavenLocal()
+    mavenCentral()
 }
 
-ext {
-  reformLoggingVersion = "5.1.9"
-  log4JVersion = "2.17.0"
-}
+def versions = [
+        junit           : '5.7.1',
+        junitPlatform   : '1.7.1',
+        reformLogging   : '5.1.5',
+        springfoxSwagger: '3.0.0',
+        serenity        : '2.2.12',
+        tomcat          : '9.0.54'
+]
+
+ext.libraries = [
+        junit5: [
+                "org.junit.jupiter:junit-jupiter-api:${versions.junit}",
+                "org.junit.jupiter:junit-jupiter-engine:${versions.junit}",
+                "org.junit.jupiter:junit-jupiter-params:${versions.junit}",
+                "org.junit.platform:junit-platform-commons:${versions.junitPlatform}",
+                "org.junit.platform:junit-platform-engine:${versions.junitPlatform}"
+        ]
+]
 
 dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
@@ -160,42 +207,61 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json'
 
-  implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+  implementation group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
 
-  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: reformLoggingVersion
-  implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: reformLoggingVersion
+  implementation group: 'com.github.hmcts.java-logging', name: 'java-logging', version: versions.reformLogging
+  implementation group: 'com.github.hmcts.java-logging', name: 'java-logging-appinsights', version: versions.reformLogging
 
-  implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4JVersion
-  implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: log4JVersion
+  compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.15.0'
+  compile group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.15.0'
 
-  testImplementation(platform('org.junit:junit-bom:5.8.2'))
+  compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version:  versions.tomcat
+  compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version:  versions.tomcat
+
+
+  testImplementation libraries.junit5
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
     exclude group: 'junit', module: 'junit'
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
 
+  compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.3'
+
+  compile group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '3.1.4'
+  compile group: 'com.github.hmcts', name: 'core-case-data-store-client', version: '4.7.6'
+
+  implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.5.0'
+
+  testCompile group: 'com.github.hmcts', name: 'document-management-client', version: '7.0.0'
+
+  testCompile group: 'net.serenity-bdd', name: 'serenity-core', version: versions.serenity
+  testCompile group: 'net.serenity-bdd', name: 'serenity-junit', version: versions.serenity
+  testCompile group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
+  testCompile group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity
+  testCompile "org.junit.vintage:junit-vintage-engine:${versions.junit}"
+
+  testUtilsImplementation sourceSets.main.runtimeClasspath
+  testUtilsImplementation sourceSets.test.runtimeClasspath
+
   integrationTestImplementation sourceSets.main.runtimeClasspath
   integrationTestImplementation sourceSets.test.runtimeClasspath
 
   functionalTestImplementation sourceSets.main.runtimeClasspath
+  functionalTestImplementation sourceSets.test.runtimeClasspath
 
   smokeTestImplementation sourceSets.main.runtimeClasspath
-  smokeTestImplementation sourceSets.test.runtimeClasspath
 }
 
-mainClassName = 'uk.gov.hmcts.reform.demo.Application'
+mainClassName = 'uk.gov.hmcts.reform.sscspostdeploymentfttests.Application'
 
 bootJar {
-  archiveFileName = "spring-boot-template.jar"
+    getArchiveFileName().set(provider {
+        'sscs-post-deployment-ft-tests.jar'
+    })
 
-  manifest {
-    attributes('Implementation-Version': project.version.toString())
-  }
-}
-
-// Gradle 7.x issue, workaround from: https://github.com/gradle/gradle/issues/17236#issuecomment-894768083
-rootProject.tasks.named("processSmokeTestResources") {
-  duplicatesStrategy = 'include'
+    manifest {
+        attributes('Implementation-Version': project.version.toString())
+    }
 }
 
 wrapper {

@@ -1,0 +1,24 @@
+wa_task_management_api:
+  url: ${WA_TASK_MANAGEMENT_URL:http://localhost:8087}
+wa_task_monitor_api:
+  url: ${WA_TASK_MONITOR_URL:http://localhost:8077}
+
+core_case_data:
+  api:
+    url: ${CCD_URL:http://ccd-data-store-api}
+
+azure:
+  servicebus:
+    connection-string: ${AZURE_SERVICE_BUS_CONNECTION_STRING}
+    topic: ${AZURE_SERVICE_BUS_TOPIC_NAME:ccd-case-events-aat}
+    message-author: ${AZURE_SERVICE_BUS_MESSAGE_AUTHOR:unknown}
+
+govUk:
+  url: https://www.gov.uk/
+
+
+document_management:
+  url: ${DM_STORE_URL:http://local-dm-store}
+
+ccd_gateway:
+  url: ${CCD_GW_URL:http://ccd-api-gateway}

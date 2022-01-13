@@ -1,0 +1,5 @@
+java:
+  applicationPort: 8888
+  image: 'hmctspublic.azurecr.io/sscs/post-deployment-functional-tests:latest'
+  ingressHost: sscs-post-deployment-ft-tests-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+  aadIdentityName: sscs
