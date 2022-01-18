@@ -241,10 +241,6 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
     private Headers getAuthorizationHeaders(String credentials) {
         switch (credentials) {
-            case "IALegalRepresentative":
-                return authorizationHeadersProvider.getLegalRepAuthorization();
-            case "IACaseworker":
-                return authorizationHeadersProvider.getTribunalCaseworkerAAuthorization();
             case "WaSystemUser":
                 return authorizationHeadersProvider.getWaSystemUserAuthorization();
             case "SSCSSystemUpdateUser":

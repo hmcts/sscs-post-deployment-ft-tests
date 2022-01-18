@@ -59,7 +59,7 @@ public class CcdCaseCreator {
         String eventId = MapValueExtractor.extractOrThrow(scenario, "required.ccd.eventId");
 
         String caseId = createInitialStartEventAndSubmit(
-            jurisdiction.equals("IA") ? "startAppeal" : eventId,
+            eventId,
             jurisdiction,
             caseType,
             caseData,

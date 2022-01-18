@@ -28,7 +28,7 @@
   },
   "test": {
     "request": {
-      "credentials": "IALegalRepresentative",
+      "credentials": "SSCSSystemUpdateUser",
       "input": {
         "eventMessage": {
           "template": "minimal-ccd-event-message.json",
@@ -112,7 +112,7 @@
               "Execute"
             ],
             "authorisations": [
-              "IA"
+              "SSCS"
             ]
           },
           {

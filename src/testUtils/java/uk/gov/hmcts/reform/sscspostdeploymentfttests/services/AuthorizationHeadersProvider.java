@@ -122,6 +122,7 @@ public class AuthorizationHeadersProvider {
 
         String accessToken = tokens.computeIfAbsent(
             key,
+
             user -> "Bearer " + idamWebApi.token(body).getAccessToken()
         );
         return new Header(AUTHORIZATION, accessToken);

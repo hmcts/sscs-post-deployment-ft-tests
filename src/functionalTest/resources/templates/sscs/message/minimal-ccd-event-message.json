@@ -3,7 +3,7 @@
   "CaseId": "{$GENERATED_CASE_ID}",
   "EventTimeStamp": "{$LOCAL_DATETIME_TODAY}",
   "JurisdictionId": "SSCS",
-  "CaseTypeId": "Asylum",
+  "CaseTypeId": "Benefit",
   "EventId": "submitAppeal",
   "NewStateId": "appealSubmitted",
   "UserId": "{$USER_ID}",
