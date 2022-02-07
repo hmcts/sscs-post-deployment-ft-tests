@@ -228,7 +228,7 @@ dependencies {
   compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.3'
 
   compile group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '3.1.4'
-  compile group: 'com.github.hmcts', name: 'core-case-data-store-client', version: '4.7.6'
+  compile group: 'com.github.hmcts', name: 'core-case-data-store-client', version: '4.8.5'
 
   implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.5.0'
 
