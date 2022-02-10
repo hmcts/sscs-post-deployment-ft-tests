@@ -194,8 +194,10 @@ public class CcdCaseCreator {
         String template = templatesByFilename.get(templateFilename);
 
         //TODO: Abstract this as teams might use different docs
-        Document noticeOfAppealDocument = documentManagementFiles.getDocument(NOTICE_OF_APPEAL_PDF);
-        template = template.replace("\"{$NOTICE_OF_DECISION_DOCUMENT}\"", toJsonString(noticeOfAppealDocument));
+        //Commenting out due to this potentially producing a document SSCS doesn't use with a user type that might
+        //not be required either.
+        //Document noticeOfAppealDocument = documentManagementFiles.getDocument(NOTICE_OF_APPEAL_PDF);
+        //template = template.replace("\"{$NOTICE_OF_DECISION_DOCUMENT}\"", toJsonString(noticeOfAppealDocument));
 
         Map<String, Object> caseData = deserializeWithExpandedValues(template);
         Map<String, Object> caseDataReplacements = MapValueExtractor.extract(caseDataInput, "replacements");

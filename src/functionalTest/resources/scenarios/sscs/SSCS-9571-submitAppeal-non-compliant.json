@@ -49,9 +49,9 @@
           "tasks": [
             {
               "id": "{$VERIFIER-UUID}",
-              "case_name": "Functional PostDeployment",
+              "case_name": "AN Test",
               "case_id": "{$GENERATED_CASE_ID}",
-              "case_category": "Protection",
+              "case_category": "Case Management Category",
               "name": "Review non-compliant appeal",
               "type": "nonCompliantCase",
               "task_state": "unassigned",
@@ -68,22 +68,19 @@
               "location_name": "Taylor House",
               "auto_assigned": false,
               "warnings": false,
-              "role_category": "LEGAL_OPERATIONS",
+              "role_category": "ADMIN",
               "warning_list": {
                 "values": [
 
                 ]
               },
-              "case_management_category": "Protection",
-              "work_type_id": "decision_making_work",
+              "case_management_category": "Case Management Category",
+              "work_type_id": "routine_work",
               "permissions": {
                 "values": [
                   "Read",
                   "Refer",
-                  "Own",
-                  "Manage",
-                  "Execute",
-                  "Cancel"
+                  "Own"
                 ]
               }
             }
@@ -93,7 +90,7 @@
       "roleData": {
         "roles": [
           {
-            "role_category": "LEGAL_OPERATIONS",
+            "role_category": "ADMIN",
             "role_name": "case-manager",
             "permissions": [
               "Read",
@@ -104,7 +101,7 @@
             ]
           },
           {
-            "role_category": "JUDICIAL",
+            "role_category": "ADMIN",
             "role_name": "judge",
             "permissions": [
               "Read",
@@ -116,7 +113,7 @@
             ]
           },
           {
-            "role_category": "LEGAL_OPERATIONS",
+            "role_category": "ADMIN",
             "role_name": "senior-tribunal-caseworker",
             "permissions": [
               "Read",
@@ -138,7 +135,7 @@
             ]
           },
           {
-            "role_category": "LEGAL_OPERATIONS",
+            "role_category": "ADMIN",
             "role_name": "tribunal-caseworker",
             "permissions": [
               "Read",
