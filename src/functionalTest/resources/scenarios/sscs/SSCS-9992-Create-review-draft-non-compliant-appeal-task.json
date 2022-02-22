@@ -1,0 +1,139 @@
+{
+  "description": "submitAppeal with appeal draft non-compliant",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": "SSCSSystemUpdateUser",
+    "ccd": {
+      "eventId": "appealCreated",
+      "state": "appealCreated",
+      "caseData": {
+        "template": "minimal-appeal-started.json",
+        "replacements": {
+          "appeal": {
+            "mrnDetails": {
+              "dwpIssuingOffice": "DWP PIP (1)",
+              "mrnDate": "2018-02-01",
+              "mrnLateReason": null,
+              "mrnMissingReason": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "test": {
+    "request": {
+      "credentials": "SSCSSystemUpdateUser",
+      "input": {
+        "eventMessage": {
+          "template": "minimal-ccd-event-message.json",
+          "replacements": {
+            "EventId": "draftToNonCompliant",
+            "NewStateId": "appealCreated"
+          }
+        }
+      }
+    },
+    "expectation": {
+      "credentials": "SSCSCaseWorker",
+      "status": 200,
+      "numberOfTasksAvailable": 1,
+      "taskData": {
+        "template": "minimal-task-response.json",
+        "replacements": {
+          "tasks": [
+            {
+              "id": "{$VERIFIER-UUID}",
+              "case_id": "{$GENERATED_CASE_ID}",
+              "name": "Review non-compliant appeal",
+              "type": "nonCompliantCase",
+              "task_state": "unassigned",
+              "task_system": "SELF",
+              "security_classification": "PUBLIC",
+              "task_title": "Review non-compliant appeal",
+              "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+              "execution_type": "Case Management Task",
+              "jurisdiction": "SSCS",
+              "case_type_id": "Benefit",
+              "auto_assigned": false,
+              "permissions": {
+                "values": [
+                  "Read",
+                  "Refer",
+                  "Own"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "roleData": {
+        "roles": [
+          {
+            "role_category": "ADMIN",
+            "role_name": "case-manager",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Own"
+            ],
+            "authorisations": [
+            ]
+          },
+          {
+            "role_category": "LEGAL_OPERATIONS",
+            "role_name": "caseworker-sscs-registrar",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Own",
+              "Manage",
+              "Cancel"
+            ],
+            "authorisations": [
+            ]
+          },
+          {
+            "role_category": "ADMIN",
+            "role_name": "senior-tribunal-caseworker",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Own"
+            ],
+            "authorisations": [
+            ]
+          },
+          {
+            "role_name": "task-supervisor",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Manage",
+              "Cancel"
+            ],
+            "authorisations": [
+            ]
+          },
+          {
+            "role_category": "ADMIN",
+            "role_name": "tribunal-caseworker",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Own"
+            ],
+            "authorisations": [
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
+
