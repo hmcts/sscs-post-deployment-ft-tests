@@ -8,9 +8,7 @@
   "NewStateId": "appealSubmitted",
   "UserId": "{$USER_ID}",
   "AdditionalData": {
-    "Data": {
-      "appealType": "protection"
-    },
+    "Data": {},
     "Definition": {}
   }
 }
