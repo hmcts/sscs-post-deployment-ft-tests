@@ -1,0 +1,109 @@
+{
+  "description": "create Review FTA Validity Challenge Task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": "SSCSSystemUpdateUser",
+    "ccd": {
+      "eventId": "appealCreated",
+      "state": "appealCreated",
+      "caseData": {
+        "template": "valid-appeal.json",
+        "replacements": {
+          "appeal": {
+            "mrnDetails": {
+              "dwpIssuingOffice": "DWP PIP (1)",
+              "mrnDate": "{$TODAY-4_WORKING_DAYS}",
+              "mrnLateReason": null,
+              "mrnMissingReason": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "test": {
+    "request": {
+      "credentials": "SSCSSystemUpdateUser",
+      "input": {
+        "eventMessage": {
+          "template": "minimal-ccd-event-message.json",
+          "replacements": {
+            "EventId": "dwpChallengeValidity",
+            "NewStateId": "withDwp"
+          }
+        }
+      }
+    },
+    "expectation": {
+      "credentials": "SSCSCaseWorker",
+      "status": 200,
+      "numberOfTasksAvailable": 1,
+      "taskData": {
+        "template": "minimal-task-response.json",
+        "replacements": {
+          "tasks": [
+            {
+              "id": "{$VERIFIER-UUID}",
+              "case_id": "{$GENERATED_CASE_ID}",
+              "name": "Review FTA validity challenge",
+              "type": "ftaChallengeValidity",
+              "task_state": "unassigned",
+              "task_system": "SELF",
+              "security_classification": "PUBLIC",
+              "task_title": "Review FTA validity challenge",
+              "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+              "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+              "execution_type": "Case Management Task",
+              "jurisdiction": "SSCS",
+              "case_type_id": "Benefit",
+              "location": "1",
+              "location_name": "HMCTS",
+              "auto_assigned": false,
+              "warnings": false,
+              "role_category": "LEGAL_OPERATIONS",
+              "description": "Description of what needs to be done to complete the task",
+              "warning_list": {
+                "values": [
+
+                ]
+              },
+              "work_type_id": "routine_work",
+              "permissions": {
+                "values": [
+                  "Read",
+                  "Refer",
+                  "Own",
+                  "Manage",
+                  "Cancel"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "roleData": {
+        "roles": [
+          {
+            "role_category": "LEGAL_OPERATIONS",
+            "role_name": "caseworker-sscs-registrar",
+            "permissions": [
+              "Read",
+              "Refer",
+              "Own",
+              "Manage",
+              "Cancel"
+            ],
+            "authorisations": [
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
+
