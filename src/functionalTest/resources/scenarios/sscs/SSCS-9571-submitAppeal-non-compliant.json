@@ -1,6 +1,6 @@
 {
   "description": "submitAppeal with appeal non-compliant",
-  "enabled": true,
+  "enabled": false,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
   "options": {
@@ -12,7 +12,7 @@
       "eventId": "appealCreated",
       "state": "appealCreated",
       "caseData": {
-        "template": "minimal-appeal-started.json",
+        "template": "non-compliant-appeal.json",
         "replacements": {
           "appeal": {
             "mrnDetails": {
