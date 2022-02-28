@@ -12,7 +12,7 @@
       "eventId": "appealCreated",
       "state": "appealCreated",
       "caseData": {
-        "template": "minimal-appeal-started.json",
+        "template": "non-compliant-appeal.json",
         "replacements": {
           "appeal": {
             "mrnDetails": {
@@ -65,7 +65,9 @@
                 "values": [
                   "Read",
                   "Refer",
-                  "Own"
+                  "Own",
+                  "Manage",
+                  "Cancel"
                 ]
               }
             }
@@ -75,17 +77,6 @@
       "roleData": {
         "roles": [
           {
-            "role_category": "ADMIN",
-            "role_name": "case-manager",
-            "permissions": [
-              "Read",
-              "Refer",
-              "Own"
-            ],
-            "authorisations": [
-            ]
-          },
-          {
             "role_category": "LEGAL_OPERATIONS",
             "role_name": "caseworker-sscs-registrar",
             "permissions": [
@@ -94,39 +85,6 @@
               "Own",
               "Manage",
               "Cancel"
-            ],
-            "authorisations": [
-            ]
-          },
-          {
-            "role_category": "ADMIN",
-            "role_name": "senior-tribunal-caseworker",
-            "permissions": [
-              "Read",
-              "Refer",
-              "Own"
-            ],
-            "authorisations": [
-            ]
-          },
-          {
-            "role_name": "task-supervisor",
-            "permissions": [
-              "Read",
-              "Refer",
-              "Manage",
-              "Cancel"
-            ],
-            "authorisations": [
-            ]
-          },
-          {
-            "role_category": "ADMIN",
-            "role_name": "tribunal-caseworker",
-            "permissions": [
-              "Read",
-              "Refer",
-              "Own"
             ],
             "authorisations": [
             ]
