@@ -1,6 +1,6 @@
 {
   "description": "submitAppeal with appeal non-compliant",
-  "enabled": false,
+  "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
   "options": {
