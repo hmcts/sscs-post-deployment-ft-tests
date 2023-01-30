@@ -225,7 +225,7 @@ dependencies {
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
 
-  compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.1'
+  compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.0.1'
 
   compile group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '3.1.4'
   compile group: 'com.github.hmcts', name: 'core-case-data-store-client', version: '4.7.6'
