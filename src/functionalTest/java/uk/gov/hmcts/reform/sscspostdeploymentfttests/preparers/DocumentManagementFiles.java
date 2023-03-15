@@ -1,13 +1,14 @@
 package uk.gov.hmcts.reform.sscspostdeploymentfttests.preparers;
 
+import io.restassured.http.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.documents.Document;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.documents.DocumentNames;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.idam.UserInfo;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.services.AuthorizationHeadersProvider;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.BinaryResourceLoader;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.documents.Document;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.idam.UserInfo;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -61,9 +62,10 @@ public class DocumentManagementFiles implements Preparer {
                 throw new RuntimeException("Missing content type mapping for document: " + filename);
             }
 
-            String userToken = authorizationHeadersProvider.getLawFirmAuthorizationOnly().getValue();
+            Headers headers = authorizationHeadersProvider.getWaSystemUserAuthorization();
+            String userToken = headers.getValue(AuthorizationHeadersProvider.AUTHORIZATION);
+            String serviceToken = headers.getValue(AuthorizationHeadersProvider.SERVICE_AUTHORIZATION);
             UserInfo userInfo = authorizationHeadersProvider.getUserInfo(userToken);
-            String serviceToken = authorizationHeadersProvider.getServiceAuthorizationHeader().getValue();
 
             return documentManagementUploader.upload(
                 documentResource,

@@ -1,0 +1,273 @@
+{
+  "pcqId": "12345678",
+  "appeal": {
+    "rep": {
+      "id": "0bbe92bc-60fe-465b-b1af-61dba0c70bbe",
+      "name": {
+        "title": "Mr",
+        "lastName": "Potter",
+        "firstName": "Harry"
+      },
+      "address": {
+        "town": "Town",
+        "line1": "123 Hairy Lane",
+        "line2": "Off Hairy Park",
+        "county": "County",
+        "postcode": "CM14 4LQ"
+      },
+      "contact": {
+        "email": "harry.potter@wizards.com",
+        "phone": null,
+        "mobile": "07411999999"
+      },
+      "identity": {
+        "dob": null,
+        "nino": null
+      },
+      "organisation": "HP Ltd",
+      "hasRepresentative": "Yes"
+    },
+    "signer": "Joe Bloggs",
+    "appellant": {
+      "id": "3daa6701-0f13-4066-8490-679785e6b19c",
+      "name": {
+        "title": "Mr",
+        "lastName": "Bloggs",
+        "firstName": "Joe"
+      },
+      "role": {},
+      "address": {
+        "town": "Hairyfield",
+        "line1": "123 Hairy Lane",
+        "line2": "Off Hairy Park",
+        "county": "Kent",
+        "postcode": "TN32 6PL"
+      },
+      "contact": {
+        "email": null,
+        "phone": null,
+        "mobile": null
+      },
+      "identity": {
+        "dob": "1990-02-26",
+        "nino": "9MTHT6HCG"
+      },
+      "appointee": {
+        "id": "7fd5eb52-c4a4-4f4a-a1bc-1f639f8146f8",
+        "name": {
+          "title": "Mrs",
+          "lastName": "Bloggs",
+          "firstName": "Mary"
+        },
+        "address": {
+          "town": "Another Town",
+          "line1": "999 Another Street",
+          "county": "Newcastle",
+          "postcode": "NE1 1AW"
+        },
+        "contact": {
+          "email": "sscsappointee@greencroftconsulting.com",
+          "phone": null,
+          "mobile": "01234567810"
+        },
+        "identity": {
+          "dob": "1991-03-31",
+          "nino": null
+        },
+        "organisation": null
+      },
+      "isAppointee": "No",
+      "organisation": null,
+      "confidentialityRequired": null,
+      "isAddressSameAsAppointee": "No"
+    },
+    "mrnDetails": {
+      "mrnDate": "2023-01-06",
+      "mrnLateReason": null,
+      "dwpIssuingOffice": "DWP PIP (1)",
+      "mrnMissingReason": null
+    },
+    "benefitType": {
+      "code": "PIP",
+      "description": "Personal Independence Payment"
+    },
+    "hearingType": "oral",
+    "receivedVia": "Online",
+    "appealReasons": {
+      "reasons": [
+        {
+          "id": "d24dbf7b-2474-4aa9-8524-5a2e53ac331a",
+          "value": {
+            "reason": "aaaaaaaaaa",
+            "description": "aaaaaaaaaa"
+          }
+        },
+        {
+          "id": "134fe00b-f715-4ca5-9788-f94c60ecfb64",
+          "value": {
+            "reason": "bbbbbbbbbb",
+            "description": "bbbbbbbbbb"
+          }
+        },
+        {
+          "id": "58094b5c-cb96-43f2-b787-80ddfdf61f12",
+          "value": {
+            "reason": "cccccccccc",
+            "description": "cccccccccc"
+          }
+        }
+      ],
+      "otherReasons": "Another reason"
+    },
+    "hearingOptions": {
+      "other": "Yes, this...",
+      "languages": "Telugu",
+      "arrangements": [
+        "signLanguageInterpreter",
+        "hearingLoop"
+      ],
+      "excludeDates": [
+        {
+          "id": "dac070f9-9a3a-4373-a3d3-3e153db85f8b",
+          "value": {
+            "end": "2018-04-04",
+            "start": "2018-04-04"
+          }
+        },
+        {
+          "id": "c7b914e3-4c21-492b-8c39-07d69dbb643b",
+          "value": {
+            "end": "2018-04-05",
+            "start": "2018-04-05"
+          }
+        },
+        {
+          "id": "f8aaed0a-473a-42aa-ba91-026c947db797",
+          "value": {
+            "end": "2018-04-06",
+            "start": "2018-04-06"
+          }
+        }
+      ],
+      "wantsSupport": "Yes",
+      "wantsToAttend": "Yes",
+      "scheduleHearing": "Yes",
+      "signLanguageType": "Sign language",
+      "languageInterpreter": "Yes"
+    },
+    "hearingSubtype": {}
+  },
+  "region": "BRADFORD",
+  "ogdType": "DWP",
+  "caseCode": "002DD",
+  "issueCode": "DD",
+  "benefitCode": "002",
+  "caseCreated": "2023-02-07",
+  "jointPartyId": "0b326810-a378-4177-b552-071edff0db10",
+  "sscsDocument": [
+    {
+      "id": "6d68d372-56c1-43a6-9d28-48fa71dc01d5",
+      "value": {
+        "documentLink": "{$NOTICE_OF_DECISION_DOCUMENT}",
+        "documentType": "sscs1",
+        "documentFileName": "Bloggs_HCG.pdf",
+        "documentDateAdded": "2023-02-07"
+      }
+    }
+  ],
+  "subscriptions": {
+    "appellantSubscription": {
+      "tya": "GYlc30Ld7D",
+      "email": "sscstest+notify@greencroftconsulting.com",
+      "mobile": "+447398785050",
+      "reason": null,
+      "subscribeSms": "Yes",
+      "subscribeEmail": "Yes",
+      "lastLoggedIntoMya": null,
+      "wantSmsNotifications": "Yes"
+    },
+    "appointeeSubscription": {
+      "tya": null,
+      "email": null,
+      "mobile": null,
+      "reason": null,
+      "subscribeSms": null,
+      "subscribeEmail": null,
+      "lastLoggedIntoMya": null,
+      "wantSmsNotifications": null
+    },
+    "supporterSubscription": {
+      "tya": null,
+      "email": null,
+      "mobile": null,
+      "reason": null,
+      "subscribeSms": null,
+      "subscribeEmail": null,
+      "lastLoggedIntoMya": null,
+      "wantSmsNotifications": null
+    },
+    "jointPartySubscription": {
+      "tya": null,
+      "email": null,
+      "mobile": null,
+      "reason": null,
+      "subscribeSms": null,
+      "subscribeEmail": null,
+      "lastLoggedIntoMya": null,
+      "wantSmsNotifications": null
+    },
+    "representativeSubscription": {
+      "tya": "fOMAMRuqth",
+      "email": "harry.potter@wizards.com",
+      "mobile": "+447411999999",
+      "reason": null,
+      "subscribeSms": "Yes",
+      "subscribeEmail": "Yes",
+      "lastLoggedIntoMya": null,
+      "wantSmsNotifications": "Yes"
+    }
+  },
+  "addedDocuments": null,
+  "caseNamePublic": "Joe Bloggs",
+  "isScottishCase": "No",
+  "evidencePresent": "No",
+  "processingVenue": "Ashford",
+  "createdInGapsFrom": "readyToList",
+  "dwpRegionalCentre": "Newcastle",
+  "CaseAccessCategory": "personalIndependencePayment",
+  "caseNameHmctsInternal": "Joe Bloggs",
+  "workBasketHearingDate": null,
+  "caseManagementCategory": {
+    "value": {
+      "code": "PIP",
+      "label": "Personal Independence Payment"
+    },
+    "list_items": [
+      {
+        "code": "PIP",
+        "label": "Personal Independence Payment"
+      }
+    ]
+  },
+  "caseManagementLocation": {
+    "region": "7",
+    "baseLocation": "698118"
+  },
+  "caseNameHmctsRestricted": "Joe Bloggs",
+  "languagePreferenceWelsh": "No",
+  "regionalProcessingCenter": {
+    "city": "BRADFORD",
+    "name": "BRADFORD",
+    "email": "SSCS_Bradford@justice.gov.uk",
+    "epimsId": "698118",
+    "address1": "HM Courts & Tribunals Service",
+    "address2": "Social Security & Child Support Appeals",
+    "address3": "Phoenix House",
+    "address4": "Rushton Avenue",
+    "postcode": "BD3 7BH",
+    "faxNumber": "0126 434 7983",
+    "phoneNumber": "0300 123 1142",
+    "hearingRoute": "gaps"
+  },
+  "workBasketHearingEpimsId": null
+}

@@ -10,6 +10,7 @@ import uk.gov.hmcts.reform.ccd.client.model.CaseDataContent;
 import uk.gov.hmcts.reform.ccd.client.model.CaseDetails;
 import uk.gov.hmcts.reform.ccd.client.model.Event;
 import uk.gov.hmcts.reform.ccd.client.model.StartEventResponse;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.documents.DocumentNames;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.documents.Document;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.idam.UserInfo;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.preparers.DocumentManagementFiles;
@@ -25,9 +26,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import static java.util.Collections.emptyMap;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.documents.DocumentNames.NOTICE_OF_APPEAL_PDF;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.services.AuthorizationHeadersProvider.SERVICE_AUTHORIZATION;
 
 @Service
 public class CcdCaseCreator {
@@ -42,21 +40,17 @@ public class CcdCaseCreator {
 
     public String createCase(Map<String, Object> scenario,
                              String jurisdiction,
+                             String caseType,
                              Headers authorizationHeaders) throws IOException {
-
-        final String caseType = MapValueExtractor.extractOrThrow(scenario, "caseType");
 
         Map<String, String> ccdTemplatesByFilename =
             StringResourceLoader.load(
                 "/templates/" + jurisdiction.toLowerCase(Locale.ENGLISH) + "/ccd/*.json"
             );
 
-        Map<String, Object> caseData = getCaseData(
-            MapValueExtractor.extract(scenario, "required.ccd"),
-            ccdTemplatesByFilename
-        );
+        Map<String, Object> caseData = getCaseData(scenario, ccdTemplatesByFilename);
 
-        String eventId = MapValueExtractor.extractOrThrow(scenario, "required.ccd.eventId");
+        String eventId = MapValueExtractor.extractOrThrow(scenario, "eventId");
 
         String caseId = createInitialStartEventAndSubmit(
             eventId,
@@ -67,6 +61,36 @@ public class CcdCaseCreator {
         );
 
         return caseId;
+
+    }
+
+    public String updateCase(String caseId,
+                             Map<String, Object> scenario,
+                             String jurisdiction,
+                             String caseType,
+                             Headers authorizationHeaders) throws IOException {
+
+        Map<String, String> ccdTemplatesByFilename =
+            StringResourceLoader.load(
+                "/templates/" + jurisdiction.toLowerCase(Locale.ENGLISH) + "/ccd/*.json"
+            );
+
+        Map<String, Object> caseData = getCaseData(scenario, ccdTemplatesByFilename);
+
+        String eventId = MapValueExtractor.extractOrThrow(scenario, "eventId");
+
+        fireStartAndSubmitEventsFor(
+            caseId,
+            eventId,
+            jurisdiction,
+            caseType,
+            caseData,
+            authorizationHeaders
+        );
+
+
+        return caseId;
+
     }
 
     private String createInitialStartEventAndSubmit(String eventId,
@@ -75,19 +99,18 @@ public class CcdCaseCreator {
                                                     Map<String, Object> caseData,
                                                     Headers authorizationHeaders) {
 
-        String userToken = authorizationHeaders.getValue(AUTHORIZATION);
-        String serviceToken = authorizationHeaders.getValue(SERVICE_AUTHORIZATION);
+        String userToken = authorizationHeaders.getValue(AuthorizationHeadersProvider.AUTHORIZATION);
+        String serviceToken = authorizationHeaders.getValue(AuthorizationHeadersProvider.SERVICE_AUTHORIZATION);
         UserInfo userInfo = authorizationHeadersProvider.getUserInfo(userToken);
 
         //Fire start event
-        StartEventResponse startCase = coreCaseDataApi.startForCaseworker(
+        StartEventResponse startCase = startCase = coreCaseDataApi.startForCaseworker(
             userToken,
             serviceToken,
             userInfo.getUid(),
             jurisdiction,
             caseType,
-            eventId
-        );
+            eventId);
 
         CaseDataContent caseDataContent = CaseDataContent.builder()
             .eventToken(startCase.getToken())
@@ -99,7 +122,6 @@ public class CcdCaseCreator {
             .data(caseData)
             .build();
 
-        //Fire submit event
         CaseDetails caseDetails = coreCaseDataApi.submitForCaseworker(
             userToken,
             serviceToken,
@@ -124,8 +146,8 @@ public class CcdCaseCreator {
                                                     Headers authorizationHeaders) {
 
 
-        String userToken = authorizationHeaders.getValue(AUTHORIZATION);
-        String serviceToken = authorizationHeaders.getValue(SERVICE_AUTHORIZATION);
+        String userToken = authorizationHeaders.getValue(AuthorizationHeadersProvider.AUTHORIZATION);
+        String serviceToken = authorizationHeaders.getValue(AuthorizationHeadersProvider.SERVICE_AUTHORIZATION);
         UserInfo userInfo = authorizationHeadersProvider.getUserInfo(userToken);
 
         Objects.requireNonNull(caseId, "caseId cannot be null when submitting an event");
@@ -194,7 +216,7 @@ public class CcdCaseCreator {
         String template = templatesByFilename.get(templateFilename);
 
         //TODO: Abstract this as teams might use different docs
-        Document noticeOfAppealDocument = documentManagementFiles.getDocument(NOTICE_OF_APPEAL_PDF);
+        Document noticeOfAppealDocument = documentManagementFiles.getDocument(DocumentNames.NOTICE_OF_APPEAL_PDF);
         template = template.replace("\"{$NOTICE_OF_DECISION_DOCUMENT}\"", toJsonString(noticeOfAppealDocument));
 
         Map<String, Object> caseData = deserializeWithExpandedValues(template);
