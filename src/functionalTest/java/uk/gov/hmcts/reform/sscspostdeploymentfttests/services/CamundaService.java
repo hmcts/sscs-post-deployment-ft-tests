@@ -4,10 +4,10 @@ import io.restassured.http.Headers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.clients.CamundaClient;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.TestScenario;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.CamundaTask;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor;
 
 import java.util.List;
 import java.util.Map;

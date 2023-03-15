@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.SpringBootFunctionalBaseTest;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.TestScenario;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.services.TaskManagementService;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.*;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.verifiers.Verifier;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.DeserializeValuesUtil;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.Logger;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapMerger;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapSerializer;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.StringResourceLoader;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.verifiers.Verifier;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -233,7 +233,8 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
 
                         } catch (Exception e) {
                             isTestPassed.set(false);
-                            Logger.say(LoggerMessage.SCENARIO_FAILED, scenario.getScenarioMapValues().get("description"));
+                            Logger.say(LoggerMessage.SCENARIO_FAILED,
+                                       scenario.getScenarioMapValues().get("description"));
                             throw new RuntimeException(e);
                         }
 

@@ -9,10 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.TestScenario;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.idam.UserInfo;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.DeserializeValuesUtil;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExpander;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.idam.UserInfo;
 
 import java.util.List;
 import java.util.Map;

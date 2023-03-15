@@ -7,13 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.clients.RoleAssignmentServiceApiClient;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.TestScenario;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.idam.UserInfo;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.role.RoleAssignment;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.role.RoleAssignmentResource;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.role.enums.RoleType;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.JsonUtil;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.StringResourceLoader;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.idam.UserInfo;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.role.RoleAssignment;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.role.RoleAssignmentResource;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -24,12 +24,10 @@ import java.util.Map;
 
 import static java.time.format.DateTimeFormatter.ofPattern;
 import static java.util.stream.Collectors.toList;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.JsonUtil.toJsonString;
 
 @Component
 @Slf4j
 public class RoleAssignmentService {
-
     public static final DateTimeFormatter ROLE_ASSIGNMENT_DATA_TIME_FORMATTER = ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
 
     private static final String DEFAULT_ROLE_ASSIGNMENT_TEMPLATE;
@@ -75,7 +73,8 @@ public class RoleAssignmentService {
         String grantType = MapValueExtractor.extractOrDefault(replacementsValues, "grantType", "STANDARD");
         String roleType = MapValueExtractor.extractOrThrow(replacementsValues, "roleType");
         String classification = MapValueExtractor.extractOrDefault(replacementsValues, "classification", "PUBLIC");
-        String roleCategory = MapValueExtractor.extractOrDefault(replacementsValues, "roleCategory", "LEGAL_OPERATIONS");
+        String roleCategory = MapValueExtractor.extractOrDefault(replacementsValues,
+                                                                 "roleCategory", "LEGAL_OPERATIONS");
 
         postRoleAssignment(
             caseId,

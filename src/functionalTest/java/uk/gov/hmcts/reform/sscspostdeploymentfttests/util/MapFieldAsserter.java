@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class MapFieldAsserter {
 
     private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
-    private static final SimpleDateFormat DATE_TIME_FORMATTER = new SimpleDateFormat(MapValueExpander.ZONED_DATE_TIME_FORMAT);
 
     private final MapValueExpander mapValueExpander;
 
@@ -111,7 +110,8 @@ public class MapFieldAsserter {
                         "Expected field did not match UUID regular expression (" + path + ")",
                         actualValueString.matches(RegularExpressions.UUID_REGEX_PATTERN)
                     );
-                } else if (RegularExpressions.VERIFIER_ZONED_DATETIME_TODAY_WORKING_DAYS_PATTERN.matcher(expectedValueString).find()) {
+                } else if (RegularExpressions.VERIFIER_ZONED_DATETIME_TODAY_WORKING_DAYS_PATTERN
+                    .matcher(expectedValueString).find()) {
 
                     expectedValueString = expectedValueString.replace("VERIFIER-", "");
                     String expandedExpectedDate = mapValueExpander.expandDateTimeToday(expectedValueString);

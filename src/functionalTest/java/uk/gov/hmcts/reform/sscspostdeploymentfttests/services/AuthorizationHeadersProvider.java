@@ -78,15 +78,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     public void cleanupTestUsers() {
     }
 
-    private Header getServiceAuthorizationHeader() {
-        String serviceToken = tokens.computeIfAbsent(
-            SERVICE_AUTHORIZATION,
-            user -> serviceAuthTokenGenerator.generate()
-        );
-
-        return new Header(SERVICE_AUTHORIZATION, serviceToken);
-    }
-
+    @Override
     public Header getUserAuthorizationHeader(String credentials) {
         switch (credentials) {
             case "citizen":
@@ -108,10 +100,6 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         }
     }
 
-    public Header getUserAuthorization(String key, String username, String password) {
-        return getUserAuthorizationHeader(key, System.getenv(username), System.getenv(password));
-    }
-
     private Header getUserAuthorizationHeader(String key, String username, String password) {
 
         MultiValueMap<String, String> body = createIdamRequest(username, password);
@@ -121,6 +109,19 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
             user -> "Bearer " + idamWebApi.token(body).getAccessToken()
         );
         return new Header(AUTHORIZATION, accessToken);
+    }
+
+    public Header getUserAuthorization(String key, String username, String password) {
+        return getUserAuthorizationHeader(key, System.getenv(username), System.getenv(password));
+    }
+
+    private Header getServiceAuthorizationHeader() {
+        String serviceToken = tokens.computeIfAbsent(
+            SERVICE_AUTHORIZATION,
+            user -> serviceAuthTokenGenerator.generate()
+        );
+
+        return new Header(SERVICE_AUTHORIZATION, serviceToken);
     }
 
     private MultiValueMap<String, String> createIdamRequest(String username, String password) {
