@@ -10,7 +10,9 @@
       "location": "698118",
       "locationName": "BRADFORD",
       "warnings": false,
-      "auto_assigned": false
+      "auto_assigned": false,
+      "minor_priority": 500,
+      "major_priority": 5000
     }
   ]
 }
