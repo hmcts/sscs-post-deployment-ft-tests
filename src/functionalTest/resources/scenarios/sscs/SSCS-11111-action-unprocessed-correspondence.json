@@ -34,44 +34,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpSupplementaryResponse",
-                "NewStateId": "",
-                "AdditionalData": {
-
-                }
-              }
-            },
-            {
-              "destination": "RestEndpoint",
-              "template": "minimal-ccd-event-message.json",
-              "replacements": {
-                "EventId": "uploadDocument",
-                "NewStateId": "",
-                "AdditionalData": {
-
-                }
-              }
-            },
-            {
-              "destination": "RestEndpoint",
-              "template": "minimal-ccd-event-message.json",
-              "replacements": {
-                "EventId": "attachScannedDocs",
-                "NewStateId": "",
-                "AdditionalData": {
-
-                }
-              }
-            },
-            {
-              "destination": "RestEndpoint",
-              "template": "minimal-ccd-event-message.json",
-              "replacements": {
-                "EventId": "uploadDocumentFurtherEvidence",
-                "NewStateId": "",
-                "AdditionalData": {
-
-                }
+                "EventId": "dwpSupplementaryResponse"
               }
             }
           ]
