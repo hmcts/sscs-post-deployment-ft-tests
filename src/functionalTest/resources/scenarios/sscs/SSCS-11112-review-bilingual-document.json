@@ -36,7 +36,7 @@
                 "EventId": "uploadDocument",
                 "AdditionalData": {
                   "Data": {
-                    "languagePreferenceWelsh": "Yes"
+                    "languagePreferenceWelsh": true
                   }
                 }
               }
