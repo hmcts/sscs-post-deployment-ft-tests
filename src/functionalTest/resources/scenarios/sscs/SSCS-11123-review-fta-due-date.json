@@ -1,0 +1,104 @@
+{
+  "description": "create reviewFtaDueDate task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "caseworker"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "appealCreated",
+                "NewStateId": "withFta",
+                "AdditionalData": {
+                  "Data": {
+                    "dwpDueDate": "{$TODAY}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "CTSC-Administrator"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "type": "reviewFtaDueDate",
+                  "name": "Review FTA Due Date"
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
+              {
+                "role_category": "",
+                "role_name": "case-allocator",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "",
+                "role_name": "task-supervisor",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "case-manager",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "CTSC-Administrator",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "CTSC-Team-Leader",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Assign,Unassign,Cancel" ],
+                "authorisations": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
