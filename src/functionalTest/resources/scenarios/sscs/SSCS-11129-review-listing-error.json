@@ -12,7 +12,7 @@
     },
     "ccd": [
       {
-        "eventId": "readyToList",
+        "eventId": "validAppealCreated",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
@@ -34,7 +34,8 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "readyToList"
+                "EventId": "readyToList",
+                "NewStateId": "listingError"
               }
             }
           ]
@@ -55,7 +56,9 @@
                   "type": "reviewListingError",
                   "name": "Review Listing Error",
                   "role_category": "CTSC",
-                  "description": "[Review Listing Error](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/reviewListingError)"
+                  "minor_priority": 300,
+                  "major_priority": 3000,
+                  "description": "[Update Listing Requirements](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/updateListingRequirements)<br/>[Review Listing Error](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/reviewListingError)"
                 }
               ]
             }
