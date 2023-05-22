@@ -1,5 +1,5 @@
 {
-  "description": "create reviewConfidentialityRequest task",
+  "description": "create reviewUrgentHearingRequest task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
