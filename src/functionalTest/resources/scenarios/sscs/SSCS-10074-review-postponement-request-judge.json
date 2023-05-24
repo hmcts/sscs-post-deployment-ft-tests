@@ -1,5 +1,5 @@
 {
-  "description": "create ftaNotProvidedAppointeeDetailsJudge task",
+  "description": "create reviewPostponementRequestJudge task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -33,10 +33,10 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "updateNotListable",
+                "EventId": "actionPostponementRequest",
                 "AdditionalData": {
                   "Data": {
-                    "action": "reviewByJudge"
+                    "action": "sendToJudge"
                   }
                 }
               }
@@ -56,8 +56,8 @@
             "replacements": {
               "tasks": [
                 {
-                  "type": "ftaNotProvidedAppointeeDetailsJudge",
-                  "name": "FTA not Provided Appointee Details",
+                  "type": "reviewPostponementRequestJudge",
+                  "name": "Review Postponement Request",
                   "work_type_id": "pre_hearing",
                   "description": null,
                   "role_category": "Judicial",
@@ -89,7 +89,7 @@
               },
               {
                 "role_category": "JUDICIAL",
-                "role_name": "interloc-judge",
+                "role_name": "hearing-judge",
                 "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
                 "authorisations": []
               },
