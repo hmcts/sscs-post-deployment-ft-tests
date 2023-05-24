@@ -2,7 +2,7 @@
 
 properties([
   //Run every hour
-//  pipelineTriggers([cron('0 * * * *')])
+//  pipelineTriggers([H * * * 1-5')])
 ])
 
 @Library("Infrastructure")
