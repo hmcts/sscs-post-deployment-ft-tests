@@ -57,7 +57,7 @@
               "tasks": [
                 {
                   "type": "referredByTcwPreHearing",
-                  "name": "Referred By TCW Pre Hearing",
+                  "name": "Referred By TCW",
                   "work_type_id": "pre_hearing",
                   "description": null,
                   "role_category": "Judicial",
