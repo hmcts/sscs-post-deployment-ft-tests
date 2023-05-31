@@ -69,7 +69,7 @@
 
               "replacements": {
 
-                "EventId": "createBundleAndAllocateCaseRolesRequired"
+                "EventId": "reviewOutstandingDraftDecisionRequired"
 
               }
 
@@ -105,17 +105,17 @@
 
                 {
 
-                  "type": "createBundleAndAllocateCaseRoles",
+                  "type": "reviewOutstandingDraftDecisionRequired",
 
-                  "name": "Create Bundle And Allocate Case Roles",
+                  "name": "Review Outstanding Draft Decision",
 
-                  "role_category": "ADMIN",
+                  "role_category": "CTSC",
 
                   "minor_priority": 300,
 
                   "major_priority": 3000,
 
-                  "description": "[Create a bundle in the case](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/createBundle)"
+
 
                 }
 
@@ -126,65 +126,35 @@
           },
 
           "roleData": {
-
             "roles": [
-
               {
-
                 "role_category": "",
-
                 "role_name": "case-allocator",
-
                 "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-
                 "authorisations": []
-
               },
-
               {
-
                 "role_category": "",
-
                 "role_name": "task-supervisor",
-
                 "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-
                 "authorisations": []
-
               },
-
               {
-
-                "role_category": "ADMIN",
-
-                "role_name": "Allocated-Admin-Caseworker",
-
+                "role_category": "CTSC",
+                "role_name": "Allocated-CTSC-Caseworker",
                 "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
-
                 "authorisations": []
-
               },
-
               {
-
-                "role_category": "ADMIN",
-
-                "role_name": "Regional-Centre-Admin",
-
+                "role_category": "CTSC",
+                "role_name": "CTSC-Administrator",
                 "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
-
                 "authorisations": []
-
               },
-
               {
-
-                "role_category": "ADMIN",
-
-                "role_name": "Regional-Centre-Team-Leader",
-
+                "role_category": "CTSC",
+                "role_name": "CTSC-Team-Leader",
                 "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Assign,Unassign,Cancel" ],
-
                 "authorisations": []
 
               }
