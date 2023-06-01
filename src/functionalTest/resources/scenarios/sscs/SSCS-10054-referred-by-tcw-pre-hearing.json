@@ -97,7 +97,7 @@
                 "role_category": "JUDICIAL",
                 "role_name": "fee-paid-judge",
                 "permissions": [ "Read,Own,Claim,Unclaim" ],
-                "authorisations": [ 0 ]
+                "authorisations": [ 368 ]
               }
             ]
           }
