@@ -1,5 +1,5 @@
 {
-  "description": "create referredByAdminJudgePreHearing task",
+  "description": "create referredByAdminJudgePostHearing task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -36,7 +36,7 @@
                 "EventId": "validSendToInterloc",
                 "AdditionalData": {
                   "Data": {
-                    "workType": "preHearingWork",
+                    "workType": "postHearingWork",
                     "selectWhoReviewsCase": "reviewByJudge"
                   }
                 }
@@ -57,9 +57,9 @@
             "replacements": {
               "tasks": [
                 {
-                  "type": "referredByAdminJudgePreHearing",
+                  "type": "referredByAdminJudgePostHearing",
                   "name": "Referred By Admin",
-                  "work_type_id": "pre_hearing",
+                  "work_type_id": "post_hearing",
                   "description": null,
                   "role_category": "Judicial",
                   "major_priority": 5000,
