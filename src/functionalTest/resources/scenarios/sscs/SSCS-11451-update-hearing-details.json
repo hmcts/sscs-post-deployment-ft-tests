@@ -69,7 +69,7 @@
 
               "replacements": {
 
-                "EventId": "reviewOutstandingDraftDecisionRequired"
+                "EventId": "updateHearingDetailsRequired"
 
               }
 
@@ -105,16 +105,15 @@
 
                 {
 
-                  "type": "reviewOutstandingDraftDecisionRequired",
+                  "type": "updateHearingDetailsRequired",
 
-                  "name": "Review Outstanding Draft Decision",
+                  "name": "Update Hearing Details",
 
-                  "role_category": "CTSC",
+                  "role_category": "ADMIN",
 
                   "minor_priority": 300,
 
                   "major_priority": 3000
-
                 }
 
               ]
@@ -138,25 +137,35 @@
                 "authorisations": []
               },
               {
-                "role_category": "CTSC",
-                "role_name": "Allocated-CTSC-Caseworker",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
+                "role_category": "ADMIN",
+                "role_name": "Allocated-Admin-Caseworker",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,CompleteOwn" ],
                 "authorisations": []
               },
               {
-                "role_category": "CTSC",
-                "role_name": "CTSC-Administrator",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
+                "role_category": "ADMIN",
+                "role_name": "Hearing-Centre-Administrator",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,CompleteOwn" ],
                 "authorisations": []
               },
               {
-                "role_category": "CTSC",
-                "role_name": "CTSC-Team-Leader",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Assign,Unassign,Cancel" ],
+                "role_category": "ADMIN",
+                "role_name": "Regional-Centre-Administrator",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,CompleteOwn" ],
                 "authorisations": []
-
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "Hearing-Centre-Team-Leader",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Assign,Unassign,Cancel,CompleteOwn" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "Regional-Centre-Team-Leader",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,Assign,Unassign,Cancel,Complete" ],
+                "authorisations": []
               }
-
             ]
 
           }
