@@ -55,7 +55,7 @@
                   "name": "Request FTA Time Extension",
                   "work_type_id": "pre_hearing",
                   "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
-                  "role_category": "Judicial",
+                  "role_category": "LEGAL_OPERATIONS",
                   "major_priority": 5000,
                   "minor_priority": 500
                 }
