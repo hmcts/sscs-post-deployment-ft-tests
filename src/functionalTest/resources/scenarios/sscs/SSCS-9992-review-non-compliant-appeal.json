@@ -1,5 +1,5 @@
 {
-  "description": "create non-compliant task",
+  "description": "create reviewNonCompliantAppeal task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -12,19 +12,10 @@
     },
     "ccd": [
       {
-        "eventId": "nonCompliant",
-        "state": "interlocutoryReviewState",
+        "eventId": "validAppealCreated",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
-            "appeal": {
-              "mrnDetails": {
-                "dwpIssuingOffice": "DWP PIP (1)",
-                "mrnDate": "2018-02-01",
-                "mrnLateReason": null,
-                "mrnMissingReason": null
-              }
-            }
           }
         }
       }
@@ -42,8 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "nonCompliant",
-                "NewStateId": "interlocutoryReviewState"
+                "EventId": "draftToNonCompliant"
               }
             }
           ]
@@ -61,8 +51,13 @@
             "replacements": {
               "tasks": [
                 {
-                  "type": "nonCompliantCase",
-                  "name": "Review non-compliant appeal"
+                  "type": "reviewNonCompliantAppeal",
+                  "name": "Review Non Compliant Appeal",
+                  "work_type_id": "pre_hearing",
+                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Send an interlocutory decision notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/decisionIssued)<br/>[Return the case to an admin with a note](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/sendToAdmin)<br/>[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/tcwReferToJudge)<br/>[Strike out due to no response](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/struckOut)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
+                  "role_category": "LEGAL_OPERATIONS",
+                  "major_priority": 5000,
+                  "minor_priority": 500
                 }
               ]
             }
@@ -82,21 +77,21 @@
                 "authorisations": []
               },
               {
-                "role_category": "",
-                "role_name": "tribunal-caseworker",
-                "permissions": [ "Read,Refer,Own" ],
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "allocated-tribunal-caseworker",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
                 "authorisations": []
               },
               {
-                "role_category": "",
+                "role_category": "LEGAL_OPERATIONS",
                 "role_name": "tribunal-caseworker",
-                "permissions": [ "Read,Refer,Own" ],
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
                 "authorisations": []
               },
               {
-                "role_category": "",
-                "role_name": "senior-tribunal-caseworker",
-                "permissions": [ "Read,Refer,Own" ],
+                "role_category": "JUDICIAL",
+                "role_name": "judge",
+                "permissions": [ "Read,Execute,Unclaim,UnclaimAssign" ],
                 "authorisations": []
               }
             ]
