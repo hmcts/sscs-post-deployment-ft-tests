@@ -1,0 +1,106 @@
+{
+  "description": "Referred to Interloc - FTA response overdue",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "systemupdate"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "uploadDocument",
+                "AdditionalData": {
+                  "Data": {
+                    "scannedDocumentTypes": ["audioDocument"]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "caseworker"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "type": "processAudioVideoEvidence",
+                  "name": "Process audio/video evidence",
+                  "role_category": "LEGAL_OPERATIONS",
+                  "minor_priority": 500,
+                  "major_priority": 5000
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
+              {
+                "role_category": "",
+                "role_name": "case-allocator",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "",
+                "role_name": "task-supervisor",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "Allocated-Tribunal-Caseworker",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Complete" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "TCW",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Complete" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "judge",
+                "permissions": [ "Read,Execute,Unclaim,UnclaimAssign" ],
+                "authorisations": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
