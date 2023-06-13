@@ -37,7 +37,7 @@
                 "AdditionalData": {
                   "Data": {
                     "workType": "preHearingWork",
-                    "selectWhoReviewsCase": "reviewByJudge"
+                    "reviewBy": "reviewByJudge"
                   }
                 }
               }
