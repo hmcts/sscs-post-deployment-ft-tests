@@ -33,7 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "ftaResponseOverdue",
+                "EventId": "directionDueToday",
                 "AdditionalData": {
                   "Data": {
                     "directionTypeDl": {
