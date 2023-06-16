@@ -33,10 +33,10 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "createBundle`",
+                "EventId": "createBundle",
                 "AdditionalData" : {
                     "Data" : {
-                      "sessionCategory": 4
+                      "sessionCategory": 3,
                       "panelCount": 4
                     }
                   }
@@ -48,7 +48,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "caseworker"
+            "key": "Tribunal-Member-1"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -58,7 +58,7 @@
               "tasks": [
                 {
                   "type": "prepareForHearingTribunalMember1",
-                  "name": "Referred by Admin",
+                  "name": "Prepare for hearing",
                   "role_category": "JUDICIAL",
                   "minor_priority": 500,
                   "major_priority": 5000
@@ -86,13 +86,12 @@
                 "permissions": [ "Read,Own,Manage,Complete" ],
                 "authorisations": []
               }
-              }
             ]
           }
         },
         {
           "credentials": {
-            "key": "caseworker"
+            "key": "Tribunal-Member-2"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -101,8 +100,8 @@
             "replacements": {
               "tasks": [
                 {
-                  "type": "prepareForHearingTribunalMember1",
-                  "name": "Referred by Admin",
+                  "type": "prepareForHearingTribunalMember2",
+                  "name": "Prepare for hearing",
                   "role_category": "JUDICIAL",
                   "minor_priority": 500,
                   "major_priority": 5000
@@ -130,13 +129,12 @@
                 "permissions": [ "Read,Own,Manage,Complete" ],
                 "authorisations": []
               }
-              }
             ]
           }
         },
         {
           "credentials": {
-            "key": "caseworker"
+            "key": "Tribunal-Member-3"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -146,7 +144,7 @@
               "tasks": [
                 {
                   "type": "prepareForHearingTribunalMember3",
-                  "name": "Referred by Admin",
+                  "name": "Prepare for hearing",
                   "role_category": "JUDICIAL",
                   "minor_priority": 500,
                   "major_priority": 5000
@@ -174,11 +172,9 @@
                 "permissions": [ "Read,Own,Manage,Complete" ],
                 "authorisations": []
               }
-              }
             ]
           }
         }
-
       ]
     }
   ]
