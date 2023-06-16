@@ -51,8 +51,8 @@
             "replacements": {
               "tasks": [
                 {
-                  "type": "createBundleAndAllocateCaseRoles",
-                  "name": "Create Bundle And Allocate Case Roles",
+                  "type": "allocateCaseRolesAndCreateBundle",
+                  "name": "Allocate Case Roles and Create Bundle",
                   "role_category": "ADMIN",
                   "minor_priority": 300,
                   "major_priority": 3000,
