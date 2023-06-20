@@ -35,9 +35,8 @@
               "replacements": {
                 "EventId": "createBundle",
                 "AdditionalData" : {
-                  "Data" : {
-                    "sessionCategory": 6,
-                    "panelCount": 3
+                  "Data": {
+                    "assignedCaseRoles": ["tribunal-member-2"]
                   }
                 }
               }
@@ -46,49 +45,6 @@
         }
       },
       "expectations": [
-        {
-          "credentials": {
-            "key": "Tribunal-Member-1"
-          },
-          "status": 200,
-          "numberOfTasksAvailable": 1,
-          "taskData": {
-            "template": "minimal-task-response.json",
-            "replacements": {
-              "tasks": [
-                {
-                  "type": "prepareForHearingTribunalMember1",
-                  "name": "Prepare for hearing",
-                  "role_category": "JUDICIAL",
-                  "minor_priority": 500,
-                  "major_priority": 5000
-                }
-              ]
-            }
-          },
-          "roleData": {
-            "roles": [
-              {
-                "role_category": "",
-                "role_name": "case-allocator",
-                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "",
-                "role_name": "task-supervisor",
-                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "JUDICIAL",
-                "role_name": "tribunal-member-1",
-                "permissions": [ "Read,Own,Manage,Complete" ],
-                "authorisations": []
-              }
-            ]
-          }
-        },
         {
           "credentials": {
             "key": "Tribunal-Member-2"

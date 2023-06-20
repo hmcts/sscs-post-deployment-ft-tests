@@ -1,5 +1,5 @@
 {
-  "description": "Prepare for hearing for tribunal member 3",
+  "description": "Prepare for hearing for tribunal member 1",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -25,7 +25,7 @@
     {
       "request": {
         "credentials": {
-          "key": "caseworker"
+          "key": "systemupdate"
         },
         "input": {
           "eventMessages": [
@@ -35,9 +35,9 @@
               "replacements": {
                 "EventId": "createBundle",
                 "AdditionalData" : {
-                  "Data" : {
-                    "assignedCaseRoles": ["tribunal-member-3"]
-                  }
+                    "Data" : {
+                      "assignedCaseRoles": ["tribunal-member-1"]
+                    }
                 }
               }
             }
@@ -47,7 +47,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "Tribunal-Member-3"
+            "key": "Tribunal-Member-1"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -56,7 +56,7 @@
             "replacements": {
               "tasks": [
                 {
-                  "type": "prepareForHearingTribunalMember3",
+                  "type": "prepareForHearingTribunalMember1",
                   "name": "Prepare for hearing",
                   "role_category": "JUDICIAL",
                   "minor_priority": 500,
@@ -81,7 +81,7 @@
               },
               {
                 "role_category": "JUDICIAL",
-                "role_name": "tribunal-member-3",
+                "role_name": "tribunal-member-1",
                 "permissions": [ "Read,Own,Manage,Complete" ],
                 "authorisations": []
               }
