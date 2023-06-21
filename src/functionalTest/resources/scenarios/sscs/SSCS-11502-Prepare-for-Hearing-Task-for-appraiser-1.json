@@ -33,7 +33,12 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "createBundle"
+                "EventId": "createBundle",
+                "AdditionalData" : {
+                  "Data" : {
+                    "assignedCaseRoles": ["appraiser-1"]
+                  }
+                }
               }
             }
           ]
