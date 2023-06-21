@@ -103,6 +103,10 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
                 return getUserAuthorization(credentials, "TRIBUNAL_MEMBER_2_USERNAME", "TRIBUNAL_MEMBER_2_PASSWORD");
             case "Tribunal-Member-3":
                 return getUserAuthorization(credentials, "TRIBUNAL_MEMBER_3_USERNAME", "TRIBUNAL_MEMBER_3_PASSWORD");
+            case "appraiser-1":
+                return getUserAuthorization(credentials, "APPRAISER_1_USERNAME", "APPRAISER_1_PASSWORD");
+            case "appraiser-2":
+                return getUserAuthorization(credentials, "APPRAISER_2_USERNAME", "APPRAISER_2_PASSWORD");
             default:
                 throw new IllegalStateException("Credentials implementation for '" + credentials + "' not found");
         }
