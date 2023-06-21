@@ -81,7 +81,7 @@
               },
               {
                 "role_category": "JUDICIAL",
-                "role_name": "appraiserRole-1",
+                "role_name": "appraiserRole-2",
                 "permissions": [ "Read,Own,Manage,Complete" ],
                 "authorisations": []
               },
