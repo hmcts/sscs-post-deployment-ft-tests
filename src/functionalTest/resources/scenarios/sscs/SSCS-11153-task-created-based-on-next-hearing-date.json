@@ -76,10 +76,10 @@
                   "role_category": "CTSC",
                   "minor_priority": 500,
                   "major_priority": 5000,
-                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestInfoFromParty)",
-                  "priority_date": "{$TODAY+1}T00:00:00+0000",
+                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestInfoIncompleteApplication)",
+                  "priority_date": "{$TODAY+1}T16:00:00+0000",
                   "next_hearing_id": "2222222",
-                  "next_hearing_date": "{$TODAY+1}T00:00:00+0000"
+                  "next_hearing_date": "{$TODAY+1}T16:00:00+0000"
                 }
               ]
             }
