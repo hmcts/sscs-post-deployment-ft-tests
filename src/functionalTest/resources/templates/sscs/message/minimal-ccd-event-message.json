@@ -4,13 +4,5 @@
   "EventTimeStamp": "{$LOCAL_DATETIME_TODAY}",
   "JurisdictionId": "SSCS",
   "CaseTypeId": "Benefit",
-  "EventId": "submitAppeal",
-  "NewStateId": "appealSubmitted",
-  "UserId": "{$USER_ID}",
-  "AdditionalData": {
-    "Data": {
-      "appealType": "protection"
-    },
-    "Definition": {}
-  }
+  "UserId": "{$USER_ID}"
 }
