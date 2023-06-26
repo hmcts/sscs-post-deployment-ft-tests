@@ -1,0 +1,125 @@
+{
+  "description": "create reviewIncompleteAppeal task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "superuser"
+    },
+    "ccd": [
+      {
+        "eventId": "incompleteApplicationReceived",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+            "hearings": [
+              {
+                "value": {
+                  "hearingId": "1111111",
+                  "hearingDate": "{$TODAY-14}"
+                }
+              },
+              {
+                "value": {
+                  "hearingId": "2222222",
+                  "hearingDate": "{$TODAY+1}"
+                }
+              },
+              {
+                "value": {
+                  "hearingId": "3333333",
+                  "hearingDate": "{$TODAY+14}"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "caseworker"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "incompleteApplicationReceived"
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "CTSC-Administrator"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "type": "reviewIncompleteAppeal",
+                  "name": "Review Incomplete Appeal",
+                  "role_category": "CTSC",
+                  "minor_priority": 500,
+                  "major_priority": 5000,
+                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestInfoIncompleteApplication)",
+                  "priority_date": "{$TODAY+1}T16:00:00+0000",
+                  "next_hearing_id": "2222222",
+                  "next_hearing_date": "{$TODAY+1}T16:00:00+0000"
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
+              {
+                "role_category": "",
+                "role_name": "case-allocator",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "",
+                "role_name": "task-supervisor",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "case-manager",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "CTSC-Administrator",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "CTSC-Team-Leader",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Assign,Unassign,Cancel" ],
+                "authorisations": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
