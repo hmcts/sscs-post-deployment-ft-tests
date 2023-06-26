@@ -1,0 +1,105 @@
+{
+  "description": "create reviewBilingualDocument task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "caseworker"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "uploadDocument",
+                "AdditionalData": {
+                  "Data": {
+                    "languagePreferenceWelsh": true
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "CTSC-Administrator"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "type": "reviewBilingualDocument",
+                  "name": "Review Bi-Lingual Document",
+                  "role_category": "CTSC",
+                  "description": "[Request translation from WLU](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestTranslationFromWLU)"
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
+              {
+                "role_category": "",
+                "role_name": "case-allocator",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "",
+                "role_name": "task-supervisor",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "Allocated-CTSC-Caseworker",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,CompleteOwn" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "CTSC-Administrator",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,CompleteOwn" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "CTSC-Team-Leader",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Assign,Unassign,Cancel,CompleteOwn" ],
+                "authorisations": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
