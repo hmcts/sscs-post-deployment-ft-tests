@@ -56,7 +56,7 @@
                   "role_category": "CTSC",
                   "minor_priority": 500,
                   "major_priority": 5000,
-                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestInfoFromParty)"
+                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestInfoIncompleteApplication)"
                 }
               ]
             }
