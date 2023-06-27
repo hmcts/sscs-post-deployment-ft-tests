@@ -95,6 +95,8 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
                 return getUserAuthorization(credentials, "SYSTEMUPDATE_USERNAME", "SYSTEMUPDATE_PASSWORD");
             case "CTSC-Administrator":
                 return getUserAuthorization(credentials, "CTSC_ADMINISTRATOR_USERNAME", "CTSC_ADMINISTRATOR_PASSWORD");
+            case "Regional-Centre-Admin":
+                return getUserAuthorization(credentials, "REGIONAL_CENTRE_ADMIN_USERNAME", "REGIONAL_CENTRE_ADMIN_PASSWORD");
             default:
                 throw new IllegalStateException("Credentials implementation for '" + credentials + "' not found");
         }
