@@ -42,7 +42,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "Regional-Centre-Admin"
+            "key": "CTSC-Administrator"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -51,7 +51,7 @@
             "replacements": {
               "tasks": [
                 {
-                  "type": "reviewOutstandingDraftDecisionRequired",
+                  "type": "reviewOutstandingDraftDecision",
                   "name": "Review Outstanding Draft Decision",
                   "role_category": "CTSC",
                   "minor_priority": 300,

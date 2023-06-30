@@ -50,11 +50,17 @@
             "key": "CTSC-Administrator"
           },
           "status": 200,
-          "numberOfTasksAvailable": 1,
+          "numberOfTasksAvailable": 2,
           "taskData": {
             "template": "minimal-task-response.json",
             "replacements": {
               "tasks": [
+                {
+                  "type": "actionUnprocessedCorrespondence",
+                  "name": "Action Unprocessed Correspondence",
+                  "role_category": "CTSC",
+                  "description": "[Action Unprocessed Correspondence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionUnprocessedCorrespondence)"
+                },
                 {
                   "type": "reviewBilingualDocument",
                   "name": "Review Bi-Lingual Document",
