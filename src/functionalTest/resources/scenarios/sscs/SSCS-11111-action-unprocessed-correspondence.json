@@ -55,7 +55,7 @@
                   "type": "actionUnprocessedCorrespondence",
                   "name": "Action Unprocessed Correspondence",
                   "role_category": "CTSC",
-                  "description": "[Action Unprocessed Correspondence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionUnprocessedCorrespondence)"
+                  "description": "[Action Further Evidence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionFurtherEvidence)"
                 }
               ]
             }
