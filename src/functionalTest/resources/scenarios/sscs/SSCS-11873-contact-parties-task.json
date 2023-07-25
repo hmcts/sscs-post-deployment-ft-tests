@@ -1,0 +1,106 @@
+{
+  "description": "Create Contact Parties task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "caseworker"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "actionPostponementRequest",
+                "AdditionalData": {
+                  "Data": {
+                    "daysToHearing": 6
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "Regional-Centre-Admin"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "type": "contactParties",
+                  "name": "Contact Parties",
+                  "role_category": "ADMIN",
+                  "minor_priority": 100,
+                  "major_priority": 1000
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
+              {
+                "role_category": "",
+                "role_name": "case-allocator",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "",
+                "role_name": "task-supervisor",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "Allocated-Admin-Caseworker",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,CompleteOwn" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "Regional-Centre-Admin",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,CompleteOwn" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "Regional-Centre-Team-Leader",
+                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Assign,Unassign,Cancel,CompleteOwn" ],
+                "authorisations": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
