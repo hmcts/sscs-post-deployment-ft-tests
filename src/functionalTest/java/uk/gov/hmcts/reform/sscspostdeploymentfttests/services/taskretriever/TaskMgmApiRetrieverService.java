@@ -30,8 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static java.util.Collections.emptyMap;
-import static java.util.Collections.singletonList;
+import static java.util.Collections.*;
 import static java.util.Objects.requireNonNull;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
@@ -276,11 +275,27 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
         Map<String, Object> taskDataExpectationWithoutMetaData = removeMetaDataFromDataMap(taskDataExpectation);
 
         if (taskDataDataReplacements != null) {
-            MapMerger.merge(taskDataExpectationWithoutMetaData, taskDataDataReplacementsWithoutMetaData);
+            mergeTasks(taskDataDataReplacementsWithoutMetaData, taskDataExpectationWithoutMetaData);
         }
 
-        return MapSerializer.serialize(taskDataExpectationWithoutMetaData);
+        return MapSerializer.serialize(taskDataDataReplacementsWithoutMetaData);
+    }
 
+    private void mergeTasks(Map<String, Object> target, Map<String, Object> minimal) {
+        List<Map<String, Object>> targetTaskList = new ArrayList<>(
+            requireNonNull(MapValueExtractor.extract(target, "tasks")));
+        List<Map<String, Object>> taskListMinimal = new ArrayList<>(
+            requireNonNull(MapValueExtractor.extract(minimal, "tasks")));
+
+        targetTaskList.forEach(t -> mergeTask(t, taskListMinimal.get(0)));
+    }
+
+    private void mergeTask(Map<String, Object> target, Map<String, Object> minimal) {
+        for(String key : minimal.keySet()) {
+            if(!target.containsKey(key)) {
+                target.put(key, minimal.get(key));
+            }
+        }
     }
 
     private Map<String, Object> removeMetaDataFromDataMap(Map<String, Object> dataMap) {
