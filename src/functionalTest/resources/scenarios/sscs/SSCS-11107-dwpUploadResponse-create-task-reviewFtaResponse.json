@@ -69,7 +69,7 @@
                   "role_category": "CTSC",
                   "minor_priority": 300,
                   "major_priority": 3000,
-                  "description": "[Review FTA Response](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/hmctsResponseReviewed)",
+                  "description": "[Response reviewed](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/hmctsResponseReviewed)",
                   "permissions": {
                     "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ]
                   }
@@ -90,7 +90,7 @@
                 },
                 {
                   "role_name": "case-allocator",
-                  "permissions": [ "Read", "Own", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 },
                 {
@@ -107,7 +107,7 @@
                 },
                 {
                   "role_name": "task-supervisor",
-                  "permissions": [ "Read", "Own", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 }
               ]
