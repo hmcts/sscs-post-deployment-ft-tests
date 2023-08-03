@@ -85,7 +85,7 @@
                 },
                 {
                   "role_name": "case-allocator",
-                  "permissions": [ "Read", "Own", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 },
                 {
@@ -102,7 +102,7 @@
                 },
                 {
                   "role_name": "task-supervisor",
-                  "permissions": [ "Read", "Own", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 }
               ]

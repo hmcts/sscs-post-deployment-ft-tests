@@ -63,7 +63,7 @@
                   "role_category": "CTSC",
                   "minor_priority": 300,
                   "major_priority": 3000,
-                  "description": "[Action Unprocessed Correspondence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionUnprocessedCorrespondence)",
+                  "description": "[Action further evidence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionFurtherEvidence)",
                   "permissions": {
                     "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "Cancel", "UnclaimAssign", "CompleteOwn" ]
                   }
@@ -84,7 +84,7 @@
                 },
                 {
                   "role_name": "case-allocator",
-                  "permissions": [ "Read", "Own", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 },
                 {
@@ -101,7 +101,7 @@
                 },
                 {
                   "role_name": "task-supervisor",
-                  "permissions": [ "Read", "Own", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 }
               ]

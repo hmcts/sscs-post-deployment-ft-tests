@@ -60,7 +60,7 @@
                   "type": "reviewIncompleteAppeal",
                   "name": "Review Incomplete Appeal",
                   "role_category": "CTSC",
-                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestInfoIncompleteApplication)",
+                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestForInformation)",
                   "permissions": {
                     "values": [ "Read", "Own", "Manage", "Claim", "Unclaim", "UnclaimAssign" ]
                   }
@@ -81,7 +81,7 @@
                 },
                 {
                   "role_name": "case-allocator",
-                  "permissions": [ "Read", "Own", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 },
                 {
@@ -98,7 +98,7 @@
                 },
                 {
                   "role_name": "task-supervisor",
-                  "permissions": [ "Read", "Own", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 }
               ]
