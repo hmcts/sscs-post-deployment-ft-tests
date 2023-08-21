@@ -12,7 +12,7 @@
     },
     "ccd": [
       {
-        "eventId": "sendToFirstTier",
+        "eventId": "validAppealCreated",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
@@ -33,7 +33,13 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "sendToAdmin"
+                "EventId": "sendToFirstTier",
+                "NewStateId": "dormantAppealState",
+                "AdditionalData": {
+                  "Data": {
+                    "action": "remade"
+                  }
+                }
               }
             }
           ]
@@ -74,7 +80,7 @@
                 {
                   "role_category": "CTSC",
                   "role_name": "allocated-ctsc-caseworker",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
                   "authorisations": []
                 },
                 {
@@ -85,13 +91,13 @@
                 {
                   "role_category": "CTSC",
                   "role_name": "ctsc",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "Cancel","UnclaimAssign", "CompleteOwn" ],
                   "authorisations": []
                 },
                 {
                   "role_category": "CTSC",
                   "role_name": "ctsc-team-leader",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel" ],
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel", "CompleteOwn" ],
                   "authorisations": []
                 },
                 {
