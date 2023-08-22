@@ -34,7 +34,15 @@
               "template": "minimal-ccd-event-message.json",
               "replacements": {
                 "EventId": "actionFurtherEvidence",
-                "NewStateId": "postHearing"
+                "NewStateId": "postHearing",
+                "AdditionalData": {
+                  "Data": {
+                    "scannedDocumentTypes": [
+                      "libertyToApplyApplication"
+                    ],
+                    "furtherEvidenceAction": "sendToInterlocReviewByJudge"
+                  }
+                }
               }
             }
           ]
