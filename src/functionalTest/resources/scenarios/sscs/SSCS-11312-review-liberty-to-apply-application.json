@@ -1,5 +1,5 @@
 {
-  "description": "create reviewStatementofReasonsApplication task",
+  "description": "create reviewLibertytoApplyApplication task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -33,7 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "sORRequest",
+                "EventId": "actionFurtherEvidence",
                 "NewStateId": "postHearing"
               }
             }
@@ -43,7 +43,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "CTSC-Administrator"
+            "key": "judge"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -55,15 +55,14 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "reviewStatementofReasonsApplication"
+                      "value": "reviewLibertytoApplyApplication"
                     }
                   ],
-                  "type": "reviewStatementofReasonsApplication",
-                  "name": "Review Statement of Reasons Application",
-                  "role_category": "CTSC",
+                  "type": "reviewLibertytoApplyApplication",
+                  "name": "Review Liberty to Apply Application",
+                  "role_category": "JUDICIAL",
                   "minor_priority": 500,
                   "major_priority": 5000,
-                  "description": "[Send to Interloc - Review statement of reasons application](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/validSendToInterloc)",
                   "permissions": {
                     "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ]
                   }
@@ -73,30 +72,24 @@
           },
           "roleData": [
             {
-              "key": "reviewStatementofReasonsApplication",
-              "numberOfRolesAvailable": 5,
+              "key": "reviewLibertytoApplyApplication",
+              "numberOfRolesAvailable": 4,
               "roles": [
-                {
-                  "role_category": "CTSC",
-                  "role_name": "allocated-ctsc-caseworker",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
-                  "authorisations": []
-                },
                 {
                   "role_name": "case-allocator",
                   "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 },
                 {
-                  "role_category": "CTSC",
-                  "role_name": "ctsc",
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
                   "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
                   "authorisations": []
                 },
                 {
-                  "role_category": "CTSC",
-                  "role_name": "ctsc-team-leader",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel" ],
+                  "role_category": "JUDICIAL",
+                  "role_name": "post-hearing-judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
                   "authorisations": []
                 },
                 {
