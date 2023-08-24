@@ -1,0 +1,113 @@
+{
+  "description": "create writeStatementofReason task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "systemupdate"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "sORExtendTime",
+                "NewStateId": "postHearing"
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "judge"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "writeStatementofReason"
+                    }
+                  ],
+                  "type": "writeStatementofReason",
+                  "name": "Write Statement of Reason",
+                  "role_category": "JUDICIAL",
+                  "minor_priority": 500,
+                  "major_priority": 5000,
+                  "permissions": {
+                    "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ]
+                  }
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "writeStatementofReason",
+              "numberOfRolesAvailable": 5,
+              "roles": [
+                {
+                  "role_name": "case-allocator",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "fee-paid-judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "hearing-judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
