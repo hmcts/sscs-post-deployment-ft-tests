@@ -81,7 +81,7 @@
           "roleData": [
             {
               "key": "reviewPermissiontoAppealApplication",
-              "numberOfRolesAvailable": 5,
+              "numberOfRolesAvailable": 4,
               "roles": [
                 {
                   "role_name": "case-allocator",
