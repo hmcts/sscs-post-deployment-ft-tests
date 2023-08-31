@@ -1,5 +1,5 @@
 {
-  "description": "create reviewIncompleteAppeal task",
+  "description": "Create Contact Parties task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -8,11 +8,11 @@
   },
   "required": {
     "credentials": {
-      "key": "superuser"
+      "key": "systemupdate"
     },
     "ccd": [
       {
-        "eventId": "incompleteApplicationReceived",
+        "eventId": "validAppealCreated",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
@@ -33,7 +33,12 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "incompleteApplicationReceived"
+                "EventId": "actionPostponementRequest",
+                "AdditionalData": {
+                  "Data": {
+                    "daysToHearing": 6
+                  }
+                }
               }
             }
           ]
@@ -42,7 +47,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "CTSC-Administrator"
+            "key": "Regional-Centre-Admin"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -54,29 +59,27 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "reviewIncompleteAppeal"
+                      "value": "contactParties"
                     }
                   ],
-                  "type": "reviewIncompleteAppeal",
-                  "name": "Review Incomplete Appeal",
-                  "role_category": "CTSC",
-                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestForInformation)",
-                  "permissions": {
-                    "values": [ "Read", "Own", "Manage", "Claim", "Unclaim", "UnclaimAssign" ]
-                  }
+                  "type": "contactParties",
+                  "name": "Contact Parties",
+                  "role_category": "ADMIN",
+                  "minor_priority": 100,
+                  "major_priority": 1000
                 }
               ]
             }
           },
           "roleData": [
             {
-              "key": "reviewIncompleteAppeal",
+              "key": "contactParties",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {
-                  "role_category": "CTSC",
-                  "role_name": "allocated-ctsc-caseworker",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "role_category": "ADMIN",
+                  "role_name": "allocated-admin-caseworker",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
                   "authorisations": []
                 },
                 {
@@ -85,15 +88,15 @@
                   "authorisations": []
                 },
                 {
-                  "role_category": "CTSC",
-                  "role_name": "ctsc",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "role_category": "ADMIN",
+                  "role_name": "regional-centre-admin",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
                   "authorisations": []
                 },
                 {
-                  "role_category": "CTSC",
-                  "role_name": "ctsc-team-leader",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel" ],
+                  "role_category": "ADMIN",
+                  "role_name": "regional-centre-team-leader",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel", "CompleteOwn" ],
                   "authorisations": []
                 },
                 {

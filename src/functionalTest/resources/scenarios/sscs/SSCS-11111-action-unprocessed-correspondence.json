@@ -52,48 +52,61 @@
             "replacements": {
               "tasks": [
                 {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "actionUnprocessedCorrespondence"
+                    }
+                  ],
                   "type": "actionUnprocessedCorrespondence",
                   "name": "Action Unprocessed Correspondence",
                   "role_category": "CTSC",
-                  "description": "[Action Unprocessed Correspondence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionUnprocessedCorrespondence)"
+                  "minor_priority": 300,
+                  "major_priority": 3000,
+                  "description": "[Action further evidence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionFurtherEvidence)",
+                  "permissions": {
+                    "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "Cancel", "UnclaimAssign", "CompleteOwn" ]
+                  }
                 }
               ]
             }
           },
-          "roleData": {
-            "roles": [
-              {
-                "role_category": "",
-                "role_name": "case-allocator",
-                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "",
-                "role_name": "task-supervisor",
-                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "CTSC",
-                "role_name": "Allocated-CTSC-Caseworker",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "CTSC",
-                "role_name": "CTSC-Administrator",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "CTSC",
-                "role_name": "CTSC-Team-Leader",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Assign,Unassign,Cancel" ],
-                "authorisations": []
-              }
-            ]
-          }
+          "roleData": [
+            {
+              "key": "actionUnprocessedCorrespondence",
+              "numberOfRolesAvailable": 5,
+              "roles": [
+                {
+                  "role_category": "CTSC",
+                  "role_name": "allocated-ctsc-caseworker",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "Cancel", "UnclaimAssign", "CompleteOwn" ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "case-allocator",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "Cancel", "UnclaimAssign", "CompleteOwn" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc-team-leader",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel", "CompleteOwn" ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
         }
       ]
     }

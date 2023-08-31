@@ -1,5 +1,5 @@
 {
-  "description": "create reviewIncompleteAppeal task",
+  "description": "correct priority and hearing date",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -71,12 +71,16 @@
             "replacements": {
               "tasks": [
                 {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "reviewIncompleteAppeal"
+                    }
+                  ],
                   "type": "reviewIncompleteAppeal",
                   "name": "Review Incomplete Appeal",
                   "role_category": "CTSC",
-                  "minor_priority": 500,
-                  "major_priority": 5000,
-                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestInfoIncompleteApplication)",
+                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestForInformation)",
                   "priority_date": "{$TODAY+4}T16:00:00+0000",
                   "next_hearing_id": "2222222",
                   "next_hearing_date": "{$TODAY+14}T16:00:00+0000"
@@ -84,40 +88,42 @@
               ]
             }
           },
-          "roleData": {
-            "roles": [
-              {
-                "role_category": "",
-                "role_name": "case-allocator",
-                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "",
-                "role_name": "task-supervisor",
-                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "CTSC",
-                "role_name": "case-manager",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "CTSC",
-                "role_name": "CTSC-Administrator",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "CTSC",
-                "role_name": "CTSC-Team-Leader",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Assign,Unassign,Cancel" ],
-                "authorisations": []
-              }
-            ]
-          }
+          "roleData": [
+            {
+              "key": "reviewIncompleteAppeal",
+              "numberOfRolesAvailable": 5,
+              "roles": [
+                {
+                  "role_category": "CTSC",
+                  "role_name": "allocated-ctsc-caseworker",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "case-allocator",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc-team-leader",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel" ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
         }
       ]
     }

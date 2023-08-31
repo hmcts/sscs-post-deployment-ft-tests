@@ -1,5 +1,5 @@
 {
-  "description": "create Bundle And Allocate Case Roles",
+  "description": "create allocateCaseRolesAndCreateBundle task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -51,50 +51,61 @@
             "replacements": {
               "tasks": [
                 {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "allocateCaseRolesAndCreateBundle"
+                    }
+                  ],
                   "type": "allocateCaseRolesAndCreateBundle",
                   "name": "Allocate Case Roles and Create Bundle",
                   "role_category": "ADMIN",
                   "minor_priority": 300,
                   "major_priority": 3000,
-                  "description": "[Create a bundle in the case](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/createBundle)"
+                  "description": "[Create a bundle in the case](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/createBundle)",
+                  "permissions": {
+                    "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ]
+                  }
                 }
               ]
             }
           },
-          "roleData": {
-            "roles": [
-              {
-                "role_category": "",
-                "role_name": "case-allocator",
-                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "",
-                "role_name": "task-supervisor",
-                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "ADMIN",
-                "role_name": "Allocated-Admin-Caseworker",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "ADMIN",
-                "role_name": "Regional-Centre-Admin",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "ADMIN",
-                "role_name": "Regional-Centre-Team-Leader",
-                "permissions": [ "Read,Own,Claim,Unclaim,Manage,UnclaimAssign,Assign,Unassign,Cancel" ],
-                "authorisations": []
-              }
-            ]
-          }
+          "roleData": [
+            {
+              "key": "allocateCaseRolesAndCreateBundle",
+              "numberOfRolesAvailable": 5,
+              "roles": [
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "allocated-admin-caseworker",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "case-allocator",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "regional-centre-admin",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "regional-centre-team-leader",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel" ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
         }
       ]
     }
