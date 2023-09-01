@@ -58,6 +58,12 @@
             "replacements": {
               "tasks": [
                 {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "prepareForHearingJudge"
+                    }
+                  ],
                   "type": "prepareForHearingJudge",
                   "name": "Prepare For Hearing",
                   "work_type_id": "hearing_work",
@@ -69,40 +75,44 @@
               ]
             }
           },
-          "roleData": {
-            "roles": [
-              {
-                "role_category": "",
-                "role_name": "case-allocator",
-                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "",
-                "role_name": "task-supervisor",
-                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "JUDICIAL",
-                "role_name": "hearing-judge",
-                "permissions": [ "Read,Own" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "JUDICIAL",
-                "role_name": "judge",
-                "permissions": [ "Read,Own" ],
-                "authorisations": []
-              },
-              {
-                "role_category": "JUDICIAL",
-                "role_name": "fee-paid-judge",
-                "permissions": [ "Read,Own" ],
-                "authorisations": []
-              }
-            ]
-          }
+          "roleData": [
+            {
+              "key": "prepareForHearingJudge",
+              "numberOfRolesAvailable": 5,
+              "roles": [
+                {
+                  "role_category": null,
+                  "role_name": "case-allocator",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "fee-paid-judge",
+                  "permissions": [ "Read", "Own" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "hearing-judge",
+                  "permissions": [ "Read", "Own" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
+                  "permissions": [ "Read", "Own" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": null,
+                  "role_name": "task-supervisor",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
         }
       ]
     }

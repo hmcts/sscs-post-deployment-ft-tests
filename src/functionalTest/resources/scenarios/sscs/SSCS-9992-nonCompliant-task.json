@@ -1,6 +1,6 @@
 {
   "description": "create non-compliant task",
-  "enabled": true,
+  "enabled": false,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
   "options": {
