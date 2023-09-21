@@ -97,6 +97,12 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
                 return getUserAuthorization(credentials, "CTSC_ADMINISTRATOR_USERNAME", "CTSC_ADMINISTRATOR_PASSWORD");
             case "Regional-Centre-Admin":
                 return getUserAuthorization(credentials, "REGIONAL_CENTRE_ADMIN_USERNAME", "REGIONAL_CENTRE_ADMIN_PASSWORD");
+            case "Tribunal-Member-1":
+                return getUserAuthorization(credentials, "TRIBUNAL_MEMBER_1_USERNAME", "TRIBUNAL_MEMBER_1_PASSWORD");
+            case "Tribunal-Member-2":
+                return getUserAuthorization(credentials, "TRIBUNAL_MEMBER_2_USERNAME", "TRIBUNAL_MEMBER_2_PASSWORD");
+            case "Tribunal-Member-3":
+                return getUserAuthorization(credentials, "TRIBUNAL_MEMBER_3_USERNAME", "TRIBUNAL_MEMBER_3_PASSWORD");
             default:
                 throw new IllegalStateException("Credentials implementation for '" + credentials + "' not found");
         }
