@@ -68,7 +68,7 @@
                   "name": "Prepare For Hearing",
                   "work_type_id": "hearing_work",
                   "description": null,
-                  "role_category": "Judicial",
+                  "role_category": "JUDICIAL",
                   "major_priority": 5000,
                   "minor_priority": 500
                 }

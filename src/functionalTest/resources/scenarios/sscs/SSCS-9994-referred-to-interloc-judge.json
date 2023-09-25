@@ -67,7 +67,7 @@
                   "name": "Referred to interloc - No MRN",
                   "work_type_id": "pre_hearing",
                   "description": null,
-                  "role_category": "Judicial",
+                  "role_category": "JUDICIAL",
                   "major_priority": 5000,
                   "minor_priority": 500
                 }

@@ -36,7 +36,7 @@
                 "EventId": "updateNotListable",
                 "AdditionalData": {
                   "Data": {
-                    "reviewBy": "reviewByTcw"
+                    "action": "reviewByTcw"
                   }
                 }
               }

@@ -61,7 +61,7 @@
                   "name": "Write Decision",
                   "work_type_id": "hearing_work",
                   "description": null,
-                  "role_category": "Judicial",
+                  "role_category": "JUDICIAL",
                   "major_priority": 1000,
                   "minor_priority": 100
                 }
