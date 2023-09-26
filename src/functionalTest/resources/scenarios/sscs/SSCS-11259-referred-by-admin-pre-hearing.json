@@ -37,7 +37,7 @@
                 "AdditionalData": {
                   "Data": {
                     "workType": "preHearingWork",
-                    "selectWhoReviewsCase": "reviewByJudge"
+                    "action": "reviewByJudge"
 
                   }
                 }
@@ -52,7 +52,7 @@
             "key": "judge"
           },
           "status": 200,
-          "numberOfTasksAvailable": 1,
+          "numberOfTasksAvailable": 2,
           "taskData": {
             "template": "minimal-task-response.json",
             "replacements": {
@@ -66,6 +66,15 @@
                   ],
                   "type": "referredByAdminJudgePreHearing",
                   "name": "Referred By Admin",
+                  "work_type_id": "pre_hearing",
+                  "description": null,
+                  "role_category": "JUDICIAL",
+                  "major_priority": 5000,
+                  "minor_priority": 500
+                },
+                {
+                  "type": "referredToInterlocJudge",
+                  "name": "Referred to interloc",
                   "work_type_id": "pre_hearing",
                   "description": null,
                   "role_category": "JUDICIAL",
