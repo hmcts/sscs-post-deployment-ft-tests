@@ -64,7 +64,7 @@
                   "role_category": "CTSC",
                   "minor_priority": 300,
                   "major_priority": 3000,
-                  "description": "[Update Listing Requirements](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/updateListingRequirements)<br/>[Review Listing Error](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/reviewListingError)",
+                  "description": "[Update Listing Requirements](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/updateListingRequirements)<br/>[Ready to list](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/readyToList)",
                   "permissions": {
                     "values": [ "Read", "Own", "Manage", "Claim", "Unclaim", "UnclaimAssign" ]
                   }
