@@ -34,7 +34,7 @@
               "template": "minimal-ccd-event-message.json",
               "replacements": {
                 "EventId": "appealCreated",
-                "NewStateId": "withFta",
+                "NewStateId": "withDwp",
                 "AdditionalData": {
                   "Data": {
                     "dwpDueDate": "{$TODAY}"
@@ -60,7 +60,7 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "reviewIncompleteAppeal"
+                      "value": "reviewFtaDueDate"
                     }
                   ],
                   "type": "reviewFtaDueDate",
@@ -77,7 +77,7 @@
           },
           "roleData": [
             {
-              "key": "reviewIncompleteAppeal",
+              "key": "reviewFtaDueDate",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {
