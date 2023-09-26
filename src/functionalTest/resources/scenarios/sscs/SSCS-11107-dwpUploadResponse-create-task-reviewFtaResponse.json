@@ -38,7 +38,7 @@
                 "NewStateId": "withDwp",
                 "AdditionalData": {
                   "Data": {
-                    "dwpFurtherInfo": "Yes"
+                    "dwpFurtherInfo": true
                   }
                 }
               }
