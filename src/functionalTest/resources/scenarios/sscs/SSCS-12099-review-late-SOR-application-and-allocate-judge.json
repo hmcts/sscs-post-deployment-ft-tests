@@ -1,5 +1,5 @@
 {
-  "description": "create reviewStatementofReasonsApplication task",
+  "description": "SSCS-12099 create reviewLateStatementofReasonsApplicationAndAllocateJudge task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -37,7 +37,7 @@
                 "NewStateId": "postHearing",
                 "AdditionalData": {
                   "Data": {
-                    "finalDecisionIssuedDate": "{$TODAY-7}"
+                    "finalDecisionIssuedDate": "{$TODAY-45}"
                   }
                 }
               }
@@ -60,15 +60,15 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "reviewStatementofReasonsApplication"
+                      "value": "reviewLateStatementofReasonsApplicationAndAllocateJudge"
                     }
                   ],
                   "type": "reviewStatementofReasonsApplication",
                   "name": "Review Statement of Reasons Application",
                   "role_category": "CTSC",
-                  "minor_priority": 500,
-                  "major_priority": 5000,
-                  "description": "[Send to Interloc - Review statement of reasons application](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/validSendToInterloc)",
+                  "minor_priority": 300,
+                  "major_priority": 3000,
+                  "description": "[Send to Interloc - Review Late SOR Application and Allocate Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/validSendToInterloc)",
                   "permissions": {
                     "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ]
                   }
@@ -78,7 +78,7 @@
           },
           "roleData": [
             {
-              "key": "reviewStatementofReasonsApplication",
+              "key": "reviewLateStatementofReasonsApplicationAndAllocateJudge",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {
