@@ -34,6 +34,13 @@ public class RoleAssignmentService {
 
     private final RoleAssignmentServiceApiClient roleAssignmentServiceApi;
 
+    private Map<String,String> roleToCategoryMap = Map.of(
+        "tribunal-caseworker", "LEGAL_OPERATIONS",
+        "judge", "JUDICIAL",
+        "ctsc", "CTSC",
+        "regional-centre-admin", "ADMIN"
+    );
+
     static {
         try {
             Map<String, String> templates = StringResourceLoader.load(
@@ -113,13 +120,13 @@ public class RoleAssignmentService {
             userInfo.getUid(),
             roleName,
             JsonUtil.toJsonString(Map.of(
-                "caseType", "WaCaseType",
-                "jurisdiction", "WA",
+                "caseType", "Benefit",
+                "jurisdiction", "SSCS",
                 "primaryLocation", "765324"
             )),
             DEFAULT_ROLE_ASSIGNMENT_TEMPLATE,
             "STANDARD",
-            "LEGAL_OPERATIONS",
+            roleToCategoryMap.getOrDefault(roleName, "LEGAL_OPERATIONS"),
             JsonUtil.toJsonString(List.of()),
             "ORGANISATION",
             "PUBLIC",

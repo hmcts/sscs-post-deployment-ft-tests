@@ -10,11 +10,11 @@ import java.io.IOException;
 public interface AuthorizationHeaders {
     Headers getWaSystemUserAuthorization();
 
+    Headers getSscsSystemUserAuthorization();
+
     Headers getWaUserAuthorization(CredentialRequest request) throws IOException;
 
     UserInfo getUserInfo(String userToken);
 
     void cleanupTestUsers();
-
-    Header getUserAuthorizationHeader(String credentials);
 }

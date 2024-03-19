@@ -25,7 +25,7 @@
     {
       "request": {
         "credentials": {
-          "key": "systemupdate"
+          "key": "caseworker"
         },
         "input": {
           "eventMessages": [
@@ -54,7 +54,7 @@
           "taskData": {
             "template": "minimal-task-response.json",
             "replacements": {
-              "tasks": [                
+              "tasks": [
                 {
                   "type": "actionUnprocessedCorrespondence",
                   "name": "Action Unprocessed Correspondence - CTSC",
@@ -78,7 +78,7 @@
                   "minor_priority": 500,
                   "major_priority": 5000,
                   "description": "[Amend interloc review state](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)<br/>[Process audio/video evidence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/processAudioVideo)"
-                }                
+                }
               ]
             }
           },

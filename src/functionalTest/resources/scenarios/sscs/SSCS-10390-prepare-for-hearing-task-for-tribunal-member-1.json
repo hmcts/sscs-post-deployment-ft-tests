@@ -25,7 +25,7 @@
     {
       "request": {
         "credentials": {
-          "key": "systemupdate"
+          "key": "caseworker"
         },
         "input": {
           "eventMessages": [
@@ -47,7 +47,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "Tribunal-Member-1"
+            "key": "judge"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -113,7 +113,7 @@
                   "authorisations": []
                 },
                 { "role_category": "JUDICIAL", "role_name": "tribunal-member-2", "permissions": [ "Read" ], "authorisations": [] },
-                { "role_category": "JUDICIAL", "role_name": "tribunal-member-3", "permissions": [ "Read" ], "authorisations": [] }                
+                { "role_category": "JUDICIAL", "role_name": "tribunal-member-3", "permissions": [ "Read" ], "authorisations": [] }
               ]
             }
           ]

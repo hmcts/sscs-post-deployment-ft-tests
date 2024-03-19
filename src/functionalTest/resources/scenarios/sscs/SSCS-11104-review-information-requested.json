@@ -8,11 +8,11 @@
     },
     "required": {
       "credentials": {
-        "key": "superuser"
+        "key": "systemupdate"
       },
       "ccd": [
         {
-          "eventId": "incompleteApplicationReceived",
+          "eventId": "validAppealCreated",
           "caseData": {
             "template": "minimal-sscs-benefit-appeal.json",
             "replacements": {
@@ -127,4 +127,3 @@
       }
     ]
   }
-  

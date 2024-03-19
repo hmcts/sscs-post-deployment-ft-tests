@@ -25,7 +25,7 @@
     {
       "request": {
         "credentials": {
-          "key": "systemupdate"
+          "key": "caseworker"
         },
         "input": {
           "eventMessages": [
@@ -83,7 +83,7 @@
                   "permissions": {
                     "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ]
                   }
-                }          
+                }
               ]
             }
           },

@@ -47,7 +47,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "Tribunal-Member-3"
+            "key": "judge"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,

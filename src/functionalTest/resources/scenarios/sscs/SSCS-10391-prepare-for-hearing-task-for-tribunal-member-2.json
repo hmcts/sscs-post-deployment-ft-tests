@@ -25,7 +25,7 @@
     {
       "request": {
         "credentials": {
-          "key": "systemupdate"
+          "key": "caseworker"
         },
         "input": {
           "eventMessages": [
@@ -47,7 +47,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "Tribunal-Member-2"
+            "key": "judge"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
