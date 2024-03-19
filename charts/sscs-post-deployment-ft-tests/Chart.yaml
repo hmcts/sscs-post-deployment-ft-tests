@@ -3,10 +3,10 @@ appVersion: "1.0"
 description: A Helm chart for sscs-post-deployment-ft-tests App
 name: sscs-post-deployment-ft-tests
 home: https://github.com/hmcts/sscs-post-deployment-ft-tests
-version: 0.0.2
+version: 0.0.3
 maintainers:
   - name: HMCTS sscs team
 dependencies:
   - name: java
     version: 3.6.0
-    repository: '@hmctspublic'
+    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
