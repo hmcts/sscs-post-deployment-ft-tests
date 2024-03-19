@@ -12,7 +12,6 @@ import uk.gov.hmcts.reform.sscspostdeploymentfttests.services.TaskManagementServ
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.DeserializeValuesUtil;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.Logger;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapMerger;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapSerializer;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.StringResourceLoader;
@@ -30,7 +29,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static java.util.Collections.*;
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonList;
 import static java.util.Objects.requireNonNull;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
@@ -291,8 +291,8 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
     }
 
     private void mergeTask(Map<String, Object> target, Map<String, Object> minimal) {
-        for(String key : minimal.keySet()) {
-            if(!target.containsKey(key)) {
+        for (String key : minimal.keySet()) {
+            if (!target.containsKey(key)) {
                 target.put(key, minimal.get(key));
             }
         }

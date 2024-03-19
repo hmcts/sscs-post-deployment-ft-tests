@@ -25,9 +25,7 @@ public class RestMessageService {
     @Autowired
     protected AuthorizationHeadersProvider authorizationHeadersProvider;
 
-    public void
-
-    sendMessage(String message, String caseId, boolean fromDlq) {
+    public void sendMessage(String message, String caseId, boolean fromDlq) {
         String messageId = randomMessageId();
 
         System.out.println(

@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 @Slf4j
 @Service
 public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
@@ -103,15 +102,14 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     @Override
     public void cleanupTestUsers() {
         testUserAccounts.entrySet().forEach(entry -> {
-                                                Headers headers =  new Headers(
-                                                    getUserAuthorizationHeader(entry.getKey(), entry.getValue()),
-                                                    getServiceAuthorizationHeader()
-                                                );
-                                                UserInfo userInfo = getUserInfo(headers.getValue(AUTHORIZATION));
-                                                roleAssignmentService.clearAllRoleAssignments(headers, userInfo);
-                                                deleteAccount(entry.getValue());
-                                            }
-        );
+            Headers headers =  new Headers(
+                getUserAuthorizationHeader(entry.getKey(), entry.getValue()),
+                getServiceAuthorizationHeader()
+            );
+            UserInfo userInfo = getUserInfo(headers.getValue(AUTHORIZATION));
+            roleAssignmentService.clearAllRoleAssignments(headers, userInfo);
+            deleteAccount(entry.getValue());
+        });
     }
 
     private void deleteAccount(String username) {
