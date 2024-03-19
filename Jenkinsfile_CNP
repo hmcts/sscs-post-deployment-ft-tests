@@ -31,7 +31,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 //Run Jenkins_CNP with nightly pipeline
-withPipeline(type, product, component) {
+withNightlyPipeline(type, product, component) {
   env.AZURE_SERVICE_BUS_TOPIC_NAME="ccd-case-events"
   env.AZURE_SERVICE_BUS_MESSAGE_AUTHOR="sscs-aat"
   env.AZURE_SERVICE_BUS_SUBSCRIPTION_NAME="ccd-case-events-ft"
