@@ -45,8 +45,32 @@ public final class Logger {
             case SCENARIO_BEFORE_COMPLETED:
                 colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: BEFORE Clause completed successfully");
                 break;
+            case SCENARIO_ROLE_ASSIGNMENT_FOUND:
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: POST_ROLE_ASSIGNMENTS Clause found");
+                break;
+            case SCENARIO_ROLE_ASSIGNMENT_COMPLETED:
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: POST_ROLE_ASSIGNMENTS Clause completed successfully");
+                break;
+            case SCENARIO_UPDATE_CASE_FOUND:
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: Update case Clause found");
+                break;
+            case SCENARIO_UPDATE_CASE_COMPLETED:
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: Update case Clause completed successfully");
+                break;
+            case CLEANUP_USERS_RUNNING:
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: Clean up idam users");
+                break;
+            case CLEANUP_USERS_FINISHED:
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: All idam users removed");
+                break;
             case SCENARIO_RUNNING:
                 colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: Processing scenario");
+                break;
+            case SCENARIO_RUNNING_TIME:
+                colouredPrintLine(ANSI_GREEN, "✅ SCENARIO: Total time taken to complete test " + content + " Seconds");
+                break;
+            case SCENARIO_FAILED:
+                colouredPrintLine(ANSI_RED, "❌ SCENARIO: " + content + " failed");
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + message);
