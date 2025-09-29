@@ -48,12 +48,12 @@ withNightlyPipeline(type, product, component) {
   env.OPEN_ID_IDAM_URL = "https://idam-web-public.aat.platform.hmcts.net"
   env.DOCUMENT_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
 
-  env.CCD_URL="https://ccd-data-store-api-aat.service.core-compute-aat.internal"
-  env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-aat.service.core-compute-aat.internal"
-  env.WA_TASK_MONITOR_URL="https://wa-task-monitor-aat.service.core-compute-aat.internal"
-  env.CAMUNDA_URL="https://camunda-aat.service.core-compute-aat.internal/engine-rest"
-  env.ROLE_ASSIGNMENT_URL="https://ras-aat.service.core-compute-aat.internal"
-  env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-aat.service.core-compute-aat.internal"
+  env.CCD_URL="http://ccd-data-store-api-aat.service.core-compute-aat.internal"
+  env.WA_TASK_MANAGEMENT_API_URL="http://wa-task-management-api-aat.service.core-compute-aat.internal"
+  env.WA_TASK_MONITOR_URL="http://wa-task-monitor-aat.service.core-compute-aat.internal"
+  env.CAMUNDA_URL="http://camunda-api-aat.service.core-compute-aat.internal/engine-rest"
+  env.ROLE_ASSIGNMENT_URL="http://am-role-assignment-service-aat.service.core-compute-aat.internal"
+  env.WA_CASE_EVENT_HANDLER_URL="http://wa-case-event-handler-aat.service.core-compute-aat.internal"
 
   loadVaultSecrets(secrets)
   enableFullFunctionalTest(60)
