@@ -55,13 +55,21 @@ withNightlyPipeline(type, product, component) {
   }
 
   onPR {
-    env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
-    env.CCD_URL="https://ccd-data-store-api-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net"
-    env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net"
-    env.WA_TASK_MONITOR_URL="https://wa-task-monitor-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net"
-    env.CAMUNDA_URL="https://camunda-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net/engine-rest"
-    env.ROLE_ASSIGNMENT_URL="https://ras-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net"
-    env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net"
+//    env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
+//    env.CCD_URL="https://ccd-data-store-api-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net"
+//    env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net"
+//    env.WA_TASK_MONITOR_URL="https://wa-task-monitor-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net"
+//    env.CAMUNDA_URL="https://camunda-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net/engine-rest"
+//    env.ROLE_ASSIGNMENT_URL="https://ras-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net"
+//    env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-3855.preview.platform.hmcts.net"
+
+    env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="aat"
+    env.CCD_URL="http://ccd-data-store-api-aat.service.core-compute-aat.internal"
+    env.WA_TASK_MANAGEMENT_API_URL="http://wa-task-management-api-aat.service.core-compute-aat.internal"
+    env.WA_TASK_MONITOR_URL="http://wa-task-monitor-aat.service.core-compute-aat.internal"
+    env.CAMUNDA_URL="http://camunda-api-aat.service.core-compute-aat.internal/engine-rest"
+    env.ROLE_ASSIGNMENT_URL="http://am-role-assignment-service-aat.service.core-compute-aat.internal"
+    env.WA_CASE_EVENT_HANDLER_URL="http://wa-case-event-handler-aat.service.core-compute-aat.internal"
   }
 
   loadVaultSecrets(secrets)
