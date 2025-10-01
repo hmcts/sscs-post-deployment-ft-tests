@@ -71,7 +71,7 @@
           "roleData": [
             {
               "key": "ftaRequestTimeExtension",
-              "numberOfRolesAvailable": 24,
+              "numberOfRolesAvailable": 28,
               "roles": [
                 { "role_category": "ADMIN", "role_name": "allocated-admin-caseworker", "permissions": [ "Read" ], "authorisations": [] },
                 { "role_category": "CTSC", "role_name": "allocated-ctsc-caseworker", "permissions": [ "Read" ], "authorisations": [] },
