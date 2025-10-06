@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.SpringBootFunctionalBaseTest;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExpander;
 
 import java.util.Map;
@@ -16,8 +17,6 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static net.serenitybdd.rest.SerenityRest.given;
 import static org.awaitility.Awaitility.await;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.SpringBootFunctionalBaseTest.DEFAULT_POLL_INTERVAL_SECONDS;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.SpringBootFunctionalBaseTest.DEFAULT_TIMEOUT_SECONDS;
 
 @Service
 @Slf4j
@@ -36,7 +35,7 @@ public class TaskMonitorService {
 
         Map<String, Map<String, String>> requestBody = Map.of("job_details", Map.of("name", "INITIATION"));
 
-        initateJob(requestBody, authorizationHeaders);
+        initiateJob(requestBody, authorizationHeaders);
 
     }
 
@@ -44,15 +43,23 @@ public class TaskMonitorService {
 
         Map<String, Map<String, String>> requestBody = Map.of("job_details", Map.of("name", "TERMINATION"));
 
-        initateJob(requestBody, authorizationHeaders);
+        initiateJob(requestBody, authorizationHeaders);
     }
 
-    private void initateJob(Map<String, Map<String, String>> requestBody, Headers authorizationHeaders) {
+    public void triggerReconfigurationJob(Headers authorizationHeaders) {
+
+        Map<String, Map<String, String>> requestBody = Map.of("job_details", Map.of("name", "RECONFIGURATION"));
+
+        initiateJob(requestBody, authorizationHeaders);
+        await().atLeast(SpringBootFunctionalBaseTest.DEFAULT_TIMEOUT_SECONDS, SECONDS);
+    }
+
+    private void initiateJob(Map<String, Map<String, String>> requestBody, Headers authorizationHeaders) {
         await()
             .ignoreException(AssertionError.class)
             .conditionEvaluationListener(new ConditionEvaluationLogger(log::info))
-            .pollInterval(DEFAULT_POLL_INTERVAL_SECONDS, SECONDS)
-            .atMost(DEFAULT_TIMEOUT_SECONDS, SECONDS)
+            .pollInterval(SpringBootFunctionalBaseTest.DEFAULT_POLL_INTERVAL_SECONDS, SECONDS)
+            .atMost(SpringBootFunctionalBaseTest.DEFAULT_TIMEOUT_SECONDS, SECONDS)
             .until(
                 () -> {
                     Response result = given()

@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.sscspostdeploymentfttests.services;
 
+import io.restassured.http.Headers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,15 @@ public class CamundaService {
     private CamundaClient camundaClient;
 
     public void searchByCaseIdJurisdictionAndCaseType(Map<String, Object> clauseValues,
-                                                      TestScenario scenario) {
+                                                      TestScenario scenario,
+                                                      String caseId,
+                                                      Headers authorizationHeaders) {
         int expectedTasks = MapValueExtractor.extractOrDefault(
-            clauseValues, "expectation.numberOfTasksAvailable", 1);
+            clauseValues, "numberOfTasksAvailable", 1);
 
         List<CamundaTask> response = camundaClient.getTasksByTaskVariables(
-            scenario.getExpectationAuthorizationHeaders().getValue("ServiceAuthorization"),
-            "caseId_eq_" + scenario.getCaseId()
+            authorizationHeaders.getValue("ServiceAuthorization"),
+            "caseId_eq_" + caseId
             + ",jurisdiction_eq_" + scenario.getJurisdiction()
             + ",caseTypeId_eq_" + scenario.getCaseType(),
             "created",

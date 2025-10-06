@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.sscspostdeploymentfttests.preparers;
 
+import io.restassured.http.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -61,9 +62,10 @@ public class DocumentManagementFiles implements Preparer {
                 throw new RuntimeException("Missing content type mapping for document: " + filename);
             }
 
-            String userToken = authorizationHeadersProvider.getLawFirmAuthorizationOnly().getValue();
+            Headers headers = authorizationHeadersProvider.getSscsSystemUserAuthorization();
+            String userToken = headers.getValue(AuthorizationHeadersProvider.AUTHORIZATION);
+            String serviceToken = headers.getValue(AuthorizationHeadersProvider.SERVICE_AUTHORIZATION);
             UserInfo userInfo = authorizationHeadersProvider.getUserInfo(userToken);
-            String serviceToken = authorizationHeadersProvider.getServiceAuthorizationHeader().getValue();
 
             return documentManagementUploader.upload(
                 documentResource,

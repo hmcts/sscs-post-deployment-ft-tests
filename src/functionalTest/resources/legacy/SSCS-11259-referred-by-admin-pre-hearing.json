@@ -1,0 +1,138 @@
+{
+  "description": "create referredByAdminJudgePreHearing task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "caseworker"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "validSendToInterloc",
+                "AdditionalData": {
+                  "Data": {
+                    "workType": "pre",
+                    "action": "reviewByJudge",
+                    "interlocReferralReason": "adviceOnHowToProceed"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "judge"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "referredByAdminJudgePreHearing"
+                    }
+                  ],
+                  "type": "referredByAdminJudgePreHearing",
+                  "name": "Referred By Admin - Judge",
+                  "work_type_id": "pre_hearing",
+                  "description": "[Issue interlocutory decision](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/decisionIssued)<br/>[Issue directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Send to admin](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/sendToAdmin)<br/>[Send case to TCW](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocSendToTcw)<br/>[Strike out case](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/struckOut)<br/>[Write final decision](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/writeFinalDecision)<br/>[Amend interloc review state](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
+                  "role_category": "JUDICIAL",
+                  "major_priority": 5000,
+                  "minor_priority": 500
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "referredByAdminJudgePreHearing",
+              "numberOfRolesAvailable": 25,
+              "roles": [
+                { "role_category": "ADMIN", "role_name": "allocated-admin-caseworker", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "CTSC", "role_name": "allocated-ctsc-caseworker", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "LEGAL_OPERATIONS", "role_name": "allocated-tribunal-caseworker", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "JUDICIAL", "role_name": "appraiser-1", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "JUDICIAL", "role_name": "appraiser-2", "permissions": [ "Read" ], "authorisations": [] },
+                {
+                    "role_name": "case-allocator",
+                    "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                    "authorisations": []
+                },
+                { "role_category": "CTSC", "role_name": "ctsc", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "CTSC", "role_name": "ctsc-team-leader", "permissions": [ "Read" ], "authorisations": [] },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "fee-paid-judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim" ],
+                  "authorisations": [ "368" ]
+                },
+                { "role_category": "JUDICIAL", "role_name": "fee-paid-medical", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "ADMIN", "role_name": "hearing-centre-admin", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "ADMIN", "role_name": "hearing-centre-team-leader", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "JUDICIAL", "role_name": "hearing-judge", "permissions": [ "Read" ], "authorisations": [] },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "interloc-judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                { "role_category": "JUDICIAL", "role_name": "leadership-judge", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "JUDICIAL", "role_name": "medical", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "JUDICIAL", "role_name": "post-hearing-judge", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "ADMIN", "role_name": "regional-centre-admin", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "ADMIN", "role_name": "regional-centre-team-leader", "permissions": [ "Read" ], "authorisations": [] },
+                {
+                    "role_name": "task-supervisor",
+                    "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                    "authorisations": []
+                },
+                { "role_category": "LEGAL_OPERATIONS", "role_name": "tribunal-caseworker", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "JUDICIAL", "role_name": "tribunal-member-1", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "JUDICIAL", "role_name": "tribunal-member-2", "permissions": [ "Read" ], "authorisations": [] },
+                { "role_category": "JUDICIAL", "role_name": "tribunal-member-3", "permissions": [ "Read" ], "authorisations": [] }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
