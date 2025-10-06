@@ -15,7 +15,7 @@ export CCD_URL=https://ccd-data-store-api-sscs-tribunals-api-pr-${TRIBUNALS_PR}.
 export WA_TASK_MANAGEMENT_API_URL=https://wa-task-management-api-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
 export WA_TASK_MONITOR_URL=https://wa-task-monitor-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
 export CAMUNDA_URL=https://camunda-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net/engine-rest
-export ROLE_ASSIGNMENT_URL=https://ras-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+export ROLE_ASSIGNMENT_URL=https://am-role-assignment-service-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
 export WA_CASE_EVENT_HANDLER_URL=https://wa-case-event-handler-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
 
 # Set environment variable from Azure secret vault
