@@ -16,6 +16,7 @@ import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.StringResourceLoader;
 
 import java.io.IOException;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -136,7 +137,7 @@ public class RoleAssignmentService {
             false,
             null,
             "2020-01-01T00:00:00Z",
-            "2026-11-01T00:00:00Z",
+            null,
             userInfo.getUid()
         );
     }
@@ -220,6 +221,8 @@ public class RoleAssignmentService {
                               authorisations, roleType, classification, process, reference, replaceExisting,
                               readOnly, notes, beginTime, endTime, assignerId);
 
+        log.info("Creating role assignments with body {}", body);
+
         roleAssignmentServiceApi.createRoleAssignment(
             body,
             bearerUserToken,
@@ -281,7 +284,9 @@ public class RoleAssignmentService {
         } else {
             assignmentRequestBody = assignmentRequestBody.replace(
                 "{END_TIME_PLACEHOLDER}",
-                ZonedDateTime.now().plusHours(2).format(ROLE_ASSIGNMENT_DATA_TIME_FORMATTER)
+                ZonedDateTime.now(ZoneId.of("UTC"))
+                    .plusHours(2)
+                    .format(ROLE_ASSIGNMENT_DATA_TIME_FORMATTER)
             );
         }
 
