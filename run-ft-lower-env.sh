@@ -1,8 +1,35 @@
 #!/bin/bash
 
-# Currently this only works with AAT lower environment
+# Use this script if you would like to run your sscs-post-deployment-ft-tests against a lower environment except preview.
+# Note the tests rely on the correct DMN files being deployed in the target env.
+#
+# In most cases it is preferred to use the script: ./run-ft-preview.sh
 
-# Usage: ./run-ft-lower-env.sh [aat/demo/perftest]
+
+# The following envs could also be added if needed: ithc perftest
+ALLOWED_ENVS=("aat" "demo")
+
+if [ -z "$1" ]; then
+    echo "❌ Error: Missing environment parameter."
+    echo "Usage: $0 <environment>"
+    echo "Allowed environments are: ${ALLOWED_ENVS[*]}"
+    echo ""
+    exit 1
+fi
+
+case "$1" in
+    # Allowed values (case-sensitive)
+    aat|demo)
+        ENVIRONMENT=$1
+        echo "✅ Valid environment selected: ${ENVIRONMENT}"
+        ;;
+    *)
+        echo "❌ Error: Invalid environment specified: '$1'."
+        echo "Allowed environments are: ${ALLOWED_ENVS[*]}"
+        exit 1
+        ;;
+esac
+
 
 export FT_ENVIRONMENT="$1"
 export WA_POST_DEPLOYMENT_TEST_FT_ENVIRONMENT=${FT_ENVIRONMENT}
@@ -38,8 +65,8 @@ loadSecret "WA_SYSTEM_USERNAME" ${WA_VAULT_NAME} "wa-system-username"
 loadSecret "WA_SYSTEM_PASSWORD" ${WA_VAULT_NAME} "wa-system-password"
 loadSecret "S2S_SECRET_TASK_MANAGEMENT_API" ${WA_VAULT_NAME} "s2s-secret-task-management-api"
 
-loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" "sscs-aat" "sscs-servicebus-connection-string-tf"
-loadSecret "SYSTEMUPDATE_USERNAME" "sscs-aat" "idam-sscs-systemupdate-user"
-loadSecret "SYSTEMUPDATE_PASSWORD" "sscs-aat" "idam-sscs-systemupdate-password"
+loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${SSCS_VAULT_NAME} "sscs-servicebus-connection-string-tf"
+loadSecret "SYSTEMUPDATE_USERNAME" ${SSCS_VAULT_NAME} "idam-sscs-systemupdate-user"
+loadSecret "SYSTEMUPDATE_PASSWORD" ${SSCS_VAULT_NAME} "idam-sscs-systemupdate-password"
 
 ./gradlew functional --tests ScenarioRunnerTest --info

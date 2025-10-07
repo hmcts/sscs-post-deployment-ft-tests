@@ -8,6 +8,7 @@ import uk.gov.hmcts.reform.sscspostdeploymentfttests.services.DateProviderServic
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,7 +48,10 @@ public class MapValueExpander {
             CalculateDateParameters calculateDateParameters = buildDateParameters(matcher);
 
             LocalDate adjustedDate = dateProviderService.calculateDate(calculateDateParameters);
-            LocalDateTime dateTime = adjustedDate.atTime(LocalDateTime.now().toLocalTime());
+            //TODO consider selecting based on env
+            //LocalDateTime dateTime = adjustedDate.atTime(LocalDateTime.now().toLocalTime());
+            LocalDateTime dateTime = adjustedDate.atTime(LocalTime.now(ZoneId.of("UTC")));
+
             String token = matcher.group(0);
 
             expandedValue = expandedValue.replace(
