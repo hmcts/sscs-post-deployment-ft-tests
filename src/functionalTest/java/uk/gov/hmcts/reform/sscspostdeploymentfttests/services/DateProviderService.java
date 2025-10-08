@@ -20,8 +20,6 @@ public class DateProviderService {
 
     public LocalDate calculateDate(CalculateDateParameters calculateDateParameters) {
 
-        //TODO consider selecting based on env
-        //LocalDate now = LocalDate.now(ZoneId.of("Europe/London"));
         LocalDate now = LocalDate.now(ZoneId.of("UTC"));
 
         if (calculateDateParameters.isWorkingDays()) {

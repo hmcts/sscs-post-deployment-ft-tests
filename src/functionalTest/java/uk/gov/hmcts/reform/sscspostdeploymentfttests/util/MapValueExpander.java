@@ -48,8 +48,6 @@ public class MapValueExpander {
             CalculateDateParameters calculateDateParameters = buildDateParameters(matcher);
 
             LocalDate adjustedDate = dateProviderService.calculateDate(calculateDateParameters);
-            //TODO consider selecting based on env
-            //LocalDateTime dateTime = adjustedDate.atTime(LocalDateTime.now().toLocalTime());
             LocalDateTime dateTime = adjustedDate.atTime(LocalTime.now(ZoneId.of("UTC")));
 
             String token = matcher.group(0);
