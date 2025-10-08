@@ -1,5 +1,5 @@
 {
-  "description": "create ftaRequestTimeExtension task",
+  "description": "create reviewConfidentialityRequest task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -33,7 +33,14 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpRequestTimeExtension"
+                "EventId": "actionFurtherEvidence",
+                "AdditionalData": {
+                  "Data": {
+                    "scannedDocumentTypes": [
+                      "confidentialityRequest"
+                    ]
+                  }
+                }
               }
             }
           ]
@@ -42,7 +49,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "caseworker"
+            "key": "judge"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -54,14 +61,14 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "ftaRequestTimeExtension"
+                      "value": "reviewConfidentialityRequest"
                     }
                   ],
-                  "type": "ftaRequestTimeExtension",
-                  "name": "Request FTA Time Extension",
+                  "type": "reviewConfidentialityRequest",
+                  "name": "Review Confidentiality Request",
                   "work_type_id": "pre_hearing",
-                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
-                  "role_category": "LEGAL_OPERATIONS",
+                  "description": null,
+                  "role_category": "JUDICIAL",
                   "major_priority": 5000,
                   "minor_priority": 500
                 }
@@ -70,15 +77,9 @@
           },
           "roleData": [
             {
-              "key": "ftaRequestTimeExtension",
-              "numberOfRolesAvailable": 5,
+              "key": "reviewConfidentialityRequest",
+              "numberOfRolesAvailable": 6,
               "roles": [
-                {
-                  "role_category": "LEGAL_OPERATIONS",
-                  "role_name": "allocated-tribunal-caseworker",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
-                  "authorisations": []
-                },
                 {
                   "role_category": null,
                   "role_name": "case-allocator",
@@ -87,8 +88,20 @@
                 },
                 {
                   "role_category": "JUDICIAL",
+                  "role_name": "fee-paid-judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim" ],
+                  "authorisations": [ "368" ]
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "interloc-judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Complete" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
                   "role_name": "judge",
-                  "permissions": [ "Read", "Execute", "Unclaim", "UnclaimAssign" ],
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Complete" ],
                   "authorisations": []
                 },
                 {
@@ -100,7 +113,7 @@
                 {
                   "role_category": "LEGAL_OPERATIONS",
                   "role_name": "tribunal-caseworker",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "permissions": [ "Read", "Execute", "Unclaim" ],
                   "authorisations": []
                 }
               ]

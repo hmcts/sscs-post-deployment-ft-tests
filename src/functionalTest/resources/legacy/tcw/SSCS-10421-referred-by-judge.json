@@ -1,5 +1,5 @@
 {
-  "description": "create ftaRequestTimeExtension task",
+  "description": "create referredByJudge task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -33,7 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpRequestTimeExtension"
+                "EventId": "interlocSendToTcw"
               }
             }
           ]
@@ -54,13 +54,13 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "ftaRequestTimeExtension"
+                      "value": "referredByJudge"
                     }
                   ],
-                  "type": "ftaRequestTimeExtension",
-                  "name": "Request FTA Time Extension",
-                  "work_type_id": "pre_hearing",
-                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
+                  "type": "referredByJudge",
+                  "name": "Referred By Judge",
+                  "work_type_id": "routine_work",
+                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Return the case to an admin with a note](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/sendToAdmin)<br/>[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/tcwReferToJudge)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
                   "role_category": "LEGAL_OPERATIONS",
                   "major_priority": 5000,
                   "minor_priority": 500
@@ -70,8 +70,8 @@
           },
           "roleData": [
             {
-              "key": "ftaRequestTimeExtension",
-              "numberOfRolesAvailable": 5,
+              "key": "referredByJudge",
+              "numberOfRolesAvailable": 4,
               "roles": [
                 {
                   "role_category": "LEGAL_OPERATIONS",
@@ -83,12 +83,6 @@
                   "role_category": null,
                   "role_name": "case-allocator",
                   "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
-                  "authorisations": []
-                },
-                {
-                  "role_category": "JUDICIAL",
-                  "role_name": "judge",
-                  "permissions": [ "Read", "Execute", "Unclaim", "UnclaimAssign" ],
                   "authorisations": []
                 },
                 {

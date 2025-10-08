@@ -1,5 +1,5 @@
 {
-  "description": "create ftaRequestTimeExtension task",
+  "description": "Referred to Interloc - FTA response overdue",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -25,7 +25,7 @@
     {
       "request": {
         "credentials": {
-          "key": "caseworker"
+          "key": "systemupdate"
         },
         "input": {
           "eventMessages": [
@@ -33,7 +33,12 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpRequestTimeExtension"
+                "EventId": "validSendToInterloc",
+                "AdditionalData": {
+                  "Data": {
+                    "action":"reviewByTcw"
+                  }
+                }
               }
             }
           ]
@@ -45,32 +50,39 @@
             "key": "caseworker"
           },
           "status": 200,
-          "numberOfTasksAvailable": 1,
+          "numberOfTasksAvailable": 4,
           "taskData": {
             "template": "minimal-task-response.json",
             "replacements": {
               "tasks": [
                 {
-                  "test_meta_data": [
-                    {
-                      "key": "role_data_reference",
-                      "value": "ftaRequestTimeExtension"
-                    }
-                  ],
-                  "type": "ftaRequestTimeExtension",
-                  "name": "Request FTA Time Extension",
-                  "work_type_id": "pre_hearing",
-                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
+                  "type": "referredByJudge",
+                  "name": "Referred By Judge",
+                  "work_type_id": "routine_work",
+                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Return the case to an admin with a note](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/sendToAdmin)<br/>[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/tcwReferToJudge)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
                   "role_category": "LEGAL_OPERATIONS",
                   "major_priority": 5000,
                   "minor_priority": 500
+                },
+                {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "referredByAdminTcw"
+                    }
+                  ],
+                  "type": "referredByAdminTcw",
+                  "name": "Referred by Admin",
+                  "role_category": "LEGAL_OPERATIONS",
+                  "minor_priority": 500,
+                  "major_priority": 5000
                 }
               ]
             }
           },
           "roleData": [
             {
-              "key": "ftaRequestTimeExtension",
+              "key": "referredByAdminTcw",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {
@@ -83,12 +95,6 @@
                   "role_category": null,
                   "role_name": "case-allocator",
                   "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
-                  "authorisations": []
-                },
-                {
-                  "role_category": "JUDICIAL",
-                  "role_name": "judge",
-                  "permissions": [ "Read", "Execute", "Unclaim", "UnclaimAssign" ],
                   "authorisations": []
                 },
                 {

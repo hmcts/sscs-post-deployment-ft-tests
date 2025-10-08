@@ -1,5 +1,5 @@
 {
-  "description": "create ftaRequestTimeExtension task",
+  "description": "create ftaNotProvidedAppointeeDetailsTcw task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -33,7 +33,12 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpRequestTimeExtension"
+                "EventId": "updateNotListable",
+                "AdditionalData": {
+                  "Data": {
+                    "action": "reviewByTcw"
+                  }
+                }
               }
             }
           ]
@@ -42,7 +47,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "caseworker"
+            "key": "judge"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -54,13 +59,13 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "ftaRequestTimeExtension"
+                      "value": "ftaNotProvidedAppointeeDetailsTcw"
                     }
                   ],
-                  "type": "ftaRequestTimeExtension",
-                  "name": "Request FTA Time Extension",
+                  "type": "ftaNotProvidedAppointeeDetailsTcw",
+                  "name": "FTA Not Provided Appointee Details",
                   "work_type_id": "pre_hearing",
-                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
+                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Send an interlocutory decision notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/decisionIssued)<br/>[Return the case to an admin with a note](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/sendToAdmin)<br/>[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/tcwReferToJudge)<br/>[Send case to TCW](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocSendToTcw)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
                   "role_category": "LEGAL_OPERATIONS",
                   "major_priority": 5000,
                   "minor_priority": 500
@@ -70,7 +75,7 @@
           },
           "roleData": [
             {
-              "key": "ftaRequestTimeExtension",
+              "key": "ftaNotProvidedAppointeeDetailsTcw",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {

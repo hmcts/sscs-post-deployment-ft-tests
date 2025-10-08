@@ -1,5 +1,5 @@
 {
-  "description": "create ftaRequestTimeExtension task",
+  "description": "create referredToInterlocTcw task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -33,7 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpRequestTimeExtension"
+                "EventId": "nonCompliantSendToInterloc"
               }
             }
           ]
@@ -42,7 +42,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "caseworker"
+            "key": "judge"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -54,13 +54,13 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "ftaRequestTimeExtension"
+                      "value": "referredToInterlocTCW"
                     }
                   ],
-                  "type": "ftaRequestTimeExtension",
-                  "name": "Request FTA Time Extension",
+                  "type": "referredToInterlocTCW",
+                  "name": "Referred to interloc",
                   "work_type_id": "pre_hearing",
-                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
+                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Send an interlocutory decision notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/decisionIssued)<br/>[Return the case to an admin with a note](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/sendToAdmin)<br/>[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/tcwReferToJudge)<br/>[Send a case to a judge for review](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/validSendToInterloc)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
                   "role_category": "LEGAL_OPERATIONS",
                   "major_priority": 5000,
                   "minor_priority": 500
@@ -70,7 +70,7 @@
           },
           "roleData": [
             {
-              "key": "ftaRequestTimeExtension",
+              "key": "referredToInterlocTCW",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {

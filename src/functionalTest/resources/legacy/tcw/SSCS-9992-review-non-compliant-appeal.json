@@ -1,5 +1,5 @@
 {
-  "description": "create ftaRequestTimeExtension task",
+  "description": "create reviewNonCompliantAppeal task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -33,7 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpRequestTimeExtension"
+                "EventId": "draftToNonCompliant"
               }
             }
           ]
@@ -54,13 +54,13 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "ftaRequestTimeExtension"
+                      "value": "reviewNonCompliantAppeal"
                     }
                   ],
-                  "type": "ftaRequestTimeExtension",
-                  "name": "Request FTA Time Extension",
+                  "type": "reviewNonCompliantAppeal",
+                  "name": "Review Non Compliant Appeal",
                   "work_type_id": "pre_hearing",
-                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
+                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Send an interlocutory decision notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/decisionIssued)<br/>[Return the case to an admin with a note](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/sendToAdmin)<br/>[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/tcwReferToJudge)<br/>[Strike out due to no response](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/struckOut)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
                   "role_category": "LEGAL_OPERATIONS",
                   "major_priority": 5000,
                   "minor_priority": 500
@@ -70,7 +70,7 @@
           },
           "roleData": [
             {
-              "key": "ftaRequestTimeExtension",
+              "key": "reviewNonCompliantAppeal",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {

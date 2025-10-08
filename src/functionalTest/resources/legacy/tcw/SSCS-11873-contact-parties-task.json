@@ -1,5 +1,5 @@
 {
-  "description": "create ftaRequestTimeExtension task",
+  "description": "Create Contact Parties task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -33,7 +33,12 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpRequestTimeExtension"
+                "EventId": "actionPostponementRequest",
+                "AdditionalData": {
+                  "Data": {
+                    "daysToHearing": 6
+                  }
+                }
               }
             }
           ]
@@ -42,7 +47,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "caseworker"
+            "key": "Regional-Centre-Admin"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -54,53 +59,49 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "ftaRequestTimeExtension"
+                      "value": "contactParties"
                     }
                   ],
-                  "type": "ftaRequestTimeExtension",
-                  "name": "Request FTA Time Extension",
-                  "work_type_id": "pre_hearing",
-                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
-                  "role_category": "LEGAL_OPERATIONS",
-                  "major_priority": 5000,
-                  "minor_priority": 500
+                  "type": "contactParties",
+                  "name": "Contact Parties",
+                  "role_category": "ADMIN",
+                  "minor_priority": 100,
+                  "major_priority": 1000
                 }
               ]
             }
           },
           "roleData": [
             {
-              "key": "ftaRequestTimeExtension",
+              "key": "contactParties",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {
-                  "role_category": "LEGAL_OPERATIONS",
-                  "role_name": "allocated-tribunal-caseworker",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "role_category": "ADMIN",
+                  "role_name": "allocated-admin-caseworker",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
                   "authorisations": []
                 },
                 {
-                  "role_category": null,
                   "role_name": "case-allocator",
                   "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 },
                 {
-                  "role_category": "JUDICIAL",
-                  "role_name": "judge",
-                  "permissions": [ "Read", "Execute", "Unclaim", "UnclaimAssign" ],
+                  "role_category": "ADMIN",
+                  "role_name": "regional-centre-admin",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
                   "authorisations": []
                 },
                 {
-                  "role_category": null,
+                  "role_category": "ADMIN",
+                  "role_name": "regional-centre-team-leader",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel", "CompleteOwn" ],
+                  "authorisations": []
+                },
+                {
                   "role_name": "task-supervisor",
                   "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
-                  "authorisations": []
-                },
-                {
-                  "role_category": "LEGAL_OPERATIONS",
-                  "role_name": "tribunal-caseworker",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
                   "authorisations": []
                 }
               ]

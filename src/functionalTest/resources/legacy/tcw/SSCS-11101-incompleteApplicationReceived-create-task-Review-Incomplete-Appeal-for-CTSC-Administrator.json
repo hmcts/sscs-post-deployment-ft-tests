@@ -1,5 +1,5 @@
 {
-  "description": "create ftaRequestTimeExtension task",
+  "description": "create reviewIncompleteAppeal task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -8,11 +8,11 @@
   },
   "required": {
     "credentials": {
-      "key": "systemupdate"
+      "key": "superuser"
     },
     "ccd": [
       {
-        "eventId": "validAppealCreated",
+        "eventId": "incompleteApplicationReceived",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
@@ -33,7 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpRequestTimeExtension"
+                "EventId": "incompleteApplicationReceived"
               }
             }
           ]
@@ -42,7 +42,7 @@
       "expectations": [
         {
           "credentials": {
-            "key": "caseworker"
+            "key": "CTSC-Administrator"
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
@@ -54,53 +54,51 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "ftaRequestTimeExtension"
+                      "value": "reviewIncompleteAppeal"
                     }
                   ],
-                  "type": "ftaRequestTimeExtension",
-                  "name": "Request FTA Time Extension",
-                  "work_type_id": "pre_hearing",
-                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
-                  "role_category": "LEGAL_OPERATIONS",
-                  "major_priority": 5000,
-                  "minor_priority": 500
+                  "type": "reviewIncompleteAppeal",
+                  "name": "Review Incomplete Appeal",
+                  "role_category": "CTSC",
+                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestForInformation)",
+                  "permissions": {
+                    "values": [ "Read", "Own", "Manage", "Claim", "Unclaim", "UnclaimAssign" ]
+                  }
                 }
               ]
             }
           },
           "roleData": [
             {
-              "key": "ftaRequestTimeExtension",
+              "key": "reviewIncompleteAppeal",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {
-                  "role_category": "LEGAL_OPERATIONS",
-                  "role_name": "allocated-tribunal-caseworker",
+                  "role_category": "CTSC",
+                  "role_name": "allocated-ctsc-caseworker",
                   "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
                   "authorisations": []
                 },
                 {
-                  "role_category": null,
                   "role_name": "case-allocator",
                   "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
                 },
                 {
-                  "role_category": "JUDICIAL",
-                  "role_name": "judge",
-                  "permissions": [ "Read", "Execute", "Unclaim", "UnclaimAssign" ],
+                  "role_category": "CTSC",
+                  "role_name": "ctsc",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
                   "authorisations": []
                 },
                 {
-                  "role_category": null,
+                  "role_category": "CTSC",
+                  "role_name": "ctsc-team-leader",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel" ],
+                  "authorisations": []
+                },
+                {
                   "role_name": "task-supervisor",
                   "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
-                  "authorisations": []
-                },
-                {
-                  "role_category": "LEGAL_OPERATIONS",
-                  "role_name": "tribunal-caseworker",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
                   "authorisations": []
                 }
               ]

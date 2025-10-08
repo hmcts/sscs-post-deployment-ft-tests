@@ -1,5 +1,5 @@
 {
-  "description": "create ftaRequestTimeExtension task",
+  "description": "Referred to Interloc - FTA response overdue",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -25,7 +25,7 @@
     {
       "request": {
         "credentials": {
-          "key": "caseworker"
+          "key": "systemupdate"
         },
         "input": {
           "eventMessages": [
@@ -33,7 +33,16 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpRequestTimeExtension"
+                "EventId": "directionDueToday",
+                "AdditionalData": {
+                  "Data": {
+                    "directionTypeDl": {
+                      "value": {
+                        "code": "grantExtension"
+                      }
+                    }
+                  }
+                }
               }
             }
           ]
@@ -54,23 +63,21 @@
                   "test_meta_data": [
                     {
                       "key": "role_data_reference",
-                      "value": "ftaRequestTimeExtension"
+                      "value": "ftaResponseOverdue"
                     }
                   ],
-                  "type": "ftaRequestTimeExtension",
-                  "name": "Request FTA Time Extension",
-                  "work_type_id": "pre_hearing",
-                  "description": "[Send a directions notice](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/directionIssued)<br/>[Ability to amend interloc review state flag](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocReviewStateAmend)",
+                  "type": "ftaResponseOverdue",
+                  "name": "Referred to Interloc - FTA response overdue",
                   "role_category": "LEGAL_OPERATIONS",
-                  "major_priority": 5000,
-                  "minor_priority": 500
+                  "minor_priority": 500,
+                  "major_priority": 5000
                 }
               ]
             }
           },
           "roleData": [
             {
-              "key": "ftaRequestTimeExtension",
+              "key": "ftaResponseOverdue",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {
