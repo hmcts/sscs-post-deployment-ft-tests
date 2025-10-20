@@ -1,0 +1,113 @@
+{
+  "description": "create reviewPostponementRequestTCW task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "caseworker"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "postponementRequest"
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "judge"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "reviewPostponementRequestTCW"
+                    }
+                  ],
+                  "type": "reviewPostponementRequestTCW",
+                  "name": "Review postponement request",
+                  "work_type_id": "pre_hearing",
+                  "description": "[Action Postponement Request](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionPostponementRequest)",
+                  "role_category": "LEGAL_OPERATIONS",
+                  "major_priority": 1000,
+                  "minor_priority": 100
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "reviewPostponementRequestTCW",
+              "numberOfRolesAvailable": 5,
+              "roles": [
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "allocated-tribunal-caseworker",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": null,
+                  "role_name": "case-allocator",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
+                  "permissions": [ "Read", "Execute", "Unclaim", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": null,
+                  "role_name": "task-supervisor",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "tribunal-caseworker",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

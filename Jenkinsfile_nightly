@@ -1,8 +1,7 @@
 #!groovy
 
 properties([
-  //Run every hour
-//  pipelineTriggers([cron('0 * * * *')])
+  pipelineTriggers([cron('0 8 * * 1-5')])
 ])
 
 @Library("Infrastructure")
@@ -12,7 +11,7 @@ def product = "sscs"
 def component = "post-deployment-ft-tests"
 
 def secrets = [
-  'wa-${env}' : [
+  'wa-${env}'  : [
     secret('wa-idam-client-id', 'WA_IDAM_CLIENT_ID'),
     secret('wa-idam-client-secret', 'WA_IDAM_CLIENT_SECRET'),
     secret('wa-system-username', 'WA_SYSTEM_USERNAME'),
@@ -34,13 +33,14 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
    envVariable: envVar
   ]
 }
-withNightlyPipeline(type, product, component) {
-  env.AZURE_SERVICE_BUS_TOPIC_NAME="ccd-case-events"
-  env.AZURE_SERVICE_BUS_MESSAGE_AUTHOR="sscs-aat"
-  env.AZURE_SERVICE_BUS_SUBSCRIPTION_NAME="ccd-case-events-ft"
 
-  env.S2S_NAME_TASK_MANAGEMENT_API="wa_task_management_api"
-  env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="aat"
+withNightlyPipeline(type, product, component) {
+  env.AZURE_SERVICE_BUS_TOPIC_NAME = "ccd-case-events"
+  env.AZURE_SERVICE_BUS_MESSAGE_AUTHOR = "sscs-aat"
+  env.AZURE_SERVICE_BUS_SUBSCRIPTION_NAME = "ccd-case-events-ft"
+
+  env.S2S_NAME_TASK_MANAGEMENT_API = "wa_task_management_api"
+  env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT = "aat"
 
   env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
   env.IDAM_URL = "https://idam-api.aat.platform.hmcts.net"
@@ -48,12 +48,12 @@ withNightlyPipeline(type, product, component) {
   env.OPEN_ID_IDAM_URL = "https://idam-web-public.aat.platform.hmcts.net"
   env.DOCUMENT_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
 
-  env.CCD_URL="http://ccd-data-store-api-aat.service.core-compute-aat.internal"
-  env.WA_TASK_MANAGEMENT_API_URL="http://wa-task-management-api-aat.service.core-compute-aat.internal"
-  env.WA_TASK_MONITOR_URL="http://wa-task-monitor-aat.service.core-compute-aat.internal"
-  env.CAMUNDA_URL="http://camunda-api-aat.service.core-compute-aat.internal/engine-rest"
-  env.ROLE_ASSIGNMENT_URL="http://am-role-assignment-service-aat.service.core-compute-aat.internal"
-  env.WA_CASE_EVENT_HANDLER_URL="http://wa-case-event-handler-aat.service.core-compute-aat.internal"
+  env.CCD_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
+  env.WA_TASK_MANAGEMENT_API_URL = "http://wa-task-management-api-aat.service.core-compute-aat.internal"
+  env.WA_TASK_MONITOR_URL = "http://wa-task-monitor-aat.service.core-compute-aat.internal"
+  env.CAMUNDA_URL = "http://camunda-api-aat.service.core-compute-aat.internal/engine-rest"
+  env.ROLE_ASSIGNMENT_URL = "http://am-role-assignment-service-aat.service.core-compute-aat.internal"
+  env.WA_CASE_EVENT_HANDLER_URL = "http://wa-case-event-handler-aat.service.core-compute-aat.internal"
 
   loadVaultSecrets(secrets)
   enableFullFunctionalTest(60)

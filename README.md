@@ -6,42 +6,33 @@
 This repository contains a set of functional tests which are designed to run periodically or after a helm deployment as a post deployment job to ensure regression.
 
 ## What does this app do?
-It creates a case in CCD and publishes a message for this case on the Demo ASB topic.
-Then your local Case Event Handler can consume this message using your development subscription.
-This way we can test user paths end to end.
+
+We have used the repository from the Work Allocation (WA) Task Management team as a base and adapted it for SSCS onboarding.
+See: https://github.com/hmcts/wa-task-configuration-template
+
+Tests effectively treat the WA Task Management backend as a black box where an event message it sent and then we await the outcome and perform checks.
+
+#### Tests will typically:
+* Extract data from a test specification file
+* Set up users with Idam and Role Assignment Services
+* Create and update CCD Case(s)
+* Send a CCD Event Message to the WA Task Management backend
+* Retrieve and verify Task and Tast Role data from WA Task Management using API requests
+* Optionally perform actions on Tasks like Claim/Assign/Complete
 
 ## Requirements
-* Minikube and your local env has to be up and running.
-* Bring up the following services:
-  * case event handler
-  * workflow-api
-  * task-management-api
-  * configuration-api
-  * case-api
-  * documentation-api
-  * notification-api
-
-* Configure the following env vars in the application-functional profile:
-  * AZURE_SERVICE_BUS_CONNECTION_STRING
-  * AZURE_SERVICE_BUS_TOPIC_NAME
-  * AZURE_SERVICE_BUS_MESSAGE_AUTHOR (The author of the message this can be used if you have filters set up in your subscription)
-
-* Source your bash so that the Case Event Handler can use those env vars too.
-* Finally, set the following env vars in the Case Event Handler:
-  * AZURE_SERVICE_BUS_SUBSCRIPTION_NAME to your developer subscription in the demo env.
-  * AZURE_SERVICE_BUS_FEATURE_TOGGLE=true
+* These tests require all relevant dependencies running either locally or in an environment.
+* For SSCS it is preferred to spin up a Preview environment with WA dependencies.
+This will take care of all the required config and not consume significant resources on your machine.
+Refer to the Readme file here: https://github.com/hmcts/sscs-tribunals-case-api/blob/master/README.md
 
 ## When merging to master:
-
-When performing a merge against master the withNightlyPipeline() will be used to run this tests and verify the build this is because this app is not a service that needs to be deployed but rather just a test framework.
-The withNightlyPipeline() will perform:
-
-- Dependency check
-- Full functional tests run
+* This is a non prod repo so it will not be deployed to production environments.
+* Please ensure all checks are run and code has been reviewed.
 
 ## Nightly Builds
-The pipeline has also been configured to run every hour in the nightly builds.
-This is specified on the `Jenkinsfile_nightly` file as a cron job `pipelineTriggers([cron('0 * * * *')])`
+The pipeline has been configured to run in the nightly builds.
+This is specified on the `Jenkinsfile_nightly` file and the schedule is set there e.g: `pipelineTriggers([cron('0 * * * *')])`
 
 ## Publishing as ACR task
 Any commit or merge into master will automatically trigger an Azure ACR task. This task has been manually
@@ -52,17 +43,39 @@ Note: the deployment script relies on a GitHub token (https://help.github.com/en
 More info on ACR tasks can be read here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview
 
 ## Running functional tests
+
+A bash script has been provided to run tests against a remote environment such as Preview (recommended) or AAT.
+
+#### To run against Preview:
+```shell
+./run-ft-preview.sh <pr-number>
+```
+#### To run against another HMCTS lower environment e.g. aat | demo
+```shell
+./run-ft-lower-env.sh <environment>
+```
+
+#### To run functional against a local environment
 ```bash
 ./gradlew functional
 ```
-### You can also target a specific scenario:
+#### You can also target a specific scenario:
 ```bash
-./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=IA-RWA-000-requestRespondentEvidence-with-awaitingRespondentEvidence-postEventState-should-create-a-task
+./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=SSCS-10005-review-fta-time-extension-request
 ```
-### or multiple scenarios:
+
+#### Or multiple scenarios:
 ```bash
-./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=IA-RWA-000
+./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=SSCS-10005
 ```
+
+## Test Scenario Specification
+When adding a new test scenario you will typically need to provide a new specification in json format in:
+```
+./resources/scenarios/sscs
+```
+
+
 
 ## License
 

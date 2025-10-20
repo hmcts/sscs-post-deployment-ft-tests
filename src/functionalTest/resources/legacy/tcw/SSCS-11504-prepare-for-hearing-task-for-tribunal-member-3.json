@@ -1,0 +1,104 @@
+{
+  "description": "Prepare for hearing for tribunal member 3",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "caseworker"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "createBundle",
+                "AdditionalData" : {
+                  "Data" : {
+                    "assignedCaseRoles": ["tribunal-member-3"]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "Tribunal-Member-3"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "prepareForHearingTribunalMember3"
+                    }
+                  ],
+                  "type": "prepareForHearingTribunalMember3",
+                  "name": "Prepare for hearing",
+                  "role_category": "JUDICIAL",
+                  "minor_priority": 500,
+                  "major_priority": 5000
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "prepareForHearingTribunalMember3",
+              "numberOfRolesAvailable": 3,
+              "roles": [
+                {
+                  "role_category": null,
+                  "role_name": "case-allocator",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": null,
+                  "role_name": "task-supervisor",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "tribunal-member-3",
+                  "permissions": [ "Read", "Own", "Manage", "Complete" ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

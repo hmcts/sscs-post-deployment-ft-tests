@@ -1,0 +1,118 @@
+{
+  "description": "create reviewFtaDueDate task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "caseworker"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "appealCreated",
+                "NewStateId": "withDwp",
+                "AdditionalData": {
+                  "Data": {
+                    "dwpDueDate": "{$TODAY}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "CTSC-Administrator"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "reviewFtaDueDate"
+                    }
+                  ],
+                  "type": "reviewFtaDueDate",
+                  "name": "Review FTA Due Date",
+                  "role_category": "CTSC",
+                  "major_priority": 6000,
+                  "description": "[Send to TCW](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocSendToTcw)",
+                  "permissions": {
+                    "values": [ "Read", "Own", "Manage", "Claim", "Unclaim", "UnclaimAssign" ]
+                  }
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "reviewFtaDueDate",
+              "numberOfRolesAvailable": 5,
+              "roles": [
+                {
+                  "role_category": "CTSC",
+                  "role_name": "allocated-ctsc-caseworker",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "case-allocator",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc-team-leader",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel" ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

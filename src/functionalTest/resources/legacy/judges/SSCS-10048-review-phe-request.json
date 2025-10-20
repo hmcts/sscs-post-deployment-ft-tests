@@ -1,0 +1,124 @@
+{
+  "description": "create reviewPheRequestJudge task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "caseworker"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "dwpUploadResponse",
+                "AdditionalData": {
+                  "Data": {
+                    "workType": "phme"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "judge"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "reviewPheRequestJudge"
+                    }
+                  ],
+                  "type": "reviewPheRequestJudge",
+                  "name": "Review PHE Request",
+                  "work_type_id": "pre_hearing",
+                  "description": null,
+                  "role_category": "Judicial",
+                  "major_priority": 5000,
+                  "minor_priority": 500
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "reviewPheRequestJudge",
+              "numberOfRolesAvailable": 6,
+              "roles": [
+                {
+                  "role_category": null,
+                  "role_name": "case-allocator",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "fee-paid-judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim" ],
+                  "authorisations": [ "368" ]
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "interloc-judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": null,
+                  "role_name": "task-supervisor",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "tribunal-caseworker",
+                  "permissions": [ "Read", "Execute", "Unclaim" ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

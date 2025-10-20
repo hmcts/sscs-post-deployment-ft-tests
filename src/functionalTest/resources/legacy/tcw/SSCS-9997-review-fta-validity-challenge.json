@@ -1,0 +1,111 @@
+{
+  "description": "Review Fta Validity Challenge",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "validAppealCreated",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "systemupdate"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "dwpChallengeValidity"
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "caseworker"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "reviewFtaValidityChallenge"
+                    }
+                  ],
+                  "type": "reviewFtaValidityChallenge",
+                  "name": "Review FTA validity challenge",
+                  "role_category": "LEGAL_OPERATIONS",
+                  "minor_priority": 500,
+                  "major_priority": 5000
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "reviewFtaValidityChallenge",
+              "numberOfRolesAvailable": 5,
+              "roles": [
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "allocated-tribunal-caseworker",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": null,
+                  "role_name": "case-allocator",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
+                  "permissions": [ "Read", "Execute", "Unclaim", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": null,
+                  "role_name": "task-supervisor",
+                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "tribunal-caseworker",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

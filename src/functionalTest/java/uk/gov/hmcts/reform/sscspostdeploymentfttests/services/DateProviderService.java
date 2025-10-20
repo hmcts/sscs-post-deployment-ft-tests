@@ -20,7 +20,7 @@ public class DateProviderService {
 
     public LocalDate calculateDate(CalculateDateParameters calculateDateParameters) {
 
-        LocalDate now = LocalDate.now(ZoneId.of("Europe/London"));
+        LocalDate now = LocalDate.now(ZoneId.of("UTC"));
 
         if (calculateDateParameters.isWorkingDays()) {
             //Calculate with working days

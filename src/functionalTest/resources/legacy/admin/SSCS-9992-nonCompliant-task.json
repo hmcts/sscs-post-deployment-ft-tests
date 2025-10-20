@@ -1,0 +1,108 @@
+{
+  "description": "create non-compliant task",
+  "enabled": true,
+  "jurisdiction": "SSCS",
+  "caseType": "Benefit",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "systemupdate"
+    },
+    "ccd": [
+      {
+        "eventId": "nonCompliant",
+        "state": "interlocutoryReviewState",
+        "caseData": {
+          "template": "minimal-sscs-benefit-appeal.json",
+          "replacements": {
+            "appeal": {
+              "mrnDetails": {
+                "dwpIssuingOffice": "DWP PIP (1)",
+                "mrnDate": "2018-02-01",
+                "mrnLateReason": null,
+                "mrnMissingReason": null
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "caseworker"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "minimal-ccd-event-message.json",
+              "replacements": {
+                "EventId": "nonCompliant",
+                "NewStateId": "interlocutoryReviewState"
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "caseworker"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "minimal-task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "type": "nonCompliantCase",
+                  "name": "Review non-compliant appeal"
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
+              {
+                "role_category": "",
+                "role_name": "case-allocator",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "",
+                "role_name": "task-supervisor",
+                "permissions": [ "Read,Own,Manage,Complete,Cancel,Assign,Unassign,Claim,Unclaim" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "",
+                "role_name": "tribunal-caseworker",
+                "permissions": [ "Read,Refer,Own" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "",
+                "role_name": "tribunal-caseworker",
+                "permissions": [ "Read,Refer,Own" ],
+                "authorisations": []
+              },
+              {
+                "role_category": "",
+                "role_name": "senior-tribunal-caseworker",
+                "permissions": [ "Read,Refer,Own" ],
+                "authorisations": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
