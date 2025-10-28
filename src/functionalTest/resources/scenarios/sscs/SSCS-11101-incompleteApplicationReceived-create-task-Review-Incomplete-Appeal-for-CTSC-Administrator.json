@@ -58,7 +58,7 @@
                     }
                   ],
                   "type": "reviewIncompleteAppeal",
-                  "name": "Review Incomplete Appeal",
+                  "name": "Review Incomplete Appeal - CTSC",
                   "role_category": "CTSC",
                   "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestForInformation)",
                   "permissions": {
