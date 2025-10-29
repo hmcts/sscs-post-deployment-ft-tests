@@ -45,7 +45,7 @@
             "key": "CTSC-Administrator"
           },
           "status": 200,
-          "numberOfTasksAvailable": 2,
+          "numberOfTasksAvailable": 1,
           "taskData": {
             "template": "minimal-task-response.json",
             "replacements": {
@@ -61,9 +61,8 @@
                   "name": "Review Incomplete Appeal - CTSC",
                   "role_category": "CTSC",
                   "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestForInformation)",
-                  "permissions": {
-                    "values": [ "Read", "Own", "Manage", "Claim", "Unclaim", "UnclaimAssign" ]
-                  }
+                  "major_priority": 5000,
+                  "minor_priority": 500
                 }
               ]
             }
