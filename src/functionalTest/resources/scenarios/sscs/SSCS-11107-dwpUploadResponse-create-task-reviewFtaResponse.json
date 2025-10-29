@@ -65,7 +65,7 @@
                     }
                   ],
                   "type": "reviewFtaResponse",
-                  "name": "Review FTA Response",
+                  "name": "CTSC - Review FTA Response",
                   "role_category": "CTSC",
                   "minor_priority": 300,
                   "major_priority": 3000,
