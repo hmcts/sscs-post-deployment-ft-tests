@@ -65,7 +65,7 @@ public class TaskManagementService {
         int expectedStatus = MapValueExtractor.extractOrDefault(
             clauseValues, "status", 200);
         int expectedTasks = MapValueExtractor.extractOrDefault(
-            clauseValues, "numberOfTasksAvailable", 2);
+            clauseValues, "numberOfTasksAvailable", 1);
 
         Response result = given()
             .headers(authorizationHeaders)
@@ -73,6 +73,8 @@ public class TaskManagementService {
             .body(requestBody)
             .when()
             .post(taskManagementUrl + "/task");
+
+        log.info("Scenario: {}", scenario);
 
         result.then().assertThat()
             .statusCode(expectedStatus)
