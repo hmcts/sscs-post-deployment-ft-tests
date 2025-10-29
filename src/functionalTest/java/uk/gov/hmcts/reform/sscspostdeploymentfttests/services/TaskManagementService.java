@@ -74,8 +74,6 @@ public class TaskManagementService {
             .when()
             .post(taskManagementUrl + "/task");
 
-        log.info("Scenario: {}", scenario);
-
         result.then().assertThat()
             .statusCode(expectedStatus)
             .contentType(APPLICATION_JSON_VALUE)
