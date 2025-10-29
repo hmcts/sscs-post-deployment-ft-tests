@@ -65,7 +65,7 @@ public class TaskManagementService {
         int expectedStatus = MapValueExtractor.extractOrDefault(
             clauseValues, "status", 200);
         int expectedTasks = MapValueExtractor.extractOrDefault(
-            clauseValues, "numberOfTasksAvailable", 1);
+            clauseValues, "numberOfTasksAvailable", 2);
 
         Response result = given()
             .headers(authorizationHeaders)
