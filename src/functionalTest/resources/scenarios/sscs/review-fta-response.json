@@ -38,7 +38,8 @@
                 "NewStateId": "withDwp",
                 "AdditionalData": {
                   "Data": {
-                    "dwpFurtherInfo": true
+                    "dwpFurtherInfo": true,
+                    "dwpDueDate": "{$TODAY+28}"
                   }
                 }
               }
