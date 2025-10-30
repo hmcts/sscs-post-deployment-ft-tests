@@ -36,7 +36,7 @@
                 "EventId": "dwpRequestTimeExtension",
                 "AdditionalData": {
                   "Data": {
-                    "dwpDueDate": "{$TODAY+2}"
+                    "dwpDueDate": "{$TODAY+28}"
                   }
                 }
               }
