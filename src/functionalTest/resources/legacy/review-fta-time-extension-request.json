@@ -33,12 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "dwpRequestTimeExtension",
-                "AdditionalData": {
-                  "Data": {
-                    "dwpDueDate": "{$TODAY+28}"
-                  }
-                }
+                "EventId": "dwpRequestTimeExtension"
               }
             }
           ]
