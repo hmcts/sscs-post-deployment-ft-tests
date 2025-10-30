@@ -60,7 +60,7 @@
                   "type": "reviewIncompleteAppeal",
                   "name": "Review Incomplete Appeal",
                   "role_category": "CTSC",
-                  "description": "[Request Information From Party](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/requestForInformation)",
+                  "description": "[Communicate with FTA](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/ftaCommunication)<br/>[Update to case data](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/caseUpdated)",
                   "permissions": {
                     "values": [ "Read", "Own", "Manage", "Claim", "Unclaim", "UnclaimAssign" ]
                   }
