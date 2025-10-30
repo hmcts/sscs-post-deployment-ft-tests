@@ -45,7 +45,7 @@
             "key": "CTSC-Administrator"
           },
           "status": 200,
-          "numberOfTasksAvailable": 1,
+          "numberOfTasksAvailable": 2,
           "taskData": {
             "template": "minimal-task-response.json",
             "replacements": {
@@ -58,12 +58,11 @@
                     }
                   ],
                   "type": "reviewIncompleteAppeal",
-                  "name": "Review Incomplete Appeal",
+                  "name": "Review Incomplete Appeal - CTSC",
                   "role_category": "CTSC",
                   "description": "[Communicate with FTA](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/ftaCommunication)<br/>[Update to case data](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/caseUpdated)",
-                  "permissions": {
-                    "values": [ "Read", "Own", "Manage", "Claim", "Unclaim", "UnclaimAssign" ]
-                  }
+                  "major_priority": 5000,
+                  "minor_priority": 500
                 }
               ]
             }
@@ -71,8 +70,14 @@
           "roleData": [
             {
               "key": "reviewIncompleteAppeal",
-              "numberOfRolesAvailable": 5,
+              "numberOfRolesAvailable": 28,
               "roles": [
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "allocated-admin-caseworker",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
                 {
                   "role_category": "CTSC",
                   "role_name": "allocated-ctsc-caseworker",
@@ -80,8 +85,50 @@
                   "authorisations": []
                 },
                 {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "allocated-tribunal-caseworker",
+                  "permissions": [ "Read"],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "appraiser-1",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "appraiser-2",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
                   "role_name": "case-allocator",
                   "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "challenged-access-admin",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "challenged-access-ctsc",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "challenged-access-judiciary",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "challenged-access-legal-ops",
+                  "permissions": [ "Read" ],
                   "authorisations": []
                 },
                 {
@@ -97,8 +144,98 @@
                   "authorisations": []
                 },
                 {
+                  "role_category": "JUDICIAL",
+                  "role_name": "fee-paid-medical",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "hearing-centre-admin",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "hearing-centre-team-leader",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "hearing-judge",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "interloc-judge",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "leadership-judge",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "medical",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "post-hearing-judge",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "regional-centre-admin",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "regional-centre-team-leader",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
                   "role_name": "task-supervisor",
                   "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "tribunal-caseworker",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "tribunal-member-1",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "tribunal-member-2",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "tribunal-member-3",
+                  "permissions": [ "Read" ],
                   "authorisations": []
                 }
               ]
