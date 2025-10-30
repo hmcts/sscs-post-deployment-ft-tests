@@ -59,7 +59,7 @@
                     }
                   ],
                   "type": "actionUnprocessedCorrespondence",
-                  "name": "Action Unprocessed Correspondence",
+                  "name": "CTSC - Action Unprocessed Correspondence",
                   "role_category": "CTSC",
                   "minor_priority": 300,
                   "major_priority": 3000,
