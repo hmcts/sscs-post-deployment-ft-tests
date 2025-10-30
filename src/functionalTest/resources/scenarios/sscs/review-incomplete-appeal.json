@@ -45,7 +45,7 @@
             "key": "CTSC-Administrator"
           },
           "status": 200,
-          "numberOfTasksAvailable": 2,
+          "numberOfTasksAvailable": 1,
           "taskData": {
             "template": "minimal-task-response.json",
             "replacements": {
@@ -58,7 +58,7 @@
                     }
                   ],
                   "type": "reviewIncompleteAppeal",
-                  "name": "Review Incomplete Appeal - CTSC",
+                  "name": "CTSC - Review Incomplete Appeal",
                   "role_category": "CTSC",
                   "description": "[Communicate with FTA](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/ftaCommunication)<br/>[Update to case data](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/caseUpdated)",
                   "major_priority": 5000,
