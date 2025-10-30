@@ -77,7 +77,7 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 5,
+              "numberOfRolesAvailable": 28,
               "roles": [
                 {
                   "role_name": "case-allocator",
