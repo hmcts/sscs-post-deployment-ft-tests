@@ -74,12 +74,12 @@ public class TaskManagementService {
             .when()
             .post(taskManagementUrl + "/task");
 
+        log.info("Scenario: {}, Expected Task Size: {}", scenario, expectedTasks);
+
         result.then().assertThat()
             .statusCode(expectedStatus)
             .contentType(APPLICATION_JSON_VALUE)
             .body("tasks.size()", is(expectedTasks));
-
-        log.info("Scenario: {}, Expected Task Size: {}", scenario, expectedTasks);
 
         String actualResponseBody = result.then()
             .extract()
