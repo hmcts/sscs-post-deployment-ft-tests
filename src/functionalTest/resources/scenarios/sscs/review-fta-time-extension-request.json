@@ -45,7 +45,7 @@
             "key": "caseworker"
           },
           "status": 200,
-          "numberOfTasksAvailable": 2,
+          "numberOfTasksAvailable": 1,
           "taskData": {
             "template": "minimal-task-response.json",
             "replacements": {
