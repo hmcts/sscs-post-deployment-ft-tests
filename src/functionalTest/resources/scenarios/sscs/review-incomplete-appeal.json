@@ -12,7 +12,7 @@
     },
     "ccd": [
       {
-        "eventId": "validAppealCreated",
+        "eventId": "incompleteApplicationReceived",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
@@ -33,7 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "incompleteApplicationReceived"
+                "EventId": "caseUpdated"
               }
             }
           ]
