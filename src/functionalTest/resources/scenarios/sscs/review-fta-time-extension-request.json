@@ -36,7 +36,6 @@
                 "EventId": "dwpRequestTimeExtension",
                 "AdditionalData": {
                   "Data": {
-                    "dwpFurtherInfo": true,
                     "dwpDueDate": "{$TODAY+2}"
                   }
                 }
