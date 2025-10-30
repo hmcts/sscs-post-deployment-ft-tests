@@ -73,6 +73,12 @@
               "numberOfRolesAvailable": 28,
               "roles": [
                 {
+                  "role_category": "ADMIN",
+                  "role_name": "allocated-admin-caseworker",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
                   "role_name": "case-allocator",
                   "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                   "authorisations": []
@@ -127,12 +133,6 @@
                 {
                   "role_category": "JUDICIAL",
                   "role_name": "post-hearing-judge",
-                  "permissions": [ "Read" ],
-                  "authorisations": []
-                },
-                {
-                  "role_category": "ADMIN",
-                  "role_name": "allocated-admin-caseworker",
                   "permissions": [ "Read" ],
                   "authorisations": []
                 },
