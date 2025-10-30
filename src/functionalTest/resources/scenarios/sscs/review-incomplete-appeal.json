@@ -163,6 +163,12 @@
                 },
                 {
                   "role_category": "JUDICIAL",
+                  "role_name": "hearing-judge",
+                  "permissions": [ "Read" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
                   "role_name": "interloc-judge",
                   "permissions": [ "Read" ],
                   "authorisations": []
