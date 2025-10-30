@@ -79,6 +79,8 @@ public class TaskManagementService {
             .contentType(APPLICATION_JSON_VALUE)
             .body("tasks.size()", is(expectedTasks));
 
+        log.info("Scenario: {}, Expected Task Size: {}", scenario, expectedTasks);
+
         String actualResponseBody = result.then()
             .extract()
             .body().asString();
