@@ -56,12 +56,12 @@ withNightlyPipeline(type, product, component) {
 
   onPR {
     env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
-    env.CCD_URL="https://ccd-data-store-api-sscs-tribunals-api-pr-4927.preview.platform.hmcts.net"
-    env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-sscs-tribunals-api-pr-4927.preview.platform.hmcts.net"
-    env.WA_TASK_MONITOR_URL="https://wa-task-monitor-sscs-tribunals-api-pr-4927.preview.platform.hmcts.net"
-    env.CAMUNDA_URL="https://camunda-sscs-tribunals-api-pr-4927.preview.platform.hmcts.net/engine-rest"
-    env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-sscs-tribunals-api-pr-4927.preview.platform.hmcts.net"
-    env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-4927.preview.platform.hmcts.net"
+    env.CCD_URL="https://ccd-data-store-api-sscs-tribunals-api-pr-4933.preview.platform.hmcts.net"
+    env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-sscs-tribunals-api-pr-4933.preview.platform.hmcts.net"
+    env.WA_TASK_MONITOR_URL="https://wa-task-monitor-sscs-tribunals-api-pr-4933.preview.platform.hmcts.net"
+    env.CAMUNDA_URL="https://camunda-sscs-tribunals-api-pr-4933.preview.platform.hmcts.net/engine-rest"
+    env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-sscs-tribunals-api-pr-4933.preview.platform.hmcts.net"
+    env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-4933.preview.platform.hmcts.net"
   }
 
   loadVaultSecrets(secrets)
