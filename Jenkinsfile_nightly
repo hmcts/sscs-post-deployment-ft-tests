@@ -56,5 +56,21 @@ withNightlyPipeline(type, product, component) {
   env.WA_CASE_EVENT_HANDLER_URL = "http://wa-case-event-handler-aat.service.core-compute-aat.internal"
 
   loadVaultSecrets(secrets)
-  enableFullFunctionalTest(60)
+  // Disable full functional tests, as WA is not rolled out to AAT
+  // enableFullFunctionalTest(60)
+
+  afterAlways('fullFunctionalTest') {
+    publishHTML([
+      allowMissing         : true,
+      alwaysLinkToLastBuild: true,
+      keepAll              : true,
+      reportDir            : "build/reports/tests/functional",
+      reportFiles          : 'index.html',
+      reportName           : 'Functional Test Report'
+    ])
+
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/**/*'
+  }
 }
