@@ -70,4 +70,19 @@ withNightlyPipeline(type, product, component) {
     env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
     env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
   }
+
+  afterAlways('fullFunctionalTest') {
+    publishHTML([
+      allowMissing         : true,
+      alwaysLinkToLastBuild: true,
+      keepAll              : true,
+      reportDir            : "build/reports/tests/functional",
+      reportFiles          : 'index.html',
+      reportName           : 'Functional Test Report'
+    ])
+
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/**/*'
+  }
 }
