@@ -274,7 +274,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 Logger.say(SCENARIO_FINISHED);
                 break; // Exit the retry loop if successful or disabled
             } catch (Error | FeignException | NullPointerException | ConditionTimeoutException | JsonParseException e) {
-                log.error("Scenario {} failed with error {}", description, e);
+                log.error("Scenario {} failed with error {}", description, e.getMessage());
                 if (!failedScenarios.contains(description)) {
                     failedScenarios.add(description);
                 }

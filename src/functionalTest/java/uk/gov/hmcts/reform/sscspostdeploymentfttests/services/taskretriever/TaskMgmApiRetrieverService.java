@@ -276,7 +276,7 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
         Map<String, Object> taskDataExpectationWithoutMetaData = removeMetaDataFromDataMap(taskDataExpectation);
 
         if (taskDataDataReplacements != null) {
-            MapMerger.merge(taskDataDataReplacementsWithoutMetaData, taskDataExpectationWithoutMetaData);
+            MapMerger.merge(taskDataExpectationWithoutMetaData, taskDataDataReplacementsWithoutMetaData);
         }
 
         return MapSerializer.serialize(taskDataDataReplacementsWithoutMetaData);
