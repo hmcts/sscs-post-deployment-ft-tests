@@ -1,19 +1,32 @@
 package uk.gov.hmcts.reform.sscspostdeploymentfttests;
 
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feign.FeignException;
 import io.restassured.http.Headers;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.awaitility.core.ConditionEvaluationLogger;
-import org.junit.Before;
-import org.junit.Test;
+import org.awaitility.core.ConditionTimeoutException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.StopWatch;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.TestRequestType;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.TestScenario;
@@ -39,30 +52,24 @@ import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.StringResourceLoader;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.verifiers.TaskDataVerifier;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.verifiers.Verifier;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static java.util.Collections.emptyMap;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertFalse;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.services.AuthorizationHeadersProvider.SERVICE_AUTHORIZATION;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.CaseIdUtil.addAssignedCaseId;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.CLEANUP_USERS_FINISHED;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.CLEANUP_USERS_RUNNING;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SCENARIO_BEFORE_COMPLETED;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SCENARIO_BEFORE_FOUND;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SCENARIO_DISABLED;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SCENARIO_ENABLED;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SCENARIO_FINISHED;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SCENARIO_ROLE_ASSIGNMENT_COMPLETED;
@@ -78,86 +85,108 @@ import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtract
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor.extractOrThrow;
 
 @Slf4j
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = Application.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
-    @Autowired
     protected MessageInjector messageInjector;
-    @Autowired
     protected TaskDataVerifier taskDataVerifier;
-    @Autowired
     protected AuthorizationHeadersProvider authorizationHeadersProvider;
-    @Autowired
-    private CamundaTaskRetrieverService camundaTaskRetrievableService;
-    @Autowired
-    private TaskMgmApiRetrieverService taskMgmApiRetrievableService;
-    @Autowired
-    private RoleAssignmentService roleAssignmentService;
-    @Autowired
-    private TaskManagementService taskManagementService;
-    @Autowired
-    private Environment environment;
-    @Autowired
-    private DeserializeValuesUtil deserializeValuesUtil;
-    @Autowired
-    private ObjectMapper objectMapper;
-    @Autowired
-    private List<Verifier> verifiers;
-    @Autowired
-    private List<Preparer> preparers;
-    @Autowired
-    private CcdCaseCreator ccdCaseCreator;
-    @Autowired
-    private RestMessageService restMessageService;
+    private final CamundaTaskRetrieverService camundaTaskRetrievableService;
+    private final TaskMgmApiRetrieverService taskMgmApiRetrievableService;
+    private final RoleAssignmentService roleAssignmentService;
+    private final TaskManagementService taskManagementService;
+    private final Environment environment;
+    private final DeserializeValuesUtil deserializeValuesUtil;
+    private final ObjectMapper objectMapper;
+    private final List<Verifier> verifiers;
+    private final List<Preparer> preparers;
+    private final CcdCaseCreator ccdCaseCreator;
+    private final RestMessageService restMessageService;
     @Value("${wa-post-deployment-test.environment}")
     protected String postDeploymentTestEnvironment;
+    private final ArrayList<String> failedScenarios = new ArrayList<>();
+    private final ArrayList<String> passedScenarios = new ArrayList<>();
+    private StopWatch stopWatch;
+    @Value("${scenarioRunner.retryCount}")
+    private int retryCount;
 
-    @Before
-    public void setUp() {
-        MapSerializer.setObjectMapper(objectMapper);
-        JsonUtil.setObjectMapper(objectMapper);
+    @Autowired
+    public ScenarioRunnerTest(
+        MessageInjector messageInjector,
+        TaskDataVerifier taskDataVerifier,
+        AuthorizationHeadersProvider authorizationHeadersProvider,
+        CamundaTaskRetrieverService camundaTaskRetrievableService,
+        TaskMgmApiRetrieverService taskMgmApiRetrievableService,
+        RoleAssignmentService roleAssignmentService,
+        TaskManagementService taskManagementService,
+        Environment environment,
+        DeserializeValuesUtil deserializeValuesUtil,
+        ObjectMapper objectMapper,
+        List<Verifier> verifiers,
+        List<Preparer> preparers,
+        CcdCaseCreator ccdCaseCreator,
+        RestMessageService restMessageService
+    ) {
+        this.messageInjector = messageInjector;
+        this.taskDataVerifier = taskDataVerifier;
+        this.authorizationHeadersProvider = authorizationHeadersProvider;
+        this.camundaTaskRetrievableService = camundaTaskRetrievableService;
+        this.taskMgmApiRetrievableService = taskMgmApiRetrievableService;
+        this.roleAssignmentService = roleAssignmentService;
+        this.taskManagementService = taskManagementService;
+        this.environment = environment;
+        this.deserializeValuesUtil = deserializeValuesUtil;
+        this.objectMapper = objectMapper;
+        this.verifiers = verifiers;
+        this.preparers = preparers;
+        this.ccdCaseCreator = ccdCaseCreator;
+        this.restMessageService = restMessageService;
     }
 
-    @Test
-    public void scenarios_should_behave_as_specified() throws Exception {
-
-        StopWatch stopWatch = new StopWatch();
+    @BeforeAll
+    public void beforeAll() throws Exception {
+        stopWatch = new StopWatch();
         stopWatch.start();
-
-
         loadPropertiesIntoMapValueExpander();
 
         for (Preparer preparer : preparers) {
             preparer.prepare();
         }
 
-        assertFalse("Verifiers configured successfully", verifiers.isEmpty());
+        Assertions.assertFalse(verifiers.isEmpty(), "Verifiers configured successfully");
 
-        URL path = getClass().getClassLoader().getResource("scenarios");
-        File[] directories = new File(path.toURI()).listFiles(File::isDirectory);
-        Objects.requireNonNull(directories, "No directories found under 'scenarios'");
+    }
 
-        Exception testException = null;
-        try {
-            for (File directory : directories) {
-                runAllScenariosFor(directory.getName());
-            }
-        } catch (Exception ex) {
-            testException = ex;
-        } finally {
-            Logger.say(CLEANUP_USERS_RUNNING);
-            authorizationHeadersProvider.cleanupTestUsers();
-            Logger.say(CLEANUP_USERS_FINISHED);
+    @BeforeEach
+    public void setUp() {
+        MapSerializer.setObjectMapper(objectMapper);
+        JsonUtil.setObjectMapper(objectMapper);
+    }
 
-            if (testException != null) {
-                throw testException;
-            }
+    @AfterAll
+    public void tearDown() {
+        if (!failedScenarios.isEmpty()) {
+            StringBuilder sb = new StringBuilder("Failed scenarios:\n=========================================");
+            failedScenarios.forEach(scenario -> sb.append("\n").append(scenario));
+            throw new RuntimeException(sb.toString());
         }
 
         stopWatch.stop();
         Logger.say(SCENARIO_RUNNING_TIME, stopWatch.getTotalTimeSeconds());
+        StringBuilder sb = new StringBuilder("\nScenarios ran:\n=========================================");
+        passedScenarios.forEach(scenario -> sb.append("\n").append(scenario));
+        log.info(sb.toString());
     }
 
-    private void runAllScenariosFor(String directoryName) throws Exception {
+    @ParameterizedTest
+    @MethodSource("caseTypeScenarios")
+    public void scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
+        runScenarioBySource(scenarioSource, retryCount);
+    }
+
+    static Stream<Arguments> caseTypeScenarios() throws Exception {
         String scenarioPattern = System.getProperty("scenario");
         if (scenarioPattern == null) {
             scenarioPattern = "*.json";
@@ -167,28 +196,34 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
         Collection<String> scenarioSources =
             StringResourceLoader
-                .load("/scenarios/" + directoryName + "/" + scenarioPattern)
+                .load("/scenarios/sscs/" + scenarioPattern)
                 .values();
 
-        Logger.say(SCENARIO_START, scenarioSources.size() + " " + directoryName.toUpperCase(Locale.ROOT));
+        Logger.say(SCENARIO_START, scenarioSources.size() + " SSCS");
+        return scenarioSources.stream().map(Arguments::of);
+    }
 
-        for (String scenarioSource : scenarioSources) {
+    private void runScenarioBySource(String scenarioSource, int retryCount) throws Exception {
+        String description = "";
+        for (int i = 0; i < retryCount; i++) {
+            try {
+                Map<String, Object> scenarioValues = deserializeValuesUtil
+                    .deserializeStringWithExpandedValues(scenarioSource, emptyMap());
 
-            Map<String, Object> scenarioValues = deserializeValuesUtil
-                .deserializeStringWithExpandedValues(scenarioSource, emptyMap());
+                description = extractOrDefault(scenarioValues, "description", "Unnamed scenario");
+                Boolean scenarioEnabled;
+                try {
+                    scenarioEnabled = extractOrDefault(scenarioValues, "enabled", true);
+                } catch (ClassCastException e) {
+                    scenarioEnabled = Boolean.parseBoolean(extractOrDefault(scenarioValues, "enabled", "true"));
+                }
 
-            String description = extractOrDefault(scenarioValues, "description", "Unnamed scenario");
-
-            Boolean scenarioEnabled = extractOrDefault(scenarioValues, "enabled", true);
-
-            if (!scenarioEnabled) {
-                Logger.say(SCENARIO_DISABLED, description);
-            } else {
+                Assumptions.assumeTrue(scenarioEnabled, "ℹ️ SCENARIO: " + description + " **disabled**");
                 Logger.say(SCENARIO_ENABLED, description);
 
                 Map<String, Object> beforeClauseValues = extractOrDefault(scenarioValues, "before", null);
-                List<Map<String, Object>> testClauseValues = new ArrayList<>(Objects.requireNonNull(
-                    MapValueExtractor.extract(scenarioValues, "tests")));
+                Map<String, Object> testClauseValues = Objects.requireNonNull(
+                    MapValueExtractor.extract(scenarioValues, "test"));
                 Map<String, Object> postRoleAssignmentClauseValues = extractOrDefault(scenarioValues,
                     "postRoleAssignments", null);
                 Map<String, Object> updateCaseClauseValues = extractOrDefault(scenarioValues, "updateCase", null);
@@ -234,7 +269,15 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 processTestClauseScenario(scenario);
                 Logger.say(SCENARIO_SUCCESSFUL, description);
 
+                failedScenarios.removeIf(description::equals);
+                passedScenarios.add(description);
                 Logger.say(SCENARIO_FINISHED);
+                break; // Exit the retry loop if successful or disabled
+            } catch (Error | FeignException | NullPointerException | ConditionTimeoutException | JsonParseException e) {
+                log.error("Scenario {} failed with error {}", description, e);
+                if (!failedScenarios.contains(description)) {
+                    failedScenarios.add(description);
+                }
             }
         }
     }
@@ -260,9 +303,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     }
 
     private void processTestClauseScenario(TestScenario scenario) throws Exception {
-        for (Map<String, Object> testClause : scenario.getTestClauseValues()) {
-            processScenario(testClause, scenario);
-        }
+        processScenario(scenario.getTestClauseValues(), scenario);
     }
 
     private void createBaseCcdCase(TestScenario scenario) throws IOException {
@@ -422,7 +463,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 camundaTaskRetrievableService.retrieveTask(
                     expectationValue,
                     scenario,
-                    expectationCaseIds.get(0),
+                    expectationCaseIds.getFirst(),
                     expectationAuthorizationHeaders
                 );
             } else {

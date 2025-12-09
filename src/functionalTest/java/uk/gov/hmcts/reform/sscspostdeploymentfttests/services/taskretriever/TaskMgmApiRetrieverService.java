@@ -12,6 +12,7 @@ import uk.gov.hmcts.reform.sscspostdeploymentfttests.services.TaskManagementServ
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.DeserializeValuesUtil;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.Logger;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapMerger;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapSerializer;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.StringResourceLoader;
@@ -73,7 +74,7 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
         } else {
             additionalValues = new HashMap<>() {
                 {
-                    put("caseId", caseIds.get(0));
+                    put("caseId", caseIds.getFirst());
                 }
             };
         }
@@ -275,27 +276,10 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
         Map<String, Object> taskDataExpectationWithoutMetaData = removeMetaDataFromDataMap(taskDataExpectation);
 
         if (taskDataDataReplacements != null) {
-            mergeTasks(taskDataDataReplacementsWithoutMetaData, taskDataExpectationWithoutMetaData);
+            MapMerger.merge(taskDataDataReplacementsWithoutMetaData, taskDataExpectationWithoutMetaData);
         }
 
         return MapSerializer.serialize(taskDataDataReplacementsWithoutMetaData);
-    }
-
-    private void mergeTasks(Map<String, Object> target, Map<String, Object> minimal) {
-        List<Map<String, Object>> targetTaskList = new ArrayList<>(
-            requireNonNull(MapValueExtractor.extract(target, "tasks")));
-        List<Map<String, Object>> taskListMinimal = new ArrayList<>(
-            requireNonNull(MapValueExtractor.extract(minimal, "tasks")));
-
-        targetTaskList.forEach(t -> mergeTask(t, taskListMinimal.get(0)));
-    }
-
-    private void mergeTask(Map<String, Object> target, Map<String, Object> minimal) {
-        for (String key : minimal.keySet()) {
-            if (!target.containsKey(key)) {
-                target.put(key, minimal.get(key));
-            }
-        }
     }
 
     private Map<String, Object> removeMetaDataFromDataMap(Map<String, Object> dataMap) {

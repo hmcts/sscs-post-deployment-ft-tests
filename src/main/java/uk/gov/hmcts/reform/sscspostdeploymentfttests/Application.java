@@ -10,6 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
     {
         "uk.gov.hmcts.reform.authorisation",
         "uk.gov.hmcts.reform.sscspostdeploymentfttests",
+        "uk.gov.hmcts.reform.ccd.client"
     })
 public class Application {
 

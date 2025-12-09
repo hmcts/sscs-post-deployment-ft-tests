@@ -27,3 +27,10 @@ document_management:
 
 ccd_gateway:
   url: ${CCD_GW_URL:http://ccd-api-gateway}
+
+idam:
+  system:
+    password: ${WA_SYSTEM_PASSWORD:password}
+
+scenarioRunner:
+  retryCount: ${WA_RETRY_COUNT:3}

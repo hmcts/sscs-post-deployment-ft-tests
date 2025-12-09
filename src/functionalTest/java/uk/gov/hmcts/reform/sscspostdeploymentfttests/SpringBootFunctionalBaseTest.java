@@ -1,13 +1,14 @@
 package uk.gov.hmcts.reform.sscspostdeploymentfttests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.serenitybdd.junit.spring.integration.SpringIntegrationSerenityRunner;
-import org.junit.runner.RunWith;
+import net.serenitybdd.junit5.SerenityJUnit5Extension;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringIntegrationSerenityRunner.class)
+@ExtendWith({SpringExtension.class, SerenityJUnit5Extension.class})
 @SpringBootTest
 @ActiveProfiles("functional")
 public abstract class SpringBootFunctionalBaseTest {

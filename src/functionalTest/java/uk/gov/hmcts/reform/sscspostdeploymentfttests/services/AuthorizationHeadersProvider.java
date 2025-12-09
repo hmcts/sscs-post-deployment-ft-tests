@@ -44,14 +44,18 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     @Value("${idam.test.userCleanupEnabled:false}")
     private boolean testUserDeletionEnabled;
 
-    @Autowired
-    private IdamWebApi idamWebApi;
-
-    @Autowired
-    private AuthTokenGenerator serviceAuthTokenGenerator;
+    private final IdamWebApi idamWebApi;
+    private final AuthTokenGenerator serviceAuthTokenGenerator;
 
     @Autowired
     private RoleAssignmentService roleAssignmentService;
+
+    @Autowired
+    public AuthorizationHeadersProvider(IdamWebApi idamWebApi,
+                                        AuthTokenGenerator serviceAuthTokenGenerator) {
+        this.idamWebApi = idamWebApi;
+        this.serviceAuthTokenGenerator = serviceAuthTokenGenerator;
+    }
 
     @Override
     public Headers getWaSystemUserAuthorization() {

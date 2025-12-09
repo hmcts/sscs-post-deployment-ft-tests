@@ -17,7 +17,7 @@ public class TestScenario {
     private final Map<String, Object> scenarioMapValues;
     private final String scenarioSource;
     private final Map<String, Object> beforeClauseValues;
-    private final List<Map<String, Object>> testClauseValues;
+    private final Map<String, Object> testClauseValues;
     private final Map<String, Object> postRoleAssignmentClauseValues;
     private final Map<String, Object> updateCaseClauseValues;
     private final String jurisdiction;
@@ -33,7 +33,7 @@ public class TestScenario {
                         @NotNull String jurisdiction,
                         @NotNull String caseType,
                         @Nullable Map<String, Object> beforeClauseValues,
-                        @NotNull List<Map<String, Object>> testClauseValues,
+                        @NotNull Map<String, Object> testClauseValues,
                         @Nullable Map<String, Object> postRoleAssignmentClauseValues,
                         @Nullable Map<String, Object> updateCaseClauseValues) {
         this.scenarioMapValues = scenarioMapValues;
@@ -79,7 +79,7 @@ public class TestScenario {
         return beforeClauseValues;
     }
 
-    public List<Map<String, Object>> getTestClauseValues() {
+    public Map<String, Object> getTestClauseValues() {
         return testClauseValues;
     }
 
