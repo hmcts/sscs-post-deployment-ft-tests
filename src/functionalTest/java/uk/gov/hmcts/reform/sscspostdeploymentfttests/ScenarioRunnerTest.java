@@ -180,7 +180,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
         log.info(sb.toString());
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} - {0[description]}")
     @MethodSource("caseTypeScenarios")
     public void scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         runScenarioBySource(scenarioSource, retryCount);
