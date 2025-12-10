@@ -377,9 +377,9 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
             verifyTasks(scenario, taskRetrieverOption, expectationValue, expectedTasks, expectationCaseIds);
 
-            verifyMessages(expectationValue, expectedMessages, expectationCaseIds.get(0));
+            verifyMessages(expectationValue, expectedMessages, expectationCaseIds.getFirst());
 
-            removeInvalidMessages(expectationCaseIds.get(0));
+            removeInvalidMessages(expectationCaseIds.getFirst());
         }
     }
 
