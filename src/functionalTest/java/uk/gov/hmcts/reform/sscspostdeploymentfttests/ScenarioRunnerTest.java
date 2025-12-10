@@ -9,11 +9,14 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.awaitility.core.ConditionEvaluationLogger;
 import org.awaitility.core.ConditionTimeoutException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -180,7 +183,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
         log.info(sb.toString());
     }
 
-    @ParameterizedTest(name = "{index} - {0[description]}")
+    @ParameterizedTest(name = "{displayName}")
     @MethodSource("caseTypeScenarios")
     public void scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         runScenarioBySource(scenarioSource, retryCount);
@@ -200,7 +203,20 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 .values();
 
         Logger.say(SCENARIO_START, scenarioSources.size() + " SSCS");
-        return scenarioSources.stream().map(Arguments::of);
+
+        return scenarioSources.stream().map(scenario -> {
+            JSONObject obj;
+            String description;
+
+            try {
+                obj = new JSONObject(scenario);
+                description = obj.getString("description");
+            } catch (JSONException e) {
+                description = "Unnamed scenario";
+            }
+
+            return Arguments.of(Named.of(description, scenario));
+        });
     }
 
     private void runScenarioBySource(String scenarioSource, int retryCount) throws Exception {
