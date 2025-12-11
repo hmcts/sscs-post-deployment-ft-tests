@@ -9,8 +9,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.awaitility.core.ConditionEvaluationLogger;
 import org.awaitility.core.ConditionTimeoutException;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
@@ -204,19 +202,22 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
         Logger.say(SCENARIO_START, scenarioSources.size() + " SSCS");
 
-        return scenarioSources.stream().map(scenario -> {
-            JSONObject obj;
+        return scenarioSources.stream().map(scenarioSource -> {
             String description;
 
             try {
-                obj = new JSONObject(scenario);
-                description = obj.getString("description");
-            } catch (JSONException e) {
+                Map<String, Object> scenarioValues = MapSerializer.deserialize(scenarioSource);
+                description = getScenarioDescription(scenarioValues);
+            } catch (IOException e) {
                 description = "Unnamed scenario";
             }
 
-            return Arguments.of(Named.of(description, scenario));
+            return Arguments.of(Named.of(description, scenarioSource));
         });
+    }
+
+    private static String getScenarioDescription(Map<String, Object> scenarioValues) {
+        return extractOrDefault(scenarioValues, "description", "Unnamed scenario");
     }
 
     private void runScenarioBySource(String scenarioSource, int retryCount) throws Exception {
@@ -226,7 +227,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 Map<String, Object> scenarioValues = deserializeValuesUtil
                     .deserializeStringWithExpandedValues(scenarioSource, emptyMap());
 
-                description = extractOrDefault(scenarioValues, "description", "Unnamed scenario");
+                description = getScenarioDescription(scenarioValues);
                 Boolean scenarioEnabled;
                 try {
                     scenarioEnabled = extractOrDefault(scenarioValues, "enabled", true);
