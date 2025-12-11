@@ -75,7 +75,7 @@
           "roleData": [
             {
               "key": "reviewListingError",
-              "numberOfRolesAvailable": 5,
+              "numberOfRolesAvailable": 28,
               "roles": [
                 {
                   "role_category": "CTSC",
@@ -91,6 +91,12 @@
                 {
                   "role_category": "CTSC",
                   "role_name": "ctsc",
+                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "challenged-access-ctsc",
                   "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
                   "authorisations": []
                 },
