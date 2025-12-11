@@ -106,11 +106,6 @@ scenarioFolders.each { scenarioFolder ->
         useJUnitPlatform()
         testLogging.showStandardStreams = true
         finalizedBy aggregate
-        reports {
-            junitXml.required.set(true)
-            junitXml.outputLocation = layout.buildDirectory.dir("test-results/functional-$scenarioFolder")
-            html.outputLocation = layout.buildDirectory.dir("reports/tests/functional-$scenarioFolder")
-        }
     }
 }
 
