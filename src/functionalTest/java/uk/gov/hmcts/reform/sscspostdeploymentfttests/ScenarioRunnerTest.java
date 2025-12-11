@@ -195,9 +195,11 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
             scenarioPattern = "*" + scenarioPattern + "*.json";
         }
 
+        String scenarioFolder = System.getProperty("scenarioFolder");
+
         Collection<String> scenarioSources =
             StringResourceLoader
-                .load("/scenarios/sscs/" + scenarioPattern)
+                .load("/scenarios/sscs/" + scenarioFolder + "/" + scenarioPattern)
                 .values();
 
         Logger.say(SCENARIO_START, scenarioSources.size() + " SSCS");
@@ -209,7 +211,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 Map<String, Object> scenarioValues = MapSerializer.deserialize(scenarioSource);
                 description = getScenarioDescription(scenarioValues);
             } catch (IOException e) {
-                description = "Unnamed scenario";
+                description = "Unnamed " + scenarioFolder + " scenario";
             }
 
             return Arguments.of(Named.of(description, scenarioSource));
