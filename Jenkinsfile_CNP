@@ -77,7 +77,7 @@ withNightlyPipeline(type, product, component) {
         allowMissing         : true,
         alwaysLinkToLastBuild: true,
         keepAll              : true,
-        reportDir            : "build/reports/tests/functional-CTSC",
+        reportDir            : "build/reports/tests/functionalCTSC",
         reportFiles          : 'index.html',
         reportName           : 'Functional Test Report - CTSC'
       ])
@@ -92,7 +92,7 @@ def runFunctionalTestsByUserRole() {
     } catch (Error) {
       unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
     } finally {
-      steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/**/*'
+      steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/tests/functionalCTSC/**/*'
     }
   }
 }

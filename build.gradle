@@ -9,11 +9,9 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.52.0'
     id 'org.sonarqube' version '6.2.0.5505'
     id 'io.freefair.lombok' version '8.13.1'
-    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.3.2'
 }
 
 apply plugin: 'java'
-apply plugin: 'net.serenity-bdd.serenity-gradle-plugin'
 
 group = 'uk.gov.hmcts.reform'
 version = '0.0.1'
@@ -89,7 +87,6 @@ tasks.register('functional', Test) {
     systemProperty "scenario", System.getProperty('scenario')
     testClassesDirs = sourceSets.functionalTest.output.classesDirs
     classpath = sourceSets.functionalTest.runtimeClasspath
-    finalizedBy aggregate
     testLogging.showStandardStreams = true
 }
 
@@ -105,7 +102,6 @@ scenarioFolders.each { scenarioFolder ->
         systemProperty "scenario", System.getProperty("scenario")
         useJUnitPlatform()
         testLogging.showStandardStreams = true
-        finalizedBy aggregate
     }
 }
 
