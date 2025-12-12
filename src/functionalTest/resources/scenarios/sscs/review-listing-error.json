@@ -66,7 +66,7 @@
                   "major_priority": 3000,
                   "description": "[Update Listing Requirements](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/updateListingRequirements)",
                   "permissions": {
-                    "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "Cancel", "UnclaimAssign", "CompleteOwn" ]
+                    "values": ["Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign"]
                   }
                 }
               ]
@@ -83,7 +83,7 @@
                 {
                   "role_category": "CTSC",
                   "role_name": "allocated-ctsc-caseworker",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign"],
+                  "permissions": ["Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign"],
                   "authorisations": []
                 },
                 {
@@ -102,7 +102,7 @@
                 {
                   "role_category": "CTSC",
                   "role_name": "challenged-access-ctsc",
-                  "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign"],
+                  "permissions": ["Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign"],
                   "authorisations": []
                 },
                 {
