@@ -12,7 +12,7 @@
     },
     "ccd": [
       {
-        "eventId": "incompleteApplicationReceived",
+        "eventId": "createWithDwpTestCase",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
@@ -62,7 +62,7 @@
                   "role_category": "CTSC",
                   "minor_priority": 300,
                   "major_priority": 3000,
-                  "description": "[Send to interloc](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/validSendToInterloc)<br/>[Send case to TCW](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocSendToTcw)<br/>[Information received](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocInformationReceived)"
+                  "description": "[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/validSendToInterloc)<br/>[Send to TCW](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocSendToTcw)<br/>[Interloc Information received](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocInformationReceived)"
                 }
               ]
             }
@@ -70,7 +70,7 @@
           "roleData": [
             {
               "key": "reviewAdminAction",
-              "numberOfRolesAvailable": 24,
+              "numberOfRolesAvailable": 28,
               "roles": [
                 { "role_category": "ADMIN", "role_name": "allocated-admin-caseworker", "permissions": [ "Read" ], "authorisations": [] },
                 {
