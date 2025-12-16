@@ -200,10 +200,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
             scenarioPattern = "*" + scenarioPattern + "*.json";
         }
 
-        String scenarioFolder = System.getProperty("scenarioFolder");
-        if (scenarioFolder == null || scenarioFolder.isBlank()) {
-            return Stream.empty();
-        }
+        String scenarioFolder = System.getProperty("scenarioFolder", "*");
 
         Collection<String> scenarioSources =
             StringResourceLoader

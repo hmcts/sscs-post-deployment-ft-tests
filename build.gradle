@@ -85,24 +85,13 @@ tasks.register('functional', Test) {
     description = "Runs functional tests"
     group = "Verification"
     systemProperty "scenario", System.getProperty('scenario')
+    def scenarioFolder = System.getenv("SCENARIO_FOLDER")
+    if (scenarioFolder != null) {
+        systemProperty "scenarioFolder", scenarioFolder
+    }
     testClassesDirs = sourceSets.functionalTest.output.classesDirs
     classpath = sourceSets.functionalTest.runtimeClasspath
     testLogging.showStandardStreams = true
-}
-
-def scenarioFolders = ["CTSC", "Judge", "LegalOfficer"]
-
-scenarioFolders.each { scenarioFolder ->
-    tasks.register("functional${scenarioFolder}", Test) {
-        description = "Runs functional tests for scenario user role: $scenarioFolder"
-        group = "Verification"
-        testClassesDirs = sourceSets.functionalTest.output.classesDirs
-        classpath = sourceSets.functionalTest.runtimeClasspath
-        systemProperty "scenarioFolder", scenarioFolder
-        systemProperty "scenario", System.getProperty("scenario")
-        useJUnitPlatform()
-        testLogging.showStandardStreams = true
-    }
 }
 
 tasks.register('integration', Test) {

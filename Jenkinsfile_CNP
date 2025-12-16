@@ -59,8 +59,6 @@ withNightlyPipeline(type, product, component) {
   }
 
   onPR {
-    enableFullFunctionalTest(60)
-
     def TRIBUNALS_PR = "4973"
     env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
     env.CCD_URL="https://ccd-data-store-api-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
@@ -69,30 +67,8 @@ withNightlyPipeline(type, product, component) {
     env.CAMUNDA_URL="https://camunda-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net/engine-rest"
     env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
     env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
-  }
+    env.SCENARIO_FOLDER="CTSC"
 
-  afterAlways('fullFunctionalTest') {
-    runFunctionalTestsByUserRole()
-
-    publishHTML([
-      allowMissing         : true,
-      alwaysLinkToLastBuild: true,
-      keepAll              : true,
-      reportDir            : "build/reports/tests/functionalCTSC",
-      reportFiles          : 'index.html',
-      reportName           : 'Functional Test Report - CTSC'
-    ])
-  }
-}
-
-def runFunctionalTestsByUserRole() {
-  stage('CTSC functional tests') {
-    try {
-      sh './gradlew functionalCTSC'
-    } catch (Error) {
-      unstable(message: "${STAGE_NAME} is unstable: " + Error.toString())
-    } finally {
-      steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/tests/functionalCTSC/**/*'
-    }
+    enableFullFunctionalTest(60)
   }
 }
