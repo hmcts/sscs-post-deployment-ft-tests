@@ -69,19 +69,19 @@ withNightlyPipeline(type, product, component) {
     env.CAMUNDA_URL="https://camunda-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net/engine-rest"
     env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
     env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
+  }
 
-    afterAlways('fullFunctionalTest') {
-      runFunctionalTestsByUserRole()
+  afterAlways('fullFunctionalTest') {
+    runFunctionalTestsByUserRole()
 
-      publishHTML([
-        allowMissing         : true,
-        alwaysLinkToLastBuild: true,
-        keepAll              : true,
-        reportDir            : "build/reports/tests/functionalCTSC",
-        reportFiles          : 'index.html',
-        reportName           : 'Functional Test Report - CTSC'
-      ])
-    }
+    publishHTML([
+      allowMissing         : true,
+      alwaysLinkToLastBuild: true,
+      keepAll              : true,
+      reportDir            : "build/reports/tests/functionalCTSC",
+      reportFiles          : 'index.html',
+      reportName           : 'Functional Test Report - CTSC'
+    ])
   }
 }
 

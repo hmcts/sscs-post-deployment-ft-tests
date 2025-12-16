@@ -184,7 +184,12 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("caseTypeScenarios")
     public void scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
-        runScenarioBySource(scenarioSource, retryCount);
+        String scenarioFolder = System.getProperty("scenarioFolder");
+        if (scenarioFolder != null && !scenarioFolder.isBlank()) {
+            runScenarioBySource(scenarioSource, retryCount);
+        } else {
+            log.info("No user role was passed to test");
+        }
     }
 
     static Stream<Arguments> caseTypeScenarios() throws Exception {
@@ -195,7 +200,10 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
             scenarioPattern = "*" + scenarioPattern + "*.json";
         }
 
-        String scenarioFolder = System.getProperty("scenarioFolder", "*");
+        String scenarioFolder = System.getProperty("scenarioFolder");
+        if (scenarioFolder == null || scenarioFolder.isBlank()) {
+            return Stream.empty();
+        }
 
         Collection<String> scenarioSources =
             StringResourceLoader
