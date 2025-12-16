@@ -200,27 +200,40 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
             scenarioPattern = "*" + scenarioPattern + "*.json";
         }
 
-        String scenarioFolder = System.getProperty("scenarioFolder", "*");
+        String scenarioFolderPattern = System.getProperty("scenarioFolder");
+        List<String > scenarioFolders;
+        if (scenarioFolderPattern == null || scenarioFolderPattern.isBlank()) {
+            scenarioFolders = List.of("*");
+        } else {
+            scenarioFolders = Arrays.stream(scenarioFolderPattern.split(","))
+                .map(String::trim)
+                .filter(folderName -> !folderName.isEmpty())
+                .toList();
+        }
 
-        Collection<String> scenarioSources =
-            StringResourceLoader
-                .load("/scenarios/sscs/" + scenarioFolder + "/" + scenarioPattern)
-                .values();
+        List<Arguments> scenarioArguments = new ArrayList<>();
+        for (String scenarioFolder : scenarioFolders) {
+            Collection<String> scenarioSources =
+                StringResourceLoader
+                    .load("/scenarios/sscs/" + scenarioFolder + "/" + scenarioPattern)
+                    .values();
 
-        Logger.say(SCENARIO_START, scenarioSources.size() + " SSCS");
+            for (String scenarioSource : scenarioSources) {
+                String description;
+                try {
+                    Map<String, Object> scenarioValues = MapSerializer.deserialize(scenarioSource);
+                    description = scenarioFolder + "-" + getScenarioDescription(scenarioValues);
+                } catch (IOException e) {
+                    description = "Unnamed " + scenarioFolder + " scenario";
+                }
 
-        return scenarioSources.stream().map(scenarioSource -> {
-            String description;
-
-            try {
-                Map<String, Object> scenarioValues = MapSerializer.deserialize(scenarioSource);
-                description = getScenarioDescription(scenarioValues);
-            } catch (IOException e) {
-                description = "Unnamed " + scenarioFolder + " scenario";
+                scenarioArguments.add(Arguments.of(Named.of(description, scenarioSource)));
             }
+        }
 
-            return Arguments.of(Named.of(description, scenarioSource));
-        });
+        Logger.say(SCENARIO_START, scenarioArguments.size() + " SSCS");
+
+        return scenarioArguments.stream();
     }
 
     private static String getScenarioDescription(Map<String, Object> scenarioValues) {
