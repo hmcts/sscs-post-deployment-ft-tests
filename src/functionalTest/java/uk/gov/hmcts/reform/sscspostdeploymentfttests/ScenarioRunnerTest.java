@@ -17,6 +17,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -182,17 +184,42 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     }
 
     @ParameterizedTest(name = "{index} {0}")
-    @MethodSource("caseTypeScenarios")
-    public void scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
-        String scenarioFolder = System.getProperty("scenarioFolder");
-        if (scenarioFolder != null && !scenarioFolder.isBlank()) {
-            runScenarioBySource(scenarioSource, retryCount);
-        } else {
-            log.info("No user role was passed to test");
-        }
+    @MethodSource("ctscScenarios")
+    @Execution(ExecutionMode.CONCURRENT)
+    public void ctsc_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
+        runScenarioBySource(scenarioSource, retryCount);
     }
 
-    static Stream<Arguments> caseTypeScenarios() throws Exception {
+    @ParameterizedTest(name = "{index} {0}")
+    @MethodSource("judgeScenarios")
+    @Execution(ExecutionMode.CONCURRENT)
+    // @Disabled("No judge scenarios yet")
+    public void judge_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
+        runScenarioBySource(scenarioSource, retryCount);
+    }
+
+    @ParameterizedTest(name = "{index} {0}")
+    @MethodSource("legalOfficerScenarios")
+    @Execution(ExecutionMode.CONCURRENT)
+    // @Disabled("No legal officer scenarios yet")
+    public void lo_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
+        runScenarioBySource(scenarioSource, retryCount);
+    }
+
+    static Stream<Arguments> ctscScenarios() throws Exception {
+        return caseTypeScenarios("CTSC");
+    }
+
+    static Stream<Arguments> judgeScenarios() throws Exception {
+        return caseTypeScenarios("Judge");
+    }
+
+    static Stream<Arguments> legalOfficerScenarios() throws Exception {
+        return caseTypeScenarios("LegalOfficer");
+    }
+
+    static Stream<Arguments> caseTypeScenarios(String scenarioFolder) throws Exception {
+        // String scenarioFolderPattern = System.getProperty("scenarioFolder");
         String scenarioPattern = System.getProperty("scenario");
         if (scenarioPattern == null) {
             scenarioPattern = "*.json";
@@ -200,40 +227,24 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
             scenarioPattern = "*" + scenarioPattern + "*.json";
         }
 
-        String scenarioFolderPattern = System.getProperty("scenarioFolder");
-        List<String > scenarioFolders;
-        if (scenarioFolderPattern == null || scenarioFolderPattern.isBlank()) {
-            scenarioFolders = List.of("*");
-        } else {
-            scenarioFolders = Arrays.stream(scenarioFolderPattern.split(","))
-                .map(String::trim)
-                .filter(folderName -> !folderName.isEmpty())
-                .toList();
-        }
+        Collection<String> scenarioSources =
+            StringResourceLoader
+                .load("/scenarios/sscs/" + scenarioFolder + "/" + scenarioPattern)
+                .values();
 
-        List<Arguments> scenarioArguments = new ArrayList<>();
-        for (String scenarioFolder : scenarioFolders) {
-            Collection<String> scenarioSources =
-                StringResourceLoader
-                    .load("/scenarios/sscs/" + scenarioFolder + "/" + scenarioPattern)
-                    .values();
+        Logger.say(SCENARIO_START, scenarioSources.size() + " SSCS");
 
-            for (String scenarioSource : scenarioSources) {
-                String description;
-                try {
-                    Map<String, Object> scenarioValues = MapSerializer.deserialize(scenarioSource);
-                    description = scenarioFolder + "-" + getScenarioDescription(scenarioValues);
-                } catch (IOException e) {
-                    description = "Unnamed " + scenarioFolder + " scenario";
-                }
-
-                scenarioArguments.add(Arguments.of(Named.of(description, scenarioSource)));
+        return scenarioSources.stream().map(scenarioSource -> {
+            String displayName;
+            try {
+                Map<String, Object> scenarioValues = MapSerializer.deserialize(scenarioSource);
+                displayName = scenarioFolder + "-" + getScenarioDescription(scenarioValues);
+            } catch (IOException e) {
+                displayName = "Unnamed " + scenarioFolder + " scenario";
             }
-        }
 
-        Logger.say(SCENARIO_START, scenarioArguments.size() + " SSCS");
-
-        return scenarioArguments.stream();
+            return Arguments.of(Named.of(displayName, scenarioSource));
+        });
     }
 
     private static String getScenarioDescription(Map<String, Object> scenarioValues) {
