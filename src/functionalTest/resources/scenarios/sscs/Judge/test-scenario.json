@@ -60,7 +60,7 @@
                 "type": "actionUnprocessedCorrespondence",
                 "name": "CTSC - Action Unprocessed Correspondence",
                 "role_category": "CTSC",
-                "minor_priority": 300,
+                "minor_priority": 500,
                 "major_priority": 3000,
                 "description": "[Action Further Evidence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionFurtherEvidence)<br/>[Manage Documents](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/uploadDocument)",
                 "permissions": {
