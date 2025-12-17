@@ -17,8 +17,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -185,14 +183,12 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("ctscScenarios")
-    @Execution(ExecutionMode.CONCURRENT)
     public void ctsc_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         runScenarioBySource(scenarioSource, retryCount);
     }
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("judgeScenarios")
-    @Execution(ExecutionMode.CONCURRENT)
     // @Disabled("No judge scenarios yet")
     public void judge_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         runScenarioBySource(scenarioSource, retryCount);
@@ -200,7 +196,6 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("legalOfficerScenarios")
-    @Execution(ExecutionMode.CONCURRENT)
     // @Disabled("No legal officer scenarios yet")
     public void lo_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         runScenarioBySource(scenarioSource, retryCount);
@@ -219,7 +214,19 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     }
 
     static Stream<Arguments> caseTypeScenarios(String scenarioFolder) throws Exception {
-        // String scenarioFolderPattern = System.getProperty("scenarioFolder");
+        String scenarioFolderPattern = System.getProperty("scenarioFolder");
+        if (scenarioFolderPattern == null || scenarioFolderPattern.isBlank()) {
+            return Stream.empty();
+        }
+
+        List<String> allowedUserRoles = Arrays.stream(scenarioFolderPattern.split(","))
+            .map(String::trim)
+            .toList();
+
+        if (!allowedUserRoles.contains(scenarioFolder)) {
+            return Stream.empty();
+        }
+
         String scenarioPattern = System.getProperty("scenario");
         if (scenarioPattern == null) {
             scenarioPattern = "*.json";
@@ -543,7 +550,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     @SneakyThrows
     private void removeInvalidMessages(String expectationCaseId) {
 
-        log.info("Checking Invalid Messages for caseId: " + expectationCaseId);
+        log.info("Checking Invalid Messages for caseId: {}", expectationCaseId);
         String actualMessageResponse = restMessageService.getCaseMessages(expectationCaseId);
 
         Map<String, Object> actualResponse = MapSerializer.deserialize(actualMessageResponse);
@@ -553,11 +560,11 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
         messagesSent.forEach(messageData -> {
             String state = MapValueExtractor.extract(messageData, "State");
-            log.info("State: " + state);
+            log.info("State: {}", state);
             if ("UNPROCESSABLE".equals(state)) {
                 String messageId = MapValueExtractor.extract(messageData, "MessageId");
                 String caseId = MapValueExtractor.extract(messageData, "CaseId");
-                log.info("Found UNPROCESSABLE messageId: " + messageId + " caseId:" + caseId);
+                log.info("Found UNPROCESSABLE messageId: {} caseId:{}", messageId, caseId);
                 restMessageService.deleteMessage(messageId, caseId);
             }
         });
