@@ -215,16 +215,16 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     }
 
     static Stream<Arguments> caseTypeScenarios(String scenarioFolder) throws Exception {
-        String scenarioFolderPattern = System.getProperty("scenarioFolder");
-        if (scenarioFolderPattern == null || scenarioFolderPattern.isBlank()) {
+        String enabledUserRoles = System.getProperty("enabledUserRoles");
+        if (enabledUserRoles == null || enabledUserRoles.isBlank()) {
             return Stream.empty();
         }
 
-        List<String> allowedUserRoles = Arrays.stream(scenarioFolderPattern.split(","))
+        List<String> enabledUserRoleList = Arrays.stream(enabledUserRoles.split(","))
             .map(String::trim)
             .toList();
 
-        if (!allowedUserRoles.contains(scenarioFolder)) {
+        if (!enabledUserRoleList.contains(scenarioFolder)) {
             return Stream.empty();
         }
 
