@@ -218,7 +218,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
         String enabledUserRoles = System.getProperty("enabledUserRoles");
         if (enabledUserRoles == null || enabledUserRoles.isBlank()) {
             log.info("All user roles are disabled");
-            return Stream.empty();
+            return Stream.of(Arguments.of(Named.of("All user roles are disabled", null)));
         }
 
         List<String> enabledUserRoleList = Arrays.stream(enabledUserRoles.split(","))
@@ -227,7 +227,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
         if (!enabledUserRoleList.contains(scenarioFolder)) {
             log.info("{} user role is disabled", scenarioFolder);
-            return Stream.empty();
+            return Stream.of(Arguments.of(Named.of(scenarioFolder + " is disabled", null)));
         }
 
         String scenarioPattern = System.getProperty("scenario");
@@ -244,7 +244,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 .values();
         } catch (IOException exception) {
             log.info("No scenarios found at {}", scenarioFolder);
-            return Stream.empty();
+            return Stream.of(Arguments.of(Named.of(scenarioFolder + " is empty", null)));
         }
 
         Logger.say(SCENARIO_START, scenarioSources.size() + " SSCS");
