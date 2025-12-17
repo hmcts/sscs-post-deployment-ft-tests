@@ -240,6 +240,9 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 .load("/scenarios/sscs/" + scenarioFolder + "/" + scenarioPattern)
                 .values();
 
+        Assumptions.assumeTrue(!scenarioSources.isEmpty(),
+                               "Skipping test because no scenarios were found in folder: " + scenarioFolder);
+
         Logger.say(SCENARIO_START, scenarioSources.size() + " SSCS");
 
         return scenarioSources.stream().map(scenarioSource -> {
