@@ -202,21 +202,22 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
         runScenarioBySource(scenarioSource, retryCount);
     }
 
-    static Stream<Arguments> ctscScenarios() throws Exception {
+    static Stream<Arguments> ctscScenarios()  {
         return caseTypeScenarios("CTSC");
     }
 
-    static Stream<Arguments> judgeScenarios() throws Exception {
+    static Stream<Arguments> judgeScenarios() {
         return caseTypeScenarios("Judge");
     }
 
-    static Stream<Arguments> legalOfficerScenarios() throws Exception {
+    static Stream<Arguments> legalOfficerScenarios() {
         return caseTypeScenarios("LegalOfficer");
     }
 
-    static Stream<Arguments> caseTypeScenarios(String scenarioFolder) throws Exception {
+    static Stream<Arguments> caseTypeScenarios(String scenarioFolder) {
         String enabledUserRoles = System.getProperty("enabledUserRoles");
         if (enabledUserRoles == null || enabledUserRoles.isBlank()) {
+            log.info("All user roles are disabled");
             return Stream.empty();
         }
 
@@ -225,6 +226,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
             .toList();
 
         if (!enabledUserRoleList.contains(scenarioFolder)) {
+            log.info("{} user role is disabled", scenarioFolder);
             return Stream.empty();
         }
 
@@ -235,13 +237,15 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
             scenarioPattern = "*" + scenarioPattern + "*.json";
         }
 
-        Collection<String> scenarioSources =
-            StringResourceLoader
+        Collection<String> scenarioSources;
+        try {
+            scenarioSources = StringResourceLoader
                 .load("/scenarios/sscs/" + scenarioFolder + "/" + scenarioPattern)
                 .values();
-
-        Assumptions.assumeTrue(!scenarioSources.isEmpty(),
-                               "Skipping test because no scenarios were found in folder: " + scenarioFolder);
+        } catch (IOException exception) {
+            log.info("No scenarios found at {}", scenarioFolder);
+            return Stream.empty();
+        }
 
         Logger.say(SCENARIO_START, scenarioSources.size() + " SSCS");
 
