@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -189,7 +190,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("judgeScenarios")
-    // @Disabled("No judge scenarios yet")
+    @Disabled("No judge scenarios yet")
     public void judge_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         runScenarioBySource(scenarioSource, retryCount);
     }
