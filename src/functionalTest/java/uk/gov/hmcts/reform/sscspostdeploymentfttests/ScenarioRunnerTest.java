@@ -185,6 +185,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("ctscScenarios")
     public void ctsc_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
+        Assumptions.assumeTrue(scenarioSource != null, "Skipping CTSC scenarios");
         runScenarioBySource(scenarioSource, retryCount);
     }
 
@@ -192,6 +193,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     @MethodSource("judgeScenarios")
     @Disabled("No judge scenarios yet")
     public void judge_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
+        Assumptions.assumeTrue(scenarioSource != null, "Skipping Judge scenarios");
         runScenarioBySource(scenarioSource, retryCount);
     }
 
@@ -199,6 +201,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     @MethodSource("legalOfficerScenarios")
     // @Disabled("No legal officer scenarios yet")
     public void lo_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
+        Assumptions.assumeTrue(scenarioSource != null, "Skipping Legal Officer scenarios");
         runScenarioBySource(scenarioSource, retryCount);
     }
 
@@ -216,14 +219,15 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
     static Stream<Arguments> caseTypeScenarios(String scenarioFolder) {
         String enabledUserRoles = System.getProperty("enabledUserRoles");
+        List<String> enabledUserRoleList;
         if (enabledUserRoles == null || enabledUserRoles.isBlank()) {
-            log.info("All user roles are disabled");
-            return Stream.of(Arguments.of(Named.of("All user roles are disabled", null)));
+            log.info("All user roles are enabled");
+            enabledUserRoleList = new ArrayList<>(List.of("CTSC", "Judge", "LegalOfficer"));
+        } else {
+            enabledUserRoleList = Arrays.stream(enabledUserRoles.split(","))
+                .map(String::trim)
+                .toList();
         }
-
-        List<String> enabledUserRoleList = Arrays.stream(enabledUserRoles.split(","))
-            .map(String::trim)
-            .toList();
 
         if (!enabledUserRoleList.contains(scenarioFolder)) {
             log.info("{} user role is disabled", scenarioFolder);
