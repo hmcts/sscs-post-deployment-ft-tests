@@ -1,5 +1,5 @@
 {
-  "description": "create reviewFtaResponse task",
+  "description": "failing task for LO",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -67,7 +67,7 @@
                 "type": "reviewFtaResponse",
                 "name": "CTSC - Review FTA Response",
                 "role_category": "CTSC",
-                "minor_priority": 300,
+                "minor_priority": 500,
                 "major_priority": 3000,
                 "description": "[Response reviewed](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/hmctsResponseReviewed)"
               }

@@ -1,5 +1,5 @@
 {
-  "description": "create reviewFtaResponse task",
+  "description": "faining task for judge",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -88,7 +88,7 @@
               {
                 "role_category": "CTSC",
                 "role_name": "allocated-ctsc-caseworker",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                "permissions": [ "Read" ],
                 "authorisations": []
               },
               {
