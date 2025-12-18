@@ -73,8 +73,8 @@ withNightlyPipeline(type, product, component) {
 
     def tests = githubApi.getLabelsbyPattern(env.BRANCH_NAME, "user-role")
     if (tests && tests.size() > 0) {
-      env.SCENARIO_FOLDER = tests.collect { it.replace("user-role:", "") }.join(",")
-      echo "Enabled user roles for testing  " + { env.SCENARIO_FOLDER }
+      env.SCENARIO_USER_ROLES = tests.collect { it.replace("user-role:", "") }.join(",")
+      echo "Enabled user roles for testing  " + { env.SCENARIO_USER_ROLES }
     } else {
       echo "All user roles are enabled for testing"
     }
