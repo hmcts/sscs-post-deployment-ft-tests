@@ -60,17 +60,6 @@ withNightlyPipeline(type, product, component) {
   // enableFullFunctionalTest(60)
 
   afterAlways('fullFunctionalTest') {
-    publishHTML([
-      allowMissing         : true,
-      alwaysLinkToLastBuild: true,
-      keepAll              : true,
-      reportDir            : "build/reports/tests/functional",
-      reportFiles          : 'index.html',
-      reportName           : 'Functional Test Report'
-    ])
-
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/**/*'
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/**/*'
   }
 }
