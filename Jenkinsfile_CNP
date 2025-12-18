@@ -2,6 +2,8 @@
 
 @Library("Infrastructure")
 
+import uk.gov.hmcts.contino.GithubAPI
+
 def type = "java"
 def product = "sscs"
 def component = "post-deployment-ft-tests"
@@ -32,6 +34,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 //Run Jenkins_CNP with nightly pipeline
 withNightlyPipeline(type, product, component) {
+  def githubApi = new GithubAPI(this)
 
   loadVaultSecrets(secrets)
   enableSlackNotifications('#sscs-tech')
@@ -67,7 +70,14 @@ withNightlyPipeline(type, product, component) {
     env.CAMUNDA_URL="https://camunda-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net/engine-rest"
     env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
     env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
-    env.SCENARIO_FOLDER="CTSC,Judge,LegalOfficer"
+
+    def tests = githubApi.getLabelsbyPattern(env.BRANCH_NAME, "user-role")
+    if (tests && tests.size() > 0) {
+      env.SCENARIO_FOLDER = tests.collect { it.replace("user-role:", "") }.join(",")
+      echo "Enabled user roles for testing  " + { env.SCENARIO_FOLDER }
+    } else {
+      echo "All user roles are enabled for testing"
+    }
 
     enableFullFunctionalTest(60)
   }
