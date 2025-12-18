@@ -199,7 +199,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("legalOfficerScenarios")
-    // @Disabled("No legal officer scenarios yet")
+    @Disabled("No legal officer scenarios yet")
     public void lo_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         Assumptions.assumeTrue(scenarioSource != null, "Skipping Legal Officer scenarios");
         runScenarioBySource(scenarioSource, retryCount);
