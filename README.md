@@ -42,9 +42,42 @@ Note: the deployment script relies on a GitHub token (https://help.github.com/en
 
 More info on ACR tasks can be read here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview
 
-## Running functional tests
+## Functional tests
+
+Each functional test scenario is defined in an individual JSON file under
+```
+src/functionalTest/resources/scenarios/sscs
+```
+
+Scenarios are organised by user role into the following subfolders:
+- CTSC
+- Judge
+- LegalOfficer
+
+The functional test suite is parameterised. For each user role, the test runner automatically discovers and executes all
+JSON scenario files in the corresponding directory.
+
+Execution is controlled via the `SCENARIO_USER_ROLES` environment variable:
+
+- If `SCENARIO_USER_ROLES` is not set, scenarios for all user roles are executed.
+- Example to run tests for a single user role:
+
+```shell
+export SCENARIO_USER_ROLES="CTSC"
+```
+
+- Example to run tests for multiple user roles:
+
+```shell
+export SCENARIO_USER_ROLES="CTSC,Judge"
+```
+
+Scenarios belonging to user roles not specified in `SCENARIO_USER_ROLES` are skipped.
+
+### Running functional tests
 
 A bash script has been provided to run tests against a remote environment such as Preview (recommended) or AAT.
+Be aware that the tests will fail if the correct user role for the targeted scenario(s) is not enabled.
 
 #### To run against Preview:
 ```shell
@@ -68,14 +101,6 @@ A bash script has been provided to run tests against a remote environment such a
 ```bash
 ./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=SSCS-10005
 ```
-
-## Test Scenario Specification
-When adding a new test scenario you will typically need to provide a new specification in json format in:
-```
-./resources/scenarios/sscs
-```
-
-
 
 ## License
 
