@@ -252,17 +252,13 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
             String displayName;
             try {
                 Map<String, Object> scenarioValues = MapSerializer.deserialize(scenarioSource);
-                displayName = scenarioFolder + "-" + getScenarioDescription(scenarioValues);
+                displayName = scenarioFolder + "-" + extractOrDefault(scenarioValues, "description", "Unnamed scenario");
             } catch (IOException e) {
                 displayName = "Unnamed " + scenarioFolder + " scenario";
             }
 
             return Arguments.of(Named.of(displayName, scenarioSource));
         });
-    }
-
-    private static String getScenarioDescription(Map<String, Object> scenarioValues) {
-        return extractOrDefault(scenarioValues, "description", "Unnamed scenario");
     }
 
     private void runScenarioBySource(String scenarioSource, int retryCount) throws Exception {
@@ -272,7 +268,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 Map<String, Object> scenarioValues = deserializeValuesUtil
                     .deserializeStringWithExpandedValues(scenarioSource, emptyMap());
 
-                description = getScenarioDescription(scenarioValues);
+                description = extractOrDefault(scenarioValues, "description", "Unnamed scenario");
                 Boolean scenarioEnabled;
                 try {
                     scenarioEnabled = extractOrDefault(scenarioValues, "enabled", true);
