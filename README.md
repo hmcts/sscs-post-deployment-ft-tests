@@ -57,22 +57,22 @@ Scenarios are organised by user role into the following subfolders:
 The functional test suite is parameterised. For each user role, the test runner automatically discovers and executes all
 JSON scenario files in the corresponding directory.
 
-Execution is controlled via the `SCENARIO_USER_ROLES` environment variable:
+Execution is controlled via the `ENABLED_USER_ROLES` environment variable:
 
-- If `SCENARIO_USER_ROLES` is not set, scenarios for all user roles are executed.
+- If `ENABLED_USER_ROLES` is not set, scenarios for all user roles are executed.
 - Example to run tests for a single user role:
 
 ```shell
-export SCENARIO_USER_ROLES="CTSC"
+export ENABLED_USER_ROLES="CTSC"
 ```
 
 - Example to run tests for multiple user roles:
 
 ```shell
-export SCENARIO_USER_ROLES="CTSC,Judge"
+export ENABLED_USER_ROLES="CTSC,Judge"
 ```
 
-Scenarios belonging to user roles not specified in `SCENARIO_USER_ROLES` are skipped.
+Scenarios belonging to user roles not specified in `ENABLED_USER_ROLES` are skipped.
 
 ### Running functional tests
 
