@@ -160,7 +160,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         return body;
     }
 
-    private String findOrGenerateUserAccount(String credentialsKey, boolean granularPermission) throws IOException {
+    private String findOrGenerateUserAccount(String credentialsKey, boolean granularPermission) {
         return testUserAccounts.computeIfAbsent(
             credentialsKey,
             user -> generateUserAccount(credentialsKey, granularPermission)
