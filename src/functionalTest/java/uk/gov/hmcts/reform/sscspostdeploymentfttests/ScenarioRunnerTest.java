@@ -13,7 +13,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.TestInstance;
@@ -159,11 +158,6 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
         }
 
         Assertions.assertFalse(verifiers.isEmpty(), "Verifiers configured successfully");
-
-    }
-
-    @BeforeEach
-    public void setUp() {
         MapSerializer.setObjectMapper(objectMapper);
         JsonUtil.setObjectMapper(objectMapper);
     }
