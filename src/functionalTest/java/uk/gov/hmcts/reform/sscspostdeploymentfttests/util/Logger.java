@@ -72,6 +72,11 @@ public final class Logger {
             case SCENARIO_FAILED:
                 colouredPrintLine(ANSI_RED, "❌ SCENARIO: " + content + " failed");
                 break;
+            case SUMMARY_SCENARIOS_RAN:
+                colouredPrintLine(ANSI_GREEN, "✅ Scenarios ran:");
+                colouredPrintLine(ANSI_CYAN, "-------------------------------------------------------------------");
+                colouredPrintLine(ANSI_GREEN, content.toString());
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + message);
         }

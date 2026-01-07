@@ -76,7 +76,7 @@ withNightlyPipeline(type, product, component) {
       env.ENABLED_USER_ROLES = tests.collect { it.replace("user-role:", "") }.join(",")
       echo "Enabled user roles for testing  " + { env.ENABLED_USER_ROLES }
     } else {
-      echo "All user roles are enabled for testing"
+      echo "No roles specified, running all user roles"
     }
 
     enableFullFunctionalTest(60)

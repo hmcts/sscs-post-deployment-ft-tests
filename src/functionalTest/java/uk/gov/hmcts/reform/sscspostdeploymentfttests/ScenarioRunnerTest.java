@@ -82,6 +82,7 @@ import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.S
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SCENARIO_SUCCESSFUL;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SCENARIO_UPDATE_CASE_COMPLETED;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SCENARIO_UPDATE_CASE_FOUND;
+import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SUMMARY_SCENARIOS_RAN;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExpander.ENVIRONMENT_PROPERTIES;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor.extractOrDefault;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor.extractOrThrow;
@@ -177,9 +178,9 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
         stopWatch.stop();
         Logger.say(SCENARIO_RUNNING_TIME, stopWatch.getTotalTimeSeconds());
-        StringBuilder sb = new StringBuilder("\nScenarios ran:\n=========================================");
+        StringBuilder sb = new StringBuilder();
         passedScenarios.forEach(scenario -> sb.append("\n").append(scenario));
-        log.info(sb.toString());
+        Logger.say(SUMMARY_SCENARIOS_RAN, sb.toString());
     }
 
     @ParameterizedTest(name = "{index} {0}")
@@ -221,7 +222,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
         String enabledUserRoles = System.getProperty("enabledUserRoles");
         List<String> enabledUserRoleList;
         if (enabledUserRoles == null || enabledUserRoles.isBlank()) {
-            log.info("All user roles are enabled");
+            log.info("No roles specified, running all user roles");
             enabledUserRoleList = new ArrayList<>(List.of("CTSC", "Judge", "LegalOfficer"));
         } else {
             enabledUserRoleList = Arrays.stream(enabledUserRoles.split(","))
