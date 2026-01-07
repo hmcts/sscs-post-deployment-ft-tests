@@ -1,9 +1,5 @@
 #!groovy
 
-properties([
-  pipelineTriggers([cron('0 8 * * 1-5')])
-])
-
 @Library("Infrastructure")
 
 def type = "java"
