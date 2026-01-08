@@ -32,6 +32,10 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 //Run Jenkins_CNP with nightly pipeline
 withNightlyPipeline(type, product, component) {
+
+  loadVaultSecrets(secrets)
+  enableSlackNotifications('#sscs-tech')
+
   env.AZURE_SERVICE_BUS_TOPIC_NAME="ccd-case-events"
   env.AZURE_SERVICE_BUS_MESSAGE_AUTHOR="sscs-aat"
   env.AZURE_SERVICE_BUS_SUBSCRIPTION_NAME="ccd-case-events-ft"
@@ -55,15 +59,15 @@ withNightlyPipeline(type, product, component) {
   }
 
   onPR {
-    env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
-    env.CCD_URL="https://ccd-data-store-api-sscs-tribunals-api-pr-4937.preview.platform.hmcts.net"
-    env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-sscs-tribunals-api-pr-4937.preview.platform.hmcts.net"
-    env.WA_TASK_MONITOR_URL="https://wa-task-monitor-sscs-tribunals-api-pr-4937.preview.platform.hmcts.net"
-    env.CAMUNDA_URL="https://camunda-sscs-tribunals-api-pr-4937.preview.platform.hmcts.net/engine-rest"
-    env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-sscs-tribunals-api-pr-4937.preview.platform.hmcts.net"
-    env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-4937.preview.platform.hmcts.net"
-  }
+    enableFullFunctionalTest(60)
 
-  loadVaultSecrets(secrets)
-  enableFullFunctionalTest(60)
+    def TRIBUNALS_PR = "4969"
+    env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
+    env.CCD_URL="https://ccd-data-store-api-sscs-tribunals-api-pr-4986.preview.platform.hmcts.net"
+    env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-sscs-tribunals-api-pr-4986.preview.platform.hmcts.net"
+    env.WA_TASK_MONITOR_URL="https://wa-task-monitor-sscs-tribunals-api-pr-4986.preview.platform.hmcts.net"
+    env.CAMUNDA_URL="https://camunda-sscs-tribunals-api-pr-4986.preview.platform.hmcts.net/engine-rest"
+    env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-sscs-tribunals-api-pr-4986.preview.platform.hmcts.net"
+    env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-4986.preview.platform.hmcts.net"
+  }
 }
