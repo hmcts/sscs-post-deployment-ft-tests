@@ -22,6 +22,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor.extractOrDefault;
+import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor.extractOrThrow;
+
 @Slf4j
 @Service
 public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
@@ -239,5 +242,21 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         );
         UserInfo userInfo = getUserInfo(authenticationHeaders.getValue(AUTHORIZATION));
         roleAssignmentService.setupRoleAssignment(authenticationHeaders, userInfo, roleName);
+    }
+
+    public CredentialRequest extractCredentialRequest(Map<String, Object> map, String path) {
+        String credentialsKey = extractOrThrow(map, path + ".key");
+        boolean granularPermission = extractOrDefault(map, path + ".granularPermission", false);
+
+        return new CredentialRequest(credentialsKey, granularPermission);
+    }
+
+    public UserInfo getAssigneeInfo(Map<String, Object> request) throws IOException {
+        CredentialRequest credentialRequest = extractCredentialRequest(
+            request, "input.assignee.credentials");
+        Headers requestAuthorizationHeaders = getWaUserAuthorization(credentialRequest);
+
+        String userToken = requestAuthorizationHeaders.getValue(AUTHORIZATION);
+        return getUserInfo(userToken);
     }
 }
