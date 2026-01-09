@@ -1,17 +1,10 @@
 package uk.gov.hmcts.reform.sscspostdeploymentfttests.services;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.awaitility.Awaitility.await;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.SpringBootFunctionalBaseTest.DEFAULT_POLL_INTERVAL_SECONDS;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.SpringBootFunctionalBaseTest.DEFAULT_TIMEOUT_SECONDS;
-
 import groovy.util.logging.Slf4j;
 import io.restassured.http.Headers;
 import org.awaitility.core.ConditionEvaluationLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.TestScenario;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.idam.CredentialRequest;
@@ -22,10 +15,19 @@ import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.verifiers.TaskDataVerifier;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.verifiers.Verifier;
 
-@lombok.extern.slf4j.Slf4j
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.awaitility.Awaitility.await;
+import static uk.gov.hmcts.reform.sscspostdeploymentfttests.SpringBootFunctionalBaseTest.DEFAULT_POLL_INTERVAL_SECONDS;
+import static uk.gov.hmcts.reform.sscspostdeploymentfttests.SpringBootFunctionalBaseTest.DEFAULT_TIMEOUT_SECONDS;
+
 @Slf4j
 @Service
 public class VerifierService {
+    private static final Logger log = LoggerFactory.getLogger(VerifierService.class);
     protected AuthorizationHeadersProvider authorizationHeadersProvider;
     protected TaskDataVerifier taskDataVerifier;
     private final DeserializeValuesUtil deserializeValues;
@@ -62,7 +64,10 @@ public class VerifierService {
                         Map<String, Object> actualResponse = MapSerializer.deserialize(actualMessageResponse);
                         Map<String, Object> expectedResponse = MapSerializer.deserialize(expectedMessageResponse);
 
-                        verifiers.forEach(verifier -> verifier.verify(expectationValue, expectedResponse, actualResponse));
+                        verifiers.forEach(verifier -> verifier.verify(
+                            expectationValue,
+                            expectedResponse,
+                            actualResponse));
 
                         return true;
                     });
@@ -80,7 +85,9 @@ public class VerifierService {
     public void verifyTasks(TestScenario scenario, String taskRetrieverOption, Map<String, Object> expectationValue,
                              int expectedTasks, List<String> expectationCaseIds) throws IOException {
         if (expectedTasks > 0) {
-            CredentialRequest credentialRequest = authorizationHeadersProvider.extractCredentialRequest(expectationValue, "credentials");
+            CredentialRequest credentialRequest = authorizationHeadersProvider.extractCredentialRequest(
+                expectationValue, "credentials");
+
             Headers expectationAuthorizationHeaders =
                 authorizationHeadersProvider.getWaUserAuthorization(credentialRequest);
 

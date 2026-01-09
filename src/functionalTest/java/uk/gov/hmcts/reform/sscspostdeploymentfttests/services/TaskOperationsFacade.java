@@ -1,12 +1,5 @@
 package uk.gov.hmcts.reform.sscspostdeploymentfttests.services;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
-import static uk.gov.hmcts.reform.sscspostdeploymentfttests.services.AuthorizationHeadersProvider.SERVICE_AUTHORIZATION;
-
 import io.restassured.http.Headers;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.TestScenario;
@@ -14,6 +7,13 @@ import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.idam.Creden
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.domain.entities.idam.UserInfo;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.services.taskretriever.CamundaTaskRetrieverService;
 import uk.gov.hmcts.reform.sscspostdeploymentfttests.services.taskretriever.TaskMgmApiRetrieverService;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import static uk.gov.hmcts.reform.sscspostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
+import static uk.gov.hmcts.reform.sscspostdeploymentfttests.services.AuthorizationHeadersProvider.SERVICE_AUTHORIZATION;
 
 @Component
 public class TaskOperationsFacade {
@@ -23,9 +23,11 @@ public class TaskOperationsFacade {
     private final TaskManagementService taskManagementService;
     private final RoleAssignmentService roleAssignmentService;
 
-    public TaskOperationsFacade(AuthorizationHeadersProvider authHeadersProvider, CamundaTaskRetrieverService camundaTaskRetrieverService,
+    public TaskOperationsFacade(AuthorizationHeadersProvider authHeadersProvider,
+                                CamundaTaskRetrieverService camundaTaskRetrieverService,
                                 TaskMgmApiRetrieverService taskMgmApiRetrieverService,
-                                TaskManagementService taskManagementService, RoleAssignmentService roleAssignmentService) {
+                                TaskManagementService taskManagementService,
+                                RoleAssignmentService roleAssignmentService) {
         this.authHeadersProvider = authHeadersProvider;
         this.camundaTaskRetrieverService = camundaTaskRetrieverService;
         this.taskMgmApiRetrieverService = taskMgmApiRetrieverService;

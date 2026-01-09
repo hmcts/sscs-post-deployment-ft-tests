@@ -52,8 +52,8 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     private final RoleAssignmentService roleAssignmentService;
 
     @Autowired
-    public AuthorizationHeadersProvider(IdamWebApi idamWebApi,
-                                        AuthTokenGenerator serviceAuthTokenGenerator, RoleAssignmentService roleAssignmentService) {
+    public AuthorizationHeadersProvider(IdamWebApi idamWebApi, AuthTokenGenerator serviceAuthTokenGenerator,
+                                        RoleAssignmentService roleAssignmentService) {
         this.idamWebApi = idamWebApi;
         this.serviceAuthTokenGenerator = serviceAuthTokenGenerator;
         this.roleAssignmentService = roleAssignmentService;

@@ -1,5 +1,13 @@
 package uk.gov.hmcts.reform.sscspostdeploymentfttests;
 
+import groovy.util.logging.Slf4j;
+import org.junit.jupiter.api.Named;
+import org.junit.jupiter.params.provider.Arguments;
+import org.slf4j.LoggerFactory;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.Logger;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapSerializer;
+import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.StringResourceLoader;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,16 +19,15 @@ import java.util.stream.Stream;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.LoggerMessage.SCENARIO_START;
 import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor.extractOrDefault;
 
-import groovy.util.logging.Slf4j;
-import org.junit.jupiter.api.Named;
-import org.junit.jupiter.params.provider.Arguments;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.Logger;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapSerializer;
-import uk.gov.hmcts.reform.sscspostdeploymentfttests.util.StringResourceLoader;
-
-@lombok.extern.slf4j.Slf4j
 @Slf4j
 public class ScenarioSources {
+
+    private ScenarioSources() {
+        // Needs a private constructor
+    }
+
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(ScenarioSources.class);
+
     static Stream<Arguments> ctscScenarios()  {
         return caseTypeScenarios("CTSC");
     }
@@ -73,7 +80,8 @@ public class ScenarioSources {
             String displayName;
             try {
                 Map<String, Object> scenarioValues = MapSerializer.deserialize(scenarioSource);
-                displayName = scenarioFolder + "-" + extractOrDefault(scenarioValues, "description", "Unnamed scenario");
+                displayName = scenarioFolder + "-"
+                    + extractOrDefault(scenarioValues, "description", "Unnamed scenario");
             } catch (IOException e) {
                 displayName = "Unnamed " + scenarioFolder + " scenario";
             }

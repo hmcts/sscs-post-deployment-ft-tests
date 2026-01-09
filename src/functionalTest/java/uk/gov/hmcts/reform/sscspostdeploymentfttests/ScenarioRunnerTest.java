@@ -1,6 +1,5 @@
 package uk.gov.hmcts.reform.sscspostdeploymentfttests;
 
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;
@@ -334,10 +333,10 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 expectationValue, "numberOfMessagesToCheck", 0);
             List<String> expectationCaseIds = CaseIdUtil.extractAllAssignedCaseIdOrDefault(expectationValue, scenario);
 
-            verifierService.verifyTasks(scenario, taskRetrieverOption, expectationValue, expectedTasks, expectationCaseIds);
-
-            verifierService.verifyMessages(verifiers, expectationValue, expectedMessages, expectationCaseIds.getFirst());
-
+            verifierService.verifyTasks(scenario, taskRetrieverOption, expectationValue,
+                                        expectedTasks, expectationCaseIds);
+            verifierService.verifyMessages(verifiers, expectationValue, expectedMessages,
+                                           expectationCaseIds.getFirst());
             messageFacade.removeInvalidMessages(expectationCaseIds.getFirst());
         }
     }
