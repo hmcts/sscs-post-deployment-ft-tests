@@ -1,5 +1,5 @@
 {
-  "description": "create action unprocessed correspondence task",
+  "description": "create reviewAdminAction task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -20,7 +20,6 @@
         }
       }
     ]
-
   },
   "test": {
     "request": {
@@ -33,7 +32,7 @@
             "destination": "RestEndpoint",
             "template": "minimal-ccd-event-message.json",
             "replacements": {
-              "EventId": "uploadDocumentFurtherEvidence"
+              "EventId": "sendToAdmin"
             }
           }
         ]
@@ -54,35 +53,32 @@
                 "test_meta_data": [
                   {
                     "key": "role_data_reference",
-                    "value": "actionUnprocessedCorrespondence"
+                    "value": "reviewAdminAction"
                   }
                 ],
-                "type": "actionUnprocessedCorrespondence",
-                "name": "CTSC - Action Unprocessed Correspondence",
+                "type": "reviewAdminAction",
+                "name": "CTSC - Review Admin Action",
                 "role_category": "CTSC",
                 "minor_priority": 300,
                 "major_priority": 3000,
-                "description": "[Action Further Evidence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionFurtherEvidence)<br/>[Manage Documents](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/uploadDocument)",
-                "permissions": {
-                  "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "Cancel", "UnclaimAssign", "CompleteOwn" ]
-                }
+                "description": "[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/validSendToInterloc)<br/>[Send to TCW](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocSendToTcw)<br/>[Interloc Information received](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocInformationReceived)"
               }
             ]
           }
         },
         "roleData": [
           {
-            "key": "actionUnprocessedCorrespondence",
+            "key": "reviewAdminAction",
             "numberOfRolesAvailable": 28,
             "roles": [
               { "role_category": "ADMIN", "role_name": "allocated-admin-caseworker", "permissions": [ "Read" ], "authorisations": [] },
               {
                 "role_category": "CTSC",
                 "role_name": "allocated-ctsc-caseworker",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Cancel", "CompleteOwn"],
+                "permissions": ["Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign"],
                 "authorisations": []
               },
-              { "role_category": "LEGAL_OPERATIONS", "role_name": "allocated-tribunal-caseworker", "permissions": [ "Read" ], "authorisations": [] },
+              { "role_category": "LEGAL_OPERATIONS", "role_name": "allocated-tribunal-caseworker", "permissions": [ "Read"], "authorisations": [] },
               { "role_category": "JUDICIAL", "role_name": "appraiser-1", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "JUDICIAL", "role_name": "appraiser-2", "permissions": [ "Read" ], "authorisations": [] },
               {
@@ -94,7 +90,7 @@
               {
                 "role_category": "CTSC",
                 "role_name": "challenged-access-ctsc",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Cancel", "CompleteOwn"],
+                "permissions": ["Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign"],
                 "authorisations": []
               },
               { "role_category": "JUDICIAL", "role_name": "challenged-access-judiciary", "permissions": [ "Read" ], "authorisations": [] },
@@ -102,13 +98,13 @@
               {
                 "role_category": "CTSC",
                 "role_name": "ctsc",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Cancel", "CompleteOwn" ],
+                "permissions": ["Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign"],
                 "authorisations": []
               },
               {
                 "role_category": "CTSC",
                 "role_name": "ctsc-team-leader",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel", "CompleteOwn"],
+                "permissions": ["Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel"],
                 "authorisations": []
               },
               { "role_category": "JUDICIAL", "role_name": "fee-paid-medical", "permissions": [ "Read" ], "authorisations": [] },
@@ -119,7 +115,7 @@
               { "role_category": "JUDICIAL", "role_name": "judge", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "JUDICIAL", "role_name": "leadership-judge", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "JUDICIAL", "role_name": "medical", "permissions": [ "Read" ], "authorisations": [] },
-              { "role_category": "JUDICIAL", "role_name": "post-hearing-judge", "permissions": [ "Read" ], "authorisations": [] },
+              { "role_category": "JUDICIAL", "role_name": "post-hearing-judge", "permissions": [ "Read" ], "authorisations": []},
               { "role_category": "ADMIN", "role_name": "regional-centre-admin", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "ADMIN", "role_name": "regional-centre-team-leader", "permissions": [ "Read" ], "authorisations": [] },
               {
