@@ -59,7 +59,7 @@
                 "type": "reviewAdminAction",
                 "name": "CTSC - Review Admin Action",
                 "role_category": "CTSC",
-                "minor_priority": 300,
+                "minor_priority": 500,
                 "major_priority": 3000,
                 "description": "[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/validSendToInterloc)<br/>[Send to TCW](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocSendToTcw)<br/>[Interloc Information received](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocInformationReceived)"
               }

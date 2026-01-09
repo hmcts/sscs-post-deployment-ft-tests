@@ -33,4 +33,4 @@ idam:
     password: ${WA_SYSTEM_PASSWORD:password}
 
 scenarioRunner:
-  retryCount: ${WA_RETRY_COUNT:3}
+  retryCount: ${WA_RETRY_COUNT:1}
