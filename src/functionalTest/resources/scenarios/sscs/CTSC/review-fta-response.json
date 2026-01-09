@@ -79,7 +79,7 @@
             "key": "first_role_data",
             "numberOfRolesAvailable": 28,
             "roles": [
-              { "role_category": "ADMIN", "role_name": "allocated-admin-caseworker", "permissions": [ "Read", "Claim" ], "authorisations": [] },
+              { "role_category": "ADMIN", "role_name": "allocated-admin-caseworker", "permissions": [ "Read" ], "authorisations": [] },
               {
                 "role_category": "CTSC",
                 "role_name": "allocated-ctsc-caseworker",
@@ -88,7 +88,7 @@
               },
               { "role_category": "LEGAL_OPERATIONS", "role_name": "allocated-tribunal-caseworker", "permissions": [ "Read"], "authorisations": [] },
               { "role_category": "JUDICIAL", "role_name": "appraiser-1", "permissions": [ "Read" ], "authorisations": [] },
-              { "role_category": "JUDICIAL", "role_name": "appraiser-2", "permissions": [ "Read" ], "authorisations": [] },
+              {"role_category": "JUDICIAL", "role_name": "appraiser-2", "permissions": [ "Read" ], "authorisations": [] },
               {
                 "role_name": "case-allocator",
                 "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
