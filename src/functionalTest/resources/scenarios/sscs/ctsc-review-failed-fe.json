@@ -12,7 +12,7 @@
     },
     "ccd": [
       {
-        "eventId": "validAppealCreated",
+        "eventId": "createWithDwpTestCase",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
@@ -34,8 +34,8 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "reissueFurtherEvidence",
-                "NewStateId": "failedToSend"
+                "EventId": "failedSendingFurtherEvidence",
+                "NewStateId": "reissueFurtherEvidence"
               }
             }
           ]
