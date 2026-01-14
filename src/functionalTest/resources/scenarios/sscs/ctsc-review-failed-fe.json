@@ -34,9 +34,9 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "failedSendingFurtherEvidence",
-                "NewStateId": "reissueFurtherEvidence"
-              }
+                "EventId": "reissueFurtherEvidence",
+                "NewStateId": "hmctsDwpState"
+              },
             }
           ]
         }
