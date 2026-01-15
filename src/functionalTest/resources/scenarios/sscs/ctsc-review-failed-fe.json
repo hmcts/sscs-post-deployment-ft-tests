@@ -16,6 +16,7 @@
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
+            "hmctsDwpState": "failedSendingFurtherEvidence"
           }
         }
       }
@@ -34,7 +35,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "reissueFurtherEvidence",
+                "EventId": "issueFurtherEvidence",
                 "NewStateId": "hmctsDwpState"
               }
             }
