@@ -160,7 +160,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("uk.gov.hmcts.reform.sscspostdeploymentfttests.ScenarioSources#judgeScenarios")
-    @Disabled("No judge scenarios yet")
+    //@Disabled("No judge scenarios yet")
     public void judge_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         Assumptions.assumeTrue(scenarioSource != null, "Skipping Judge scenarios");
         runScenarioBySource(scenarioSource, retryCount);
@@ -168,7 +168,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("uk.gov.hmcts.reform.sscspostdeploymentfttests.ScenarioSources#legalOfficerScenarios")
-    @Disabled("No legal officer scenarios yet")
+    //@Disabled("No legal officer scenarios yet")
     public void lo_scenarios_should_behave_as_specified(String scenarioSource) throws Exception {
         Assumptions.assumeTrue(scenarioSource != null, "Skipping Legal Officer scenarios");
         runScenarioBySource(scenarioSource, retryCount);
