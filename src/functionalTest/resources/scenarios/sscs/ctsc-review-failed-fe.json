@@ -95,16 +95,13 @@
                 {
                   "role_category": "JUDICIAL", "role_name": "appraiser-2", "permissions": [ "Read" ], "authorisations": [] },
                 {
-                  "role_name": "case-allocator", "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ], "authorisations": []
+                  "role_name": "case-allocator", "permissions": [ "Read"], "authorisations": []
                 },
                 {
                   "role_category": "ADMIN", "role_name": "challenged-access-admin", "permissions": [ "Read" ], "authorisations": []
                 },
                 {
-                  "role_category": "CTSC",
-                  "role_name": "challenged-access-ctsc",
-                  "permissions": ["Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign"],
-                  "authorisations": []
+                  "role_category": "CTSC", "role_name": "challenged-access-ctsc", "permissions": ["Read"], "authorisations": []
                 },
                 {
                   "role_category": "JUDICIAL", "role_name": "challenged-access-judiciary", "permissions": [ "Read" ], "authorisations": []
@@ -158,9 +155,7 @@
                   "role_category": "ADMIN", "role_name": "regional-centre-team-leader", "permissions": [ "Read" ], "authorisations": []
                 },
                 {
-                  "role_name": "task-supervisor",
-                  "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
-                  "authorisations": []
+                  "role_name": "task-supervisor", "permissions": [ "Read"], "authorisations": []
                 },
                 {
                   "role_category": "LEGAL_OPERATIONS", "role_name": "tribunal-caseworker", "permissions": [ "Read" ], "authorisations": []
