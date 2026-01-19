@@ -38,7 +38,7 @@ idam:
   api:
     baseUrl: ${IDAM_URL:http://sidam-api}
   test:
-    userCleanupEnabled: true
+    userCleanupEnabled: ${ENABLE_TEST_USER_DELETION:true}
 
 camunda:
   url: ${CAMUNDA_URL:http://camunda-local-bpm/engine-rest}

@@ -2,6 +2,8 @@
 
 @Library("Infrastructure")
 
+import uk.gov.hmcts.contino.GithubAPI
+
 def type = "java"
 def product = "sscs"
 def component = "post-deployment-ft-tests"
@@ -32,6 +34,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 //Run Jenkins_CNP with nightly pipeline
 withNightlyPipeline(type, product, component) {
+  def githubApi = new GithubAPI(this)
 
   loadVaultSecrets(secrets)
   enableSlackNotifications('#sscs-tech')
@@ -59,9 +62,7 @@ withNightlyPipeline(type, product, component) {
   }
 
   onPR {
-    enableFullFunctionalTest(60)
-
-    def TRIBUNALS_PR = "4969"
+    def TRIBUNALS_PR = "5000"
     env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
     env.CCD_URL="https://ccd-data-store-api-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
     env.WA_TASK_MANAGEMENT_API_URL="https://wa-task-management-api-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
@@ -69,5 +70,19 @@ withNightlyPipeline(type, product, component) {
     env.CAMUNDA_URL="https://camunda-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net/engine-rest"
     env.ROLE_ASSIGNMENT_URL="https://am-role-assignment-service-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
     env.WA_CASE_EVENT_HANDLER_URL="https://wa-case-event-handler-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
+
+    def tests = githubApi.getLabelsbyPattern(env.BRANCH_NAME, "user-role")
+    if (tests && tests.size() > 0) {
+      env.ENABLED_USER_ROLES = tests.collect { it.replace("user-role:", "") }.join(",")
+      echo "Enabled user roles for testing  " + { env.ENABLED_USER_ROLES }
+    } else {
+      echo "No roles specified, running all user roles"
+    }
+
+    enableFullFunctionalTest(60)
+  }
+
+  afterAlways('fullFunctionalTest') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/**/*'
   }
 }
