@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.ccd.client.CoreCaseDataApi;
 import uk.gov.hmcts.reform.ccd.client.model.CaseDataContent;
@@ -28,6 +29,7 @@ import java.util.Objects;
 import static java.util.Collections.emptyMap;
 
 @Service
+@Import({CoreCaseDataApi.class})
 public class CcdCaseCreator {
     @Autowired
     protected CoreCaseDataApi coreCaseDataApi;
