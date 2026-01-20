@@ -22,6 +22,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor.extractOrDefault;
+import static uk.gov.hmcts.reform.sscspostdeploymentfttests.util.MapValueExtractor.extractOrThrow;
+
 @Slf4j
 @Service
 public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
@@ -44,14 +47,17 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     @Value("${idam.test.userCleanupEnabled:false}")
     private boolean testUserDeletionEnabled;
 
-    @Autowired
-    private IdamWebApi idamWebApi;
+    private final IdamWebApi idamWebApi;
+    private final AuthTokenGenerator serviceAuthTokenGenerator;
+    private final RoleAssignmentService roleAssignmentService;
 
     @Autowired
-    private AuthTokenGenerator serviceAuthTokenGenerator;
-
-    @Autowired
-    private RoleAssignmentService roleAssignmentService;
+    public AuthorizationHeadersProvider(IdamWebApi idamWebApi, AuthTokenGenerator serviceAuthTokenGenerator,
+                                        RoleAssignmentService roleAssignmentService) {
+        this.idamWebApi = idamWebApi;
+        this.serviceAuthTokenGenerator = serviceAuthTokenGenerator;
+        this.roleAssignmentService = roleAssignmentService;
+    }
 
     @Override
     public Headers getWaSystemUserAuthorization() {
@@ -157,7 +163,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         return body;
     }
 
-    private String findOrGenerateUserAccount(String credentialsKey, boolean granularPermission) throws IOException {
+    private String findOrGenerateUserAccount(String credentialsKey, boolean granularPermission) {
         return testUserAccounts.computeIfAbsent(
             credentialsKey,
             user -> generateUserAccount(credentialsKey, granularPermission)
@@ -236,5 +242,21 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         );
         UserInfo userInfo = getUserInfo(authenticationHeaders.getValue(AUTHORIZATION));
         roleAssignmentService.setupRoleAssignment(authenticationHeaders, userInfo, roleName);
+    }
+
+    public CredentialRequest extractCredentialRequest(Map<String, Object> map, String path) {
+        String credentialsKey = extractOrThrow(map, path + ".key");
+        boolean granularPermission = extractOrDefault(map, path + ".granularPermission", false);
+
+        return new CredentialRequest(credentialsKey, granularPermission);
+    }
+
+    public UserInfo getAssigneeInfo(Map<String, Object> request) throws IOException {
+        CredentialRequest credentialRequest = extractCredentialRequest(
+            request, "input.assignee.credentials");
+        Headers requestAuthorizationHeaders = getWaUserAuthorization(credentialRequest);
+
+        String userToken = requestAuthorizationHeaders.getValue(AUTHORIZATION);
+        return getUserInfo(userToken);
     }
 }

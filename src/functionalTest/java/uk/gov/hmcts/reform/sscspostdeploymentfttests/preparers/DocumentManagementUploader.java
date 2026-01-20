@@ -2,6 +2,7 @@ package uk.gov.hmcts.reform.sscspostdeploymentfttests.preparers;
 
 import com.google.common.io.ByteStreams;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +18,7 @@ import java.util.Collections;
 import static java.lang.String.format;
 
 @Service
+@Import({DocumentUploadClientApi.class})
 public class DocumentManagementUploader {
 
     @Autowired

@@ -1,9 +1,5 @@
 #!groovy
 
-properties([
-  pipelineTriggers([cron('0 8 * * 1-5')])
-])
-
 @Library("Infrastructure")
 
 def type = "java"
@@ -56,5 +52,10 @@ withNightlyPipeline(type, product, component) {
   env.WA_CASE_EVENT_HANDLER_URL = "http://wa-case-event-handler-aat.service.core-compute-aat.internal"
 
   loadVaultSecrets(secrets)
-  enableFullFunctionalTest(60)
+  // Disable full functional tests, as WA is not rolled out to AAT
+  // enableFullFunctionalTest(60)
+
+  afterAlways('fullFunctionalTest') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/**/*'
+  }
 }
