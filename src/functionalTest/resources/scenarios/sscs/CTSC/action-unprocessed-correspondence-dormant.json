@@ -13,7 +13,6 @@
     "ccd": [
       {
         "eventId": "createWithDwpTestCase",
-        "state": "dormantAppealState",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
@@ -34,7 +33,8 @@
             "destination": "RestEndpoint",
             "template": "minimal-ccd-event-message.json",
             "replacements": {
-              "EventId": "uploadDocumentFurtherEvidence"
+              "EventId": "uploadDocumentFurtherEvidence",
+              "NewStateId": "dormantAppealState"
             }
           }
         ]
