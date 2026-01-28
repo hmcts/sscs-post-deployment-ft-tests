@@ -12,7 +12,8 @@
     },
     "ccd": [
       {
-        "eventId": "dormant",
+        "eventId": "validAppealCreated",
+        "state": "dormantAppealState",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
