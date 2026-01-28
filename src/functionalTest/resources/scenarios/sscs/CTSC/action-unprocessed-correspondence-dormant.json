@@ -12,7 +12,7 @@
     },
     "ccd": [
       {
-        "eventId": "createWithDwpTestCase",
+        "eventId": "dormant",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
@@ -73,7 +73,7 @@
         },
         "roleData": [
           {
-            "key": "actionUnprocessedCorrespondence",
+            "key": "actionUnprocessedCorrespondenceDormant",
             "numberOfRolesAvailable": 28,
             "roles": [
               { "role_category": "ADMIN", "role_name": "allocated-admin-caseworker", "permissions": [ "Read" ], "authorisations": [] },
