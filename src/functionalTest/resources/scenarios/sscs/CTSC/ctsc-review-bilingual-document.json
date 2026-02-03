@@ -33,11 +33,7 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "uploadDocument",
-                "AdditionalData": {
-                  "Data": {
-                    "languagePreferenceWelsh": "Yes"
-                  }
+                "EventId": "uploadDocument"
                 }
               }
             }
