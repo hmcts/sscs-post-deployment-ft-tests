@@ -32,7 +32,7 @@
             "destination": "RestEndpoint",
             "template": "minimal-ccd-event-message.json",
             "replacements": {
-              "EventId": "sendToAdmin"
+              "EventId": "uploadDocument"
             }
           }
         ]
@@ -56,19 +56,19 @@
                     "value": "reviewAdminAction"
                   }
                 ],
-                "type": "reviewAdminAction",
-                "name": "CTSC - Review Admin Action",
+                "type": "actionUnprocessedCorrespondence",
+                "name": "CTSC - Action Unprocessed Correspondence",
                 "role_category": "CTSC",
                 "minor_priority": 300,
                 "major_priority": 3000,
-                "description": "[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/validSendToInterloc)<br/>[Send to TCW](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocSendToTcw)<br/>[Interloc Information received](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocInformationReceived)"
+                "description": "[Action Further Evidence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionFurtherEvidence)<br/>[Manage Documents](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/uploadDocument)"
               }
             ]
           }
         },
         "roleData": [
           {
-            "key": "reviewAdminAction",
+            "key": "actionUnprocessedCorrespondence",
             "numberOfRolesAvailable": 28,
             "roles": [
               { "role_category": "ADMIN", "role_name": "allocated-admin-caseworker", "permissions": [ "Read" ], "authorisations": [] },
