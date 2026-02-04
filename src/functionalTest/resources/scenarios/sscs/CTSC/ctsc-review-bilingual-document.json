@@ -16,6 +16,7 @@
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
+            "languagePreferenceWelsh": "Yes"
           }
         }
       }
