@@ -21,7 +21,7 @@
       }
     ]
   },
-  "tests": [
+  "test": [
     {
       "request": {
         "credentials": {
@@ -140,7 +140,6 @@
                 { "role_category": "JUDICIAL", "role_name": "tribunal-member-1", "permissions": [ "Read" ], "authorisations": [] },
                 { "role_category": "JUDICIAL", "role_name": "tribunal-member-2", "permissions": [ "Read" ], "authorisations": [] },
                 { "role_category": "JUDICIAL", "role_name": "tribunal-member-3", "permissions": [ "Read" ], "authorisations": [] }
-
               ]
             },
             {
