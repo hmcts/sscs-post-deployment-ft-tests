@@ -21,8 +21,7 @@
       }
     ]
   },
-  "test": [
-    {
+  "test": {
       "request": {
         "credentials": {
           "key": "caseworker"
@@ -33,9 +32,14 @@
               "destination": "RestEndpoint",
               "template": "minimal-ccd-event-message.json",
               "replacements": {
-                "EventId": "uploadDocument"
+                "EventId": "uploadDocument",
+                "AdditionalData": {
+                  "Data": {
+                    "languagePreferenceWelsh": "Yes"
+                  }
                 }
               }
+            }
           ]
         }
       },
@@ -56,7 +60,8 @@
                       "key": "role_data_reference",
                       "value": "actionUnprocessedCorrespondence"
                     }
-                  ],"type": "actionUnprocessedCorrespondence",
+                  ],
+                  "type": "actionUnprocessedCorrespondence",
                   "name": "Action Unprocessed Correspondence",
                   "role_category": "CTSC",
                   "minor_priority": 300,
@@ -69,7 +74,8 @@
                       "key": "role_data_reference",
                       "value": "reviewBilingualDocument"
                     }
-                  ],"type": "reviewBilingualDocument",
+                  ],
+                  "type": "reviewBilingualDocument",
                   "name": "Review Bi-Lingual Document",
                   "role_category": "CTSC",
                   "minor_priority": 300,
@@ -209,5 +215,4 @@
         }
       ]
     }
-  ]
 }
