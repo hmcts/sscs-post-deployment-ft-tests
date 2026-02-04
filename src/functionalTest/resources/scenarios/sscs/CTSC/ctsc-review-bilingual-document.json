@@ -53,7 +53,7 @@
                 "test_meta_data": [
                   {
                     "key": "role_data_reference",
-                    "value": "reviewAdminAction"
+                    "value": "actionUnprocessedCorrespondence"
                   }
                 ],
                 "type": "actionUnprocessedCorrespondence",
