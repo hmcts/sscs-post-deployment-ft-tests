@@ -22,7 +22,7 @@
     ]
 
   },
-  "tests": [
+  "test":
     {
       "request": {
         "credentials": {
@@ -179,5 +179,4 @@
         }
       ]
     }
-  ]
 }
