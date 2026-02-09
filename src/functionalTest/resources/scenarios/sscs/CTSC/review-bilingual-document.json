@@ -1,5 +1,5 @@
 {
-  "description": "create reviewBitest task",
+  "description": "create reviewBilingualDocument task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
