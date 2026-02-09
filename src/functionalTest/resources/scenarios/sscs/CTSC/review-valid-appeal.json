@@ -98,7 +98,7 @@
               {
                 "role_category": "CTSC",
                 "role_name": "allocated-ctsc-caseworker",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
                 "authorisations": []
               },
               { "role_category": "LEGAL_OPERATIONS", "role_name": "allocated-tribunal-caseworker", "permissions": [ "Read"], "authorisations": [] },
@@ -113,7 +113,7 @@
               {
                 "role_category": "CTSC",
                 "role_name": "challenged-access-ctsc",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
                 "authorisations": []
               },
               { "role_category": "JUDICIAL", "role_name": "challenged-access-judiciary", "permissions": [ "Read" ], "authorisations": [] },
@@ -121,13 +121,13 @@
               {
                 "role_category": "CTSC",
                 "role_name": "ctsc",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
                 "authorisations": []
               },
               {
                 "role_category": "CTSC",
                 "role_name": "ctsc-team-leader",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel", "CompleteOwn" ],
                 "authorisations": []
               },
               { "role_category": "JUDICIAL", "role_name": "fee-paid-medical", "permissions": [ "Read" ], "authorisations": [] },
@@ -154,7 +154,7 @@
           },
           {
             "key": "reviewNonCompliantAppeal",
-            "numberOfRolesAvailable": 24,
+            "numberOfRolesAvailable": 28,
             "roles": [
               { "role_category": "ADMIN", "role_name": "allocated-admin-caseworker", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "CTSC", "role_name": "allocated-ctsc-caseworker", "permissions": [ "Read" ], "authorisations": [] },
@@ -171,6 +171,18 @@
                 "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
                 "authorisations": []
               },
+              { "role_category": "ADMIN", "role_name": "challenged-access-admin", "permissions": [ "Read" ], "authorisations": [] },
+              { "role_category": "CTSC", "role_name": "challenged-access-ctsc", "permissions": [ "Read" ], "authorisations": [] },
+              {
+                "role_category": "JUDICIAL",
+                "role_name": "challenged-access-judiciary",
+                "permissions": [ "Read", "Execute", "Unclaim", "UnclaimAssign" ],
+                "authorisations": [] },
+              {
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "challenged-access-legal-ops",
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign" ],
+                "authorisations": [] },
               { "role_category": "CTSC", "role_name": "ctsc", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "CTSC", "role_name": "ctsc-team-leader", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "JUDICIAL", "role_name": "fee-paid-medical", "permissions": [ "Read" ], "authorisations": [] },
