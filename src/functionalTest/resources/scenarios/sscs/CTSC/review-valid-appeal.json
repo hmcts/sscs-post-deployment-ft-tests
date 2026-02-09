@@ -33,7 +33,7 @@
             "destination": "RestEndpoint",
             "template": "minimal-ccd-event-message.json",
             "replacements": {
-              "EventId": "caseUpdated",
+              "EventId": "validAppealCreated",
               "NewStateId": "validAppeal",
               "AdditionalData": {
                 "Data": {
