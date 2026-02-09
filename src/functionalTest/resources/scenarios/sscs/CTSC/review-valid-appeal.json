@@ -80,6 +80,7 @@
                 ],
                 "type": "reviewValidAppeal",
                 "name": "CTSC - Review Valid Appeal",
+                "work_type_id": "routine_work",
                 "role_category": "CTSC",
                 "description": "\"[Welsh - upload translated doc](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/uploadWelshDocument)<br/>[Welsh - cancel translations](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/cancelTranslations)",
                 "major_priority": 6000,
