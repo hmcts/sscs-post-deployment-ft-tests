@@ -1,6 +1,6 @@
 {
   "description": "create reviewValidAppeal task",
-  "enabled": true,
+  "enabled": false,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
   "options": {
