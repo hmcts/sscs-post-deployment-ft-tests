@@ -34,6 +34,7 @@
             "template": "minimal-ccd-event-message.json",
             "replacements": {
               "EventId": "caseUpdated",
+              "NewStateId": "validAppeal",
               "AdditionalData": {
                 "Data": {
                   "languagePreferenceWelsh": true
