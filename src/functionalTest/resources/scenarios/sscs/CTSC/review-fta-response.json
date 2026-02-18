@@ -37,7 +37,7 @@
               "NewStateId": "withDwp",
               "AdditionalData": {
                 "Data": {
-                  "dwpFurtherInfo": true,
+                  "ftaResponseReviewRequired": true,
                   "dwpDueDate": "{$TODAY+28}"
                 }
               }
