@@ -62,7 +62,6 @@ withNightlyPipeline(type, product, component) {
   }
 
   onPR {
-
     def TRIBUNALS_PR = "5035"
     env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="preview"
     env.CCD_URL="https://ccd-data-store-api-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net"
