@@ -34,7 +34,7 @@
             "destination": "RestEndpoint",
             "template": "minimal-ccd-event-message.json",
             "replacements": {
-              "EventId": "uploadDocument",
+              "EventId": "uploadDocumentFurtherEvidence",
               "AdditionalData": {
                 "Data": {
                   "languagePreferenceWelsh": true
