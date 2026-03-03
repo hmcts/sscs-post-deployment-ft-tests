@@ -79,7 +79,7 @@
               {
                 "role_category": "CTSC",
                 "role_name": "allocated-ctsc-caseworker",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Cancel", "CompleteOwn", "CompleteOwn", "CancelOwn" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn", "CancelOwn" ],
                 "authorisations": []
               },
               { "role_category": "LEGAL_OPERATIONS", "role_name": "allocated-tribunal-caseworker", "permissions": [ "Read" ], "authorisations": [] },
@@ -94,7 +94,7 @@
               {
                 "role_category": "CTSC",
                 "role_name": "challenged-access-ctsc",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Cancel", "CompleteOwn", "CancelOwn" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn", "CancelOwn" ],
                 "authorisations": []
               },
               { "role_category": "JUDICIAL", "role_name": "challenged-access-judiciary", "permissions": [ "Read" ], "authorisations": [] },
@@ -102,7 +102,7 @@
               {
                 "role_category": "CTSC",
                 "role_name": "ctsc",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Cancel", "CompleteOwn", "CancelOwn" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn", "CancelOwn" ],
                 "authorisations": []
               },
               {
