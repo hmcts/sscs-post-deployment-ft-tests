@@ -65,7 +65,7 @@
                 "major_priority": 3000,
                 "description": "[Action Further Evidence](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/actionFurtherEvidence)<br/>[Manage Documents](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/uploadDocument)",
                 "permissions": {
-                  "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "Cancel", "UnclaimAssign", "CompleteOwn" ]
+                  "values": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn", "CancelOwn" ]
                 }
               }
             ]
