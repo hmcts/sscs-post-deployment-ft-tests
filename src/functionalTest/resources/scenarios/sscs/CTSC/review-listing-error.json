@@ -22,9 +22,8 @@
     ]
 
   },
-  "tests": [
-    {
-      "request": {
+  "test": {
+    "request": {
         "credentials": {
           "key": "caseworker"
         },
@@ -41,7 +40,7 @@
           ]
         }
       },
-      "expectations": [
+    "expectations": [
         {
           "credentials": {
             "key": "CTSC-Administrator"
@@ -178,6 +177,5 @@
           ]
         }
       ]
-    }
-  ]
+  }
 }
