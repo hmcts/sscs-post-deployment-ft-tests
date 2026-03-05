@@ -90,7 +90,9 @@ PR_NUMBER=<Enter your PR number> ./gradlew run-ft-preview
 ```shell
 ./run-ft-lower-env.sh <environment>
 ```
-
+```gradle
+FT_ENV=<demo or aat> ./gradlew run-ft-preview
+```
 #### To run functional against a local environment
 ```bash
 ./gradlew functional
