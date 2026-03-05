@@ -288,7 +288,7 @@ wrapper {
 
 tasks.register('run-ft-preview', Test) {
     doFirst {
-        def PR_NUMBER = 5104
+        def PR_NUMBER = System.getenv('PR_NUMBER') ?: '5555'
         environment "SSCS_VAULT_NAME", "sscs-aat"
         environment "WA_VAULT_NAME", "wa-aat"
         environment "AZURE_SERVICE_BUS_TOPIC_NAME", "ccd-case-events"

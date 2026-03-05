@@ -76,12 +76,15 @@ Scenarios belonging to user roles not specified in `ENABLED_USER_ROLES` are skip
 
 ### Running functional tests
 
-A bash script has been provided to run tests against a remote environment such as Preview (recommended) or AAT.
+You can run tests against a remote environment such as Preview (recommended) or AAT by running a shell script or a gradle task as shown below.
 Be aware that the tests will fail if the correct user role for the targeted scenario(s) is not enabled.
 
 #### To run against Preview:
 ```shell
 ./run-ft-preview.sh <pr-number>
+```
+```gradle
+PR_NUMBER=<Enter your PR number> ./gradlew run-ft-preview
 ```
 #### To run against another HMCTS lower environment e.g. aat | demo
 ```shell
