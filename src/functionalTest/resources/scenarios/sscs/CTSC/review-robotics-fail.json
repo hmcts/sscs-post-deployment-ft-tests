@@ -76,7 +76,7 @@
               {
                 "role_category": "CTSC",
                 "role_name": "allocated-ctsc-caseworker",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn", "CancelOwn" ],
                 "authorisations": []
               },
               { "role_category": "LEGAL_OPERATIONS", "role_name": "allocated-tribunal-caseworker", "permissions": [ "Read"], "authorisations": [] },
@@ -91,7 +91,7 @@
               {
                 "role_category": "CTSC",
                 "role_name": "challenged-access-ctsc",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn", "CancelOwn" ],
                 "authorisations": []
               },
               { "role_category": "JUDICIAL", "role_name": "challenged-access-judiciary", "permissions": [ "Read" ], "authorisations": [] },
@@ -99,14 +99,13 @@
               {
                 "role_category": "CTSC",
                 "role_name": "ctsc",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "CompleteOwn", "CancelOwn" ],
                 "authorisations": []
               },
               {
                 "role_category": "CTSC",
                 "role_name": "ctsc-team-leader",
-                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign",
-                  "Unassign", "Cancel", "Complete" ],
+                "permissions": [ "Read", "Own", "Claim", "Unclaim", "Manage", "UnclaimAssign", "Assign", "Unassign", "Cancel", "Complete" ],
                 "authorisations": []
               },
               { "role_category": "JUDICIAL", "role_name": "fee-paid-medical", "permissions": [ "Read" ], "authorisations": [] },
