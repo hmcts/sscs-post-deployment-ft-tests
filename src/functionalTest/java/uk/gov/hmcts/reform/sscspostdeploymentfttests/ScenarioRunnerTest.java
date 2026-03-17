@@ -193,8 +193,8 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 Logger.say(SCENARIO_ENABLED, description);
 
                 Map<String, Object> beforeClauseValues = extractOrDefault(scenarioValues, "before", null);
-                Map<String, Object> testClauseValues = Objects.requireNonNull(
-                    MapValueExtractor.extract(scenarioValues, "test"));
+                Map<String, Object> testClauseValues =
+                    Objects.requireNonNull(MapValueExtractor.extract(scenarioValues, "test"));
                 Map<String, Object> postRoleAssignmentClauseValues = extractOrDefault(scenarioValues,
                     "postRoleAssignments", null);
                 Map<String, Object> updateCaseClauseValues = extractOrDefault(scenarioValues, "updateCase", null);
@@ -245,7 +245,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                 Logger.say(SCENARIO_FINISHED);
                 break; // Exit the retry loop if successful or disabled
             } catch (Error | FeignException | NullPointerException | ConditionTimeoutException | JsonParseException e) {
-                log.error("Scenario {} failed with error {}", description, e.getMessage());
+                log.error("Scenario {} failed with error {}", description, e.getMessage(), e);
                 if (!failedScenarios.contains(description)) {
                     failedScenarios.add(description);
                 }

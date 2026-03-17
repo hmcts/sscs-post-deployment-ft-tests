@@ -1,5 +1,5 @@
 {
-  "description": "create reviewAdminAction task",
+  "description": "create reviewRoboticFail task",
   "enabled": true,
   "jurisdiction": "SSCS",
   "caseType": "Benefit",
@@ -12,7 +12,7 @@
     },
     "ccd": [
       {
-        "eventId": "createWithDwpTestCase",
+        "eventId": "validAppealCreated",
         "caseData": {
           "template": "minimal-sscs-benefit-appeal.json",
           "replacements": {
@@ -20,6 +20,7 @@
         }
       }
     ]
+
   },
   "test": {
     "request": {
@@ -32,7 +33,7 @@
             "destination": "RestEndpoint",
             "template": "minimal-ccd-event-message.json",
             "replacements": {
-              "EventId": "sendToAdmin"
+              "EventId": "sendToRoboticsError"
             }
           }
         ]
@@ -53,22 +54,22 @@
                 "test_meta_data": [
                   {
                     "key": "role_data_reference",
-                    "value": "reviewAdminAction"
+                    "value": "first_role_data"
                   }
                 ],
-                "type": "reviewAdminAction",
-                "name": "CTSC - Review Admin Action",
+                "type": "reviewRoboticFail",
+                "name": "CTSC - Review Robotic Fail",
                 "role_category": "CTSC",
-                "minor_priority": 300,
-                "major_priority": 3000,
-                "description": "[Send to Judge](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/validSendToInterloc)<br/>[Send to TCW](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocSendToTcw)<br/>[Interloc Information received](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/interlocInformationReceived)"
+                "minor_priority": 500,
+                "major_priority": 6000,
+                "description": "[Resend case to GAPS 2](/case/SSCS/Benefit/${[CASE_REFERENCE]}/trigger/resendCaseToGAPS2)"
               }
             ]
           }
         },
         "roleData": [
           {
-            "key": "reviewAdminAction",
+            "key": "first_role_data",
             "numberOfRolesAvailable": 28,
             "roles": [
               { "role_category": "ADMIN", "role_name": "allocated-admin-caseworker", "permissions": [ "Read" ], "authorisations": [] },
@@ -80,7 +81,7 @@
               },
               { "role_category": "LEGAL_OPERATIONS", "role_name": "allocated-tribunal-caseworker", "permissions": [ "Read"], "authorisations": [] },
               { "role_category": "JUDICIAL", "role_name": "appraiser-1", "permissions": [ "Read" ], "authorisations": [] },
-              { "role_category": "JUDICIAL", "role_name": "appraiser-2", "permissions": [ "Read" ], "authorisations": [] },
+              {"role_category": "JUDICIAL", "role_name": "appraiser-2", "permissions": [ "Read" ], "authorisations": [] },
               {
                 "role_name": "case-allocator",
                 "permissions": [ "Read", "Manage", "Complete", "Cancel", "Assign", "Unassign", "Claim", "Unclaim" ],
@@ -115,7 +116,7 @@
               { "role_category": "JUDICIAL", "role_name": "judge", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "JUDICIAL", "role_name": "leadership-judge", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "JUDICIAL", "role_name": "medical", "permissions": [ "Read" ], "authorisations": [] },
-              { "role_category": "JUDICIAL", "role_name": "post-hearing-judge", "permissions": [ "Read" ], "authorisations": []},
+              { "role_category": "JUDICIAL", "role_name": "post-hearing-judge", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "ADMIN", "role_name": "regional-centre-admin", "permissions": [ "Read" ], "authorisations": [] },
               { "role_category": "ADMIN", "role_name": "regional-centre-team-leader", "permissions": [ "Read" ], "authorisations": [] },
               {
