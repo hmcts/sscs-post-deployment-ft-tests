@@ -4,7 +4,7 @@ set -e
 GITHUB_TOKEN=$(az keyvault secret show --vault-name infra-vault-prod --name hmcts-github-apikey -o tsv --query value)
 
 az acr task create \
-    --registry hmctspublic \
+    --registry hmctsprod \
     --subscription DCD-CNP-PROD \
     --name task-sscs-post-deployment-ft-tests \
     --file acr-build-task.yaml \
