@@ -25,6 +25,7 @@ Tests effectively treat the WA Task Management backend as a black box where an e
 * For SSCS it is preferred to spin up a Preview environment with WA dependencies.
 This will take care of all the required config and not consume significant resources on your machine.
 Refer to the Readme file here: https://github.com/hmcts/sscs-tribunals-case-api/blob/master/README.md
+* By default, the tests will run against AAT environment. To run against preview environment, add label `env:preview"` to the github PR and update pr number in jenkins file.
 
 ## When merging to master:
 * This is a non prod repo so it will not be deployed to production environments.
