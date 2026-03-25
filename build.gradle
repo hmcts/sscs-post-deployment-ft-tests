@@ -285,3 +285,76 @@ bootJar {
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
 }
+
+tasks.register('run-ft-remote-environment', Test) {
+    doFirst {
+        def PR_NUMBER = System.getenv('PR_NUMBER') ?: '5555'
+        def FT_ENV = System.getenv('FT_ENV') ?: 'aat'
+        def TEST_ENVIRONMENT = System.getenv('FT_ENV') ?: 'preview'
+        environment "WA_POST_DEPLOYMENT_TEST_ENVIRONMENT", "${TEST_ENVIRONMENT}"
+        environment "SSCS_VAULT_NAME", "sscs-${FT_ENV}"
+        environment "WA_VAULT_NAME", "wa-${FT_ENV}"
+        environment "AZURE_SERVICE_BUS_TOPIC_NAME", "ccd-case-events"
+        environment "AZURE_SERVICE_BUS_MESSAGE_AUTHOR", "sscs-${FT_ENV}"
+        environment "AZURE_SERVICE_BUS_SUBSCRIPTION_NAME", "ccd-case-events-ft"
+        environment "S2S_NAME_TASK_MANAGEMENT_API", "wa_task_management_api"
+        environment "DM_STORE_URL", "http://dm-store-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
+        environment "IDAM_URL", "https://idam-api.${FT_ENV}.platform.hmcts.net"
+        environment "S2S_URL", "http://rpe-service-auth-provider-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
+        environment "OPEN_ID_IDAM_URL", "https://idam-web-public.${FT_ENV}.platform.hmcts.net"
+        environment "DOCUMENT_STORE_URL", "http://dm-store-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
+
+        if(TEST_ENVIRONMENT == 'preview') {
+            environment "CCD_URL", "https://ccd-data-store-api-sscs-tribunals-api-pr-${PR_NUMBER}.preview.platform.hmcts.net"
+            environment "WA_TASK_MANAGEMENT_API_URL", "https://wa-task-management-api-sscs-tribunals-api-pr-${PR_NUMBER}.preview.platform.hmcts.net"
+            environment "WA_TASK_MONITOR_URL", "https://wa-task-monitor-sscs-tribunals-api-pr-${PR_NUMBER}.preview.platform.hmcts.net"
+            environment "CAMUNDA_URL", "https://camunda-sscs-tribunals-api-pr-${PR_NUMBER}.preview.platform.hmcts.net/engine-rest"
+            environment "ROLE_ASSIGNMENT_URL", "https://am-role-assignment-service-sscs-tribunals-api-pr-${PR_NUMBER}.preview.platform.hmcts.net"
+            environment "WA_CASE_EVENT_HANDLER_URL", "https://wa-case-event-handler-sscs-tribunals-api-pr-${PR_NUMBER}.preview.platform.hmcts.net"
+        } else {
+            environment "CCD_URL", "http://ccd-data-store-api-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
+            environment "WA_TASK_MANAGEMENT_API_URL", "http://wa-task-management-api-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
+            environment "WA_TASK_MONITOR_URL", "http://wa-task-monitor-${FT_ENV}.service.core-compute-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
+            environment "CAMUNDA_URL", "http://camunda-api-${FT_ENV}.service.core-compute-${FT_ENV}.internal/engine-rest"
+            environment "ROLE_ASSIGNMENT_URL", "http://am-role-assignment-service-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
+            environment "WA_CASE_EVENT_HANDLER_URL", "http://wa-case-event-handler-${FT_ENV}.service.core-compute-${FT_ENV}.internal"
+        }
+        def secretsToFetch = [
+            'WA_IDAM_CLIENT_ID'                 : ["wa-${FT_ENV}", 'wa-idam-client-id'],
+            'WA_IDAM_CLIENT_SECRET'             : ["wa-${FT_ENV}", 'wa-idam-client-secret'],
+            'WA_SYSTEM_USERNAME'                : ["wa-${FT_ENV}", 'wa-system-username'],
+            'WA_SYSTEM_PASSWORD'                : ["wa-${FT_ENV}", 'wa-system-password'],
+            'S2S_SECRET_TASK_MANAGEMENT_API'    : ["wa-${FT_ENV}", 's2s-secret-task-management-api'],
+            'AZURE_SERVICE_BUS_CONNECTION_STRING': ["sscs-${FT_ENV}", 'sscs-servicebus-connection-string-tf'],
+            'SYSTEMUPDATE_USERNAME'             : ["sscs-${FT_ENV}", 'idam-sscs-systemupdate-user'],
+            'SYSTEMUPDATE_PASSWORD'             : ["sscs-${FT_ENV}", 'idam-sscs-systemupdate-password']
+        ]
+
+        secretsToFetch.each { envVar, vaultAndSecret ->
+            def value = fetchSecret(vaultAndSecret[0], vaultAndSecret[1])
+            if (value != null) {
+                environment envVar, value
+            } else {
+                logger.lifecycle("Skipping ${envVar}, secret ${vaultAndSecret[1]} not found in ${vaultAndSecret[0]})")
+            }
+        }
+    }
+
+    description = "Runs functional tests locally against preview environment"
+    group = "Verification"
+    systemProperty "scenario", System.getProperty('scenario')
+    systemProperty "enabledUserRoles", System.getenv("ENABLED_USER_ROLES")
+    testClassesDirs = sourceSets.functionalTest.output.classesDirs
+    classpath = sourceSets.functionalTest.runtimeClasspath
+    testLogging.showStandardStreams = true
+}
+
+def fetchSecret(String vaultName, String secretName) {
+    def output = new ByteArrayOutputStream()
+    project.services.get(ExecOperations).exec { spec ->
+        spec.commandLine 'az', 'keyvault', 'secret', 'show', '--vault-name', vaultName, '-o', 'tsv', '--query', 'value', '--name', secretName
+        spec.standardOutput = output
+        spec.ignoreExitValue = true
+    }
+    return output.toString().trim()
+}
