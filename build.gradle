@@ -167,7 +167,7 @@ dependencyManagement {
         dependencySet(group: 'com.google.guava', version: '33.4.8-jre') {
             entry 'guava'
         }
-        dependency group: 'commons-io', name: 'commons-io', version: '2.19.0'
+        dependency group: 'commons-io', name: 'commons-io', version: '2.21.0'
     }
 }
 
