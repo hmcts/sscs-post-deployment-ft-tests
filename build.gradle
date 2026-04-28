@@ -182,7 +182,7 @@ repositories {
 
 def versions = [
     junit           : '5.13.1',
-    junitPlatform   : '1.13.1',
+    junitPlatform   : '6.0.3',
     serenity        : '4.3.4'
 ]
 
