@@ -42,8 +42,14 @@ loadSecret "WA_SYSTEM_USERNAME" ${WA_VAULT_NAME} "wa-system-username"
 loadSecret "WA_SYSTEM_PASSWORD" ${WA_VAULT_NAME} "wa-system-password"
 loadSecret "S2S_SECRET_TASK_MANAGEMENT_API" ${WA_VAULT_NAME} "s2s-secret-task-management-api"
 
-loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${SSCS_VAULT_NAME} "sscs-servicebus-connection-string-tf"
-loadSecret "SYSTEMUPDATE_USERNAME" ${SSCS_VAULT_NAME} "idam-sscs-systemupdate-user"
-loadSecret "SYSTEMUPDATE_PASSWORD" ${SSCS_VAULT_NAME} "idam-sscs-systemupdate-password"
+#loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${SSCS_VAULT_NAME} "sscs-servicebus-connection-string-tf"
+#export AZURE_SERVICE_BUS_CONNECTION_STRING=Endpoint=sb://probate-sb-preview.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=JygKpNQHFw/MGw87w9FhsRanSH8I+09PW+ASbINOPxU=
+export AZURE_SERVICE_BUS_CONNECTION_STRING=Endpoint=sb://sscs-servicebus-aat.servicebus.windows.net/;SharedAccessKeyName=SendAndListenSharedAccessKey;SharedAccessKey=9bmZEwqs4l+W3l5tvwoHXvULx+gTQgshv+ASbAv/CTI=
+#loadSecret "SYSTEMUPDATE_USERNAME" ${SSCS_VAULT_NAME} "idam-sscs-systemupdate-user"
+#loadSecret "SYSTEMUPDATE_USERNAME" ${SSCS_VAULT_NAME} "probatesuperuser@gmail.com"
+export SYSTEMUPDATE_USERNAME=sscs-system-update@hmcts.net
+#loadSecret "SYSTEMUPDATE_PASSWORD" ${SSCS_VAULT_NAME} "idam-sscs-systemupdate-password"
+#loadSecret "SYSTEMUPDATE_PASSWORD" ${SSCS_VAULT_NAME} "idam-probate-systemupdate-password"
+export SYSTEMUPDATE_PASSWORD=BbdXxguSEeM4WDs3THy6G0rjLlQknvh8
 
 ./gradlew functional --tests ScenarioRunnerTest --info
