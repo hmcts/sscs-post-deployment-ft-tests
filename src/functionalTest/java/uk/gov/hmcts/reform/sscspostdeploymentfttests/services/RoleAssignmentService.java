@@ -45,7 +45,7 @@ public class RoleAssignmentService {
     static {
         try {
             Map<String, String> templates = StringResourceLoader.load(
-                "/templates/sscs/roleAssignment/*.json"
+                "/templates/probate/roleAssignment/*.json"
             );
             DEFAULT_ROLE_ASSIGNMENT_TEMPLATE = templates.get("set-organisational-role-assignment-request.json");
         } catch (IOException e) {
@@ -121,8 +121,8 @@ public class RoleAssignmentService {
             userInfo.getUid(),
             roleName,
             JsonUtil.toJsonString(Map.of(
-                "caseType", "Benefit",
-                "jurisdiction", "SSCS",
+                "caseType", "GrantOfRepresentation",
+                "jurisdiction", "PROBATE",
                 "primaryLocation", "765324"
             )),
             DEFAULT_ROLE_ASSIGNMENT_TEMPLATE,

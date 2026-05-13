@@ -58,16 +58,18 @@ public class ScenarioSources {
         }
 
         String scenarioPattern = System.getProperty("scenario");
-        if (scenarioPattern == null) {
-            scenarioPattern = "*.json";
-        } else {
-            scenarioPattern = "*" + scenarioPattern + "*.json";
-        }
+        //if (scenarioPattern == null) {
+            //scenarioPattern = "*.json";
+        //} else {
+            //scenarioPattern = "*" + scenarioPattern + "*.json";
+        //}
+
+        scenarioPattern = "probate.json";
 
         Collection<String> scenarioSources;
         try {
             scenarioSources = StringResourceLoader
-                .load("/scenarios/sscs/" + scenarioFolder + "/" + scenarioPattern)
+                .load("/scenarios/probate/" + scenarioFolder + "/" + scenarioPattern)
                 .values();
         } catch (IOException exception) {
             log.info("No scenarios found at {}", scenarioFolder);

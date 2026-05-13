@@ -9,10 +9,12 @@ if [ -z "$1" ]; then
 fi
 
 export TRIBUNALS_PR="$1"
-export SSCS_VAULT_NAME=sscs-aat
+#export SSCS_VAULT_NAME=sscs-aat
+export SSCS_VAULT_NAME=probate-aat
 export WA_VAULT_NAME=wa-aat
 export AZURE_SERVICE_BUS_TOPIC_NAME=ccd-case-events
-export AZURE_SERVICE_BUS_MESSAGE_AUTHOR=sscs-aat
+#export AZURE_SERVICE_BUS_MESSAGE_AUTHOR=sscs-aat
+export AZURE_SERVICE_BUS_MESSAGE_AUTHOR=probate-aat
 export AZURE_SERVICE_BUS_SUBSCRIPTION_NAME=ccd-case-events-ft
 export S2S_NAME_TASK_MANAGEMENT_API=wa_task_management_api
 export DM_STORE_URL=http://dm-store-aat.service.core-compute-aat.internal
@@ -21,12 +23,18 @@ export S2S_URL=http://rpe-service-auth-provider-aat.service.core-compute-aat.int
 export OPEN_ID_IDAM_URL=https://idam-web-public.aat.platform.hmcts.net
 export DOCUMENT_STORE_URL=http://dm-store-aat.service.core-compute-aat.internal
 export WA_POST_DEPLOYMENT_TEST_ENVIRONMENT=preview
-export CCD_URL=https://ccd-data-store-api-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
-export WA_TASK_MANAGEMENT_API_URL=https://wa-task-management-api-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
-export WA_TASK_MONITOR_URL=https://wa-task-monitor-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
-export CAMUNDA_URL=https://camunda-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net/engine-rest
-export ROLE_ASSIGNMENT_URL=https://am-role-assignment-service-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
-export WA_CASE_EVENT_HANDLER_URL=https://wa-case-event-handler-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+#export CCD_URL=https://ccd-data-store-api-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+export CCD_URL=https://ccd-data-store-api-probate-back-office-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+#export WA_TASK_MANAGEMENT_API_URL=https://wa-task-management-api-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+export WA_TASK_MANAGEMENT_API_URL=https://wa-task-management-api-probate-back-office-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+#export WA_TASK_MONITOR_URL=https://wa-task-monitor-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+export WA_TASK_MONITOR_URL=https://wa-task-monitor-probate-back-office-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+#export CAMUNDA_URL=https://camunda-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net/engine-rest
+export CAMUNDA_URL=https://camunda-probate-back-office-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net/engine-rest
+#export ROLE_ASSIGNMENT_URL=https://am-role-assignment-service-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+export ROLE_ASSIGNMENT_URL=https://am-role-assignment-service-probate-back-office-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+#export WA_CASE_EVENT_HANDLER_URL=https://wa-case-event-handler-sscs-tribunals-api-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
+export WA_CASE_EVENT_HANDLER_URL=https://wa-case-event-handler-probate-back-office-pr-${TRIBUNALS_PR}.preview.platform.hmcts.net
 
 # Set environment variable from Azure secret vault
 # Parameters: <Environment variable name> <Vault Name> <Secret Name>
@@ -43,13 +51,10 @@ loadSecret "WA_SYSTEM_PASSWORD" ${WA_VAULT_NAME} "wa-system-password"
 loadSecret "S2S_SECRET_TASK_MANAGEMENT_API" ${WA_VAULT_NAME} "s2s-secret-task-management-api"
 
 #loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${SSCS_VAULT_NAME} "sscs-servicebus-connection-string-tf"
-#export AZURE_SERVICE_BUS_CONNECTION_STRING=Endpoint=sb://probate-sb-preview.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=JygKpNQHFw/MGw87w9FhsRanSH8I+09PW+ASbINOPxU=
-export AZURE_SERVICE_BUS_CONNECTION_STRING=Endpoint=sb://sscs-servicebus-aat.servicebus.windows.net/;SharedAccessKeyName=SendAndListenSharedAccessKey;SharedAccessKey=9bmZEwqs4l+W3l5tvwoHXvULx+gTQgshv+ASbAv/CTI=
+loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${SSCS_VAULT_NAME} "probate-servicebus-connection-string-tf"
 #loadSecret "SYSTEMUPDATE_USERNAME" ${SSCS_VAULT_NAME} "idam-sscs-systemupdate-user"
-#loadSecret "SYSTEMUPDATE_USERNAME" ${SSCS_VAULT_NAME} "probatesuperuser@gmail.com"
-export SYSTEMUPDATE_USERNAME=sscs-system-update@hmcts.net
+loadSecret "SYSTEMUPDATE_USERNAME" ${SSCS_VAULT_NAME} "idam-probate-systemupdate-user"
 #loadSecret "SYSTEMUPDATE_PASSWORD" ${SSCS_VAULT_NAME} "idam-sscs-systemupdate-password"
-#loadSecret "SYSTEMUPDATE_PASSWORD" ${SSCS_VAULT_NAME} "idam-probate-systemupdate-password"
-export SYSTEMUPDATE_PASSWORD=BbdXxguSEeM4WDs3THy6G0rjLlQknvh8
+loadSecret "SYSTEMUPDATE_PASSWORD" ${SSCS_VAULT_NAME} "idam-probate-systemupdate-password"
 
 ./gradlew functional --tests ScenarioRunnerTest --info

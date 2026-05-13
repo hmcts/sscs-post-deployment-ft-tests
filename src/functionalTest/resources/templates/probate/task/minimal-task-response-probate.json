@@ -1,0 +1,18 @@
+{
+  "tasks": [
+    {
+      "id": "{$VERIFIER-UUID}",
+      "jurisdiction": "PROBATE",
+      "case_type_id": "GrantOfRepresentation",
+      "case_id": "{$GENERATED_CASE_ID}",
+      "case_name": "Joe Bloggs",
+      "case_category": "Personal Independence Payment",
+      "location": "698118",
+      "location_name": "BRADFORD",
+      "warnings": false,
+      "auto_assigned": false,
+      "minor_priority": 500,
+      "major_priority": 5000
+    }
+  ]
+}
