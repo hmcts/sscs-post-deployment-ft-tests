@@ -16,10 +16,13 @@ def secrets = [
     secret('wa-system-password', 'WA_SYSTEM_PASSWORD'),
     secret('s2s-secret-task-management-api', 'S2S_SECRET_TASK_MANAGEMENT_API')
   ],
-  'sscs-${env}': [
-    secret('sscs-servicebus-connection-string-tf', 'AZURE_SERVICE_BUS_CONNECTION_STRING'),
-    secret('idam-sscs-systemupdate-user', 'SYSTEMUPDATE_USERNAME'),
-    secret('idam-sscs-systemupdate-password', 'SYSTEMUPDATE_PASSWORD'),
+  'probate-${env}': [
+//    secret('sscs-servicebus-connection-string-tf', 'AZURE_SERVICE_BUS_CONNECTION_STRING'),
+    secret('probate-servicebus-connection-string-tf', 'AZURE_SERVICE_BUS_CONNECTION_STRING'),
+//    secret('idam-sscs-systemupdate-user', 'SYSTEMUPDATE_USERNAME'),
+    secret('idam-probate-systemupdate-user', 'SYSTEMUPDATE_USERNAME'),
+//    secret('idam-sscs-systemupdate-password', 'SYSTEMUPDATE_PASSWORD'),
+    secret('idam-probate-systemupdate-password', 'SYSTEMUPDATE_PASSWORD'),
   ]
 ]
 
@@ -40,7 +43,8 @@ withNightlyPipeline(type, product, component) {
   enableSlackNotifications('#sscs-tech')
 
   env.AZURE_SERVICE_BUS_TOPIC_NAME="ccd-case-events"
-  env.AZURE_SERVICE_BUS_MESSAGE_AUTHOR="sscs-aat"
+//  env.AZURE_SERVICE_BUS_MESSAGE_AUTHOR="sscs-aat"
+  env.AZURE_SERVICE_BUS_MESSAGE_AUTHOR="probate-aat"
   env.AZURE_SERVICE_BUS_SUBSCRIPTION_NAME="ccd-case-events-ft"
 
   env.S2S_NAME_TASK_MANAGEMENT_API="wa_task_management_api"
