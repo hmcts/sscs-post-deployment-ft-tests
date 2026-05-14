@@ -219,6 +219,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
                 break;
             case "caseworker":
                 roleAssignments.add("tribunal-caseworker");
+                roleAssignments.add("ctsc");
                 break;
             case "judge":
                 roleAssignments.add("judge");

@@ -58,13 +58,13 @@ public class ScenarioSources {
         }
 
         String scenarioPattern = System.getProperty("scenario");
-        //if (scenarioPattern == null) {
-        //    scenarioPattern = "*.json";
-        //} else {
-        //    scenarioPattern = "*" + scenarioPattern + "*.json";
-        //}
+        if (scenarioPattern == null) {
+            scenarioPattern = "*.json";
+        } else {
+            scenarioPattern = "*" + scenarioPattern + "*.json";
+        }
 
-        scenarioPattern = "probate.json";
+        //scenarioPattern = "probate-task-actions.json";
 
         Collection<String> scenarioSources;
         try {
@@ -76,7 +76,7 @@ public class ScenarioSources {
             return Stream.of(Arguments.of(Named.of(scenarioFolder + " is empty", null)));
         }
 
-        Logger.say(SCENARIO_START, scenarioSources.size() + " SSCS");
+        Logger.say(SCENARIO_START, scenarioSources.size() + " PROBATE");
 
         return scenarioSources.stream().map(scenarioSource -> {
             String displayName;
