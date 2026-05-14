@@ -59,9 +59,9 @@ public class ScenarioSources {
 
         String scenarioPattern = System.getProperty("scenario");
         //if (scenarioPattern == null) {
-            //scenarioPattern = "*.json";
+        //    scenarioPattern = "*.json";
         //} else {
-            //scenarioPattern = "*" + scenarioPattern + "*.json";
+        //    scenarioPattern = "*" + scenarioPattern + "*.json";
         //}
 
         scenarioPattern = "probate.json";
