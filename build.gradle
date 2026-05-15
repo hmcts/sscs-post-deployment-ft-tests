@@ -291,6 +291,7 @@ tasks.register('run-ft-remote-environment', Test) {
         def TEST_ENVIRONMENT = System.getenv('FT_ENV') ?: 'preview'
         environment "WA_POST_DEPLOYMENT_TEST_ENVIRONMENT", "${TEST_ENVIRONMENT}"
         environment "SSCS_VAULT_NAME", "sscs-${FT_ENV}"
+        environment "PROBATE_VAULT_NAME", "probate-${FT_ENV}"
         environment "WA_VAULT_NAME", "wa-${FT_ENV}"
         environment "AZURE_SERVICE_BUS_TOPIC_NAME", "ccd-case-events"
         environment "AZURE_SERVICE_BUS_MESSAGE_AUTHOR", "sscs-${FT_ENV}"

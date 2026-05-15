@@ -10,7 +10,7 @@ fi
 
 export TRIBUNALS_PR="$1"
 #export SSCS_VAULT_NAME=sscs-aat
-export SSCS_VAULT_NAME=probate-aat
+export PROBATE_VAULT_NAME=probate-aat
 export WA_VAULT_NAME=wa-aat
 export AZURE_SERVICE_BUS_TOPIC_NAME=ccd-case-events
 #export AZURE_SERVICE_BUS_MESSAGE_AUTHOR=sscs-aat
@@ -51,10 +51,10 @@ loadSecret "WA_SYSTEM_PASSWORD" ${WA_VAULT_NAME} "wa-system-password"
 loadSecret "S2S_SECRET_TASK_MANAGEMENT_API" ${WA_VAULT_NAME} "s2s-secret-task-management-api"
 
 #loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${SSCS_VAULT_NAME} "sscs-servicebus-connection-string-tf"
-loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${SSCS_VAULT_NAME} "probate-servicebus-connection-string-tf"
+loadSecret "AZURE_SERVICE_BUS_CONNECTION_STRING" ${PROBATE_VAULT_NAME} "probate-servicebus-connection-string-tf"
 #loadSecret "SYSTEMUPDATE_USERNAME" ${SSCS_VAULT_NAME} "idam-sscs-systemupdate-user"
-loadSecret "SYSTEMUPDATE_USERNAME" ${SSCS_VAULT_NAME} "idam-probate-systemupdate-user"
+loadSecret "SYSTEMUPDATE_USERNAME" ${PROBATE_VAULT_NAME} "idam-probate-systemupdate-user"
 #loadSecret "SYSTEMUPDATE_PASSWORD" ${SSCS_VAULT_NAME} "idam-sscs-systemupdate-password"
-loadSecret "SYSTEMUPDATE_PASSWORD" ${SSCS_VAULT_NAME} "idam-probate-systemupdate-password"
+loadSecret "SYSTEMUPDATE_PASSWORD" ${PROBATE_VAULT_NAME} "idam-probate-systemupdate-password"
 
 ./gradlew functional --tests ScenarioRunnerTest --info
