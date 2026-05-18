@@ -1,13 +1,13 @@
-# sscs-post-deployment-ft-tests
+# probate-wa-post-deployment-ft-tests
 
-[![Build Status](https://travis-ci.org/hmcts/sscs-post-deployment-ft-tests.svg?branch=master)](https://travis-ci.org/hmcts/sscs-post-deployment-ft-tests)
+[![Build Status](https://travis-ci.org/hmcts/probate-wa-post-deployment-ft-tests.svg?branch=master)](https://travis-ci.org/hmcts/probate-wa-post-deployment-ft-tests)
 
 ## Purpose
 This repository contains a set of functional tests which are designed to run periodically or after a helm deployment as a post deployment job to ensure regression.
 
 ## What does this app do?
 
-We have used the repository from the Work Allocation (WA) Task Management team as a base and adapted it for SSCS onboarding.
+We have used the repository from the Work Allocation (WA) Task Management team as a base and adapted it for Probate onboarding.
 See: https://github.com/hmcts/wa-task-configuration-template
 
 Tests effectively treat the WA Task Management backend as a black box where an event message it sent and then we await the outcome and perform checks.
@@ -22,9 +22,9 @@ Tests effectively treat the WA Task Management backend as a black box where an e
 
 ## Requirements
 * These tests require all relevant dependencies running either locally or in an environment.
-* For SSCS it is preferred to spin up a Preview environment with WA dependencies.
+* For Probate it is preferred to spin up a Preview environment with WA dependencies.
 This will take care of all the required config and not consume significant resources on your machine.
-Refer to the Readme file here: https://github.com/hmcts/sscs-tribunals-case-api/blob/master/README.md
+Refer to the Readme file here: https://github.com/hmcts/probate-back-office/blob/master/README.md
 
 ## When merging to master:
 * This is a non prod repo so it will not be deployed to production environments.
@@ -46,7 +46,7 @@ More info on ACR tasks can be read here: https://docs.microsoft.com/en-us/azure/
 
 Each functional test scenario is defined in an individual JSON file under
 ```
-src/functionalTest/resources/scenarios/sscs
+src/functionalTest/resources/scenarios/probate
 ```
 
 Scenarios are organised by user role into the following subfolders:
@@ -99,12 +99,12 @@ FT_ENV=<demo or aat> ./gradlew run-ft-preview
 ```
 #### You can also target a specific scenario:
 ```bash
-./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=SSCS-10005-review-fta-time-extension-request
+./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=probate-10005-review-fta-time-extension-request
 ```
 
 #### Or multiple scenarios:
 ```bash
-./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=SSCS-10005
+./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=probate-10005
 ```
 
 ## License
