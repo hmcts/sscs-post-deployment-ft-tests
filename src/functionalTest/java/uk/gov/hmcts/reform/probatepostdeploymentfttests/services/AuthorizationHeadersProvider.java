@@ -171,12 +171,12 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     }
 
     private String generateUserAccount(String credentialsKey, boolean granularPermission) {
-        String emailPrefix = granularPermission ? "wa-ft" : "sscs-";
+        String emailPrefix = granularPermission ? "wa-ft" : "probate-";
         String userEmail = emailPrefix + UUID.randomUUID() + "@fake.hmcts.net";
 
         List<RoleCode> requiredRoles = new ArrayList<>(List.of(
             new RoleCode("caseworker"),
-            new RoleCode("caseworker-sscs")
+            new RoleCode("caseworker-probate")
         ));
 
         log.info("Attempting to create a new test account {}", userEmail);
