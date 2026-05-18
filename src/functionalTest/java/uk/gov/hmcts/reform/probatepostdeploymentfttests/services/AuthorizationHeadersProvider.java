@@ -204,7 +204,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         Map<String, Object> body = new ConcurrentHashMap<>();
         body.put("email", userEmail);
         body.put("password", WA_USER_PASSWORD);
-        body.put("forename", "SSCS");
+        body.put("forename", "Probate");
         body.put("surname", "Functional");
         body.put("roles", requiredRoles);
         body.put("userGroup", userGroup);
