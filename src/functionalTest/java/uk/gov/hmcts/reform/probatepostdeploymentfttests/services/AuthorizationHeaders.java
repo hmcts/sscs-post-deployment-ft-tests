@@ -9,7 +9,7 @@ import java.io.IOException;
 public interface AuthorizationHeaders {
     Headers getWaSystemUserAuthorization();
 
-    Headers getSscsSystemUserAuthorization();
+    Headers getProbateSystemUserAuthorization();
 
     Headers getWaUserAuthorization(CredentialRequest request) throws IOException;
 

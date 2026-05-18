@@ -65,7 +65,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     }
 
     @Override
-    public Headers getSscsSystemUserAuthorization() {
+    public Headers getProbateSystemUserAuthorization() {
         return getSystemUserAuthorization("SscsSystemUser", "SYSTEMUPDATE_USERNAME", "SYSTEMUPDATE_PASSWORD");
     }
 
