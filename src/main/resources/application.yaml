@@ -13,7 +13,7 @@ management:
 
 spring:
   application:
-    name: SSCS post deployment functional test
+    name: Probate post deployment functional test
   main:
     allow-bean-definition-overriding: true
   security:
