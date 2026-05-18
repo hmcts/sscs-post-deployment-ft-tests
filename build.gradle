@@ -267,7 +267,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'uk.gov.hmcts.reform.sscspostdeploymentfttests.Application'
+    mainClass = 'uk.gov.hmcts.reform.probatepostdeploymentfttests.Application'
 }
 
 bootJar {
