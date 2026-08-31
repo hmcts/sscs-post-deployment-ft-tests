@@ -238,7 +238,7 @@ dependencies {
     implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.17.20'
     implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '9.0'
 
-    testImplementation group: 'com.github.hmcts', name: 'document-management-client', version: '7.0.1'
+    testImplementation group: 'com.github.hmcts', name: 'document-management-client', version: '9.0.0'
 
     testImplementation group: 'net.serenity-bdd', name: 'serenity-core', version: versions.serenity, {
         exclude group: 'commons-beanutils', module: 'commons-beanutils'
